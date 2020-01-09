@@ -8,72 +8,35 @@
             <div class="from-design-control-toolbars-container">
                 <h4>常用控件</h4>
                 <div class="drag-box">
-                    <div class="b-view-control-static" data-b-view-control-type="Text">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
+                    <draggable
+                        v-model="list"
+                        ghost-class="ghost"
+                        :group="{ name: 'people', pull: 'clone', put: false }"
+                        :clone="cloneDog"
+                    >
+                        <div v-for="{config} in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
+                            <div class="b-view-control-label">
+                                <i :class="'icon-' + config.icon"></i>
+                                <span>{{config.text}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Textarea">
-                        <div class="b-view-control-label">
-                            <i class="icon-task_custom_looks_6"></i>
-                            <span>数值</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Radio">
-                        <div class="b-view-control-label">
-                            <i class="icon-task_custom_amount_money"></i>
-                            <span>金额</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Checkbox">
-                        <div class="b-view-control-label">
-                            <i class="icon-task_custom_markunread"></i>
-                            <span>邮箱</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Number">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Select">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Date">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="DateDuring">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
-                        </div>
-                    </div>
-                    <div class="b-view-control-static" data-b-view-control-type="Upload">
-                        <div class="b-view-control-label">
-                            <i class="icon-text_bold2"></i>
-                            <span>单行文本框</span>
-                        </div>
-                    </div>
+                    </draggable>
                 </div>
             </div>
         </div>
         <div class="form-design-content">
-            <div class="form-design-details">
-                <div class="form-design-sortable dropArea bpm-from-design-editingarea">
-                    <div class="form-design-sortable-handle dropArea-tip">
-                        <p>点击或拖动左侧组件到改区域</p>
-                        <p>创建表单</p>
-                    </div>
+            <draggable
+                class="form-design-content-drag"
+                v-model="list2"
+                group="people"
+                @chang="log"
+            >
+                <div class="form-design-sortable-handle dropArea-tip" v-if="!list2.length">
+                    <p>点击或拖动左侧组件到改区域</p>
+                    <p>创建表单</p>
                 </div>
-            </div>
+                <component v-for="item in list2"  :key="item.id" :is="item.component" :config="item.config"></component>
+            </draggable>
         </div>
         <div class="from-design-property-editor controlBox">
             <div class="tab tab-primary">
@@ -246,6 +209,37 @@
 </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue'
+import draggable from 'vuedraggable'
+import controls from '../components/controls/index'
+
+let index = 1
+
+export default Vue.extend({
+    components: {
+        draggable
+    },
+    data () {
+        return {
+            list: controls,
+            list2: []
+        }
+    },
+    methods: {
+        log (e: any) {
+            console.log(e)
+        },
+        cloneDog (e: any) {
+            return {
+                ...e,
+                id: index++
+            }
+        }
+    }
+})
+</script>
+
 <style lang="less">
 .form-design {
     height: 100%;
@@ -325,6 +319,12 @@
 .form-design-content{
     flex: 1;
     border-right: 1px solid rgb(234, 234, 234);
+    &-drag {
+        height: 100%;
+        overflow: auto;
+    }
+
+    margin: 0 20px;
 }
 .dropArea-tip{
     border: 1px dashed #ccc;
@@ -334,5 +334,9 @@
     padding: 50px;
     margin-top: 50px;
     text-align: center;
+}
+
+.ghost{
+    transform: rotate(3deg) !important;
 }
 </style>
