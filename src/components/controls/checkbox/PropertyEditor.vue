@@ -14,8 +14,8 @@ export default Vue.extend({
     props: ['control'],
     components: {
         Options,
-        LabelProp,
-        OptionsAlign
+        OptionsAlign,
+        LabelProp
     }
 })
 </script>

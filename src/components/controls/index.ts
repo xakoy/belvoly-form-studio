@@ -2,15 +2,17 @@ import Text from './text'
 import NumberControl from './number'
 import Title from './title'
 import Radio from './radio'
-import { Divider, DividerConfig } from './divider'
+import Checkbox from './checkbox'
+import Divider from './divider'
 import { Config, IControl } from './config'
 
 const controls: IControl[] = [
     Text,
     NumberControl,
-    Title,
     Radio,
-    { config: DividerConfig, component: Divider }
+    Checkbox,
+    Title,
+    Divider
 ]
 
 export default controls

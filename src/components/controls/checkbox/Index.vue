@@ -1,8 +1,8 @@
 <template>
     <basic :config="config">
-        <el-radio-group v-model="val">
-            <el-radio v-for="(item, index) in items" :key="index" :label="item.value" :style="{display: prop.optionsAlign == 'inline-block' ? 'inline-block' : 'block'}">{{item.text}}</el-radio>
-        </el-radio-group>
+        <el-checkbox-group v-model="val">
+            <el-checkbox v-for="(item, index) in items" :key="index" :label="item.value" :style="{display: prop.optionsAlign == 'inline-block' ? 'inline-block' : 'block'}">{{item.text}}</el-checkbox>
+        </el-checkbox-group>
     </basic>
 </template>
 
@@ -18,7 +18,7 @@ export default Vue.extend({
     props: ['config'],
     data () {
         return {
-            val: ''
+            val: []
         }
     },
     computed: {

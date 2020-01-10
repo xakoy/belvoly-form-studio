@@ -1,4 +1,4 @@
-import { Config } from '../config'
+import { Config, IControl } from '../config'
 import Component from './Index.vue'
 
 const config: Config = {
@@ -10,7 +10,9 @@ const config: Config = {
     }
 }
 
-export {
-    config as DividerConfig,
-    Component as Divider
+const control: IControl = {
+    config: config,
+    component: Component
 }
+
+export default control
