@@ -7,39 +7,45 @@
         <div class="form-design-sider dragArea from-design-control-toolbars">
             <div class="from-design-control-toolbars-container">
                 <h4>常用控件</h4>
-                <div class="drag-box">
-                    <draggable
-                        v-model="list"
-                        ghost-class="ghost"
-                        :group="{ name: 'people', pull: 'clone', put: false }"
-                        :clone="cloneDog"
-                    >
-                        <div v-for="{config} in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
-                            <div class="b-view-control-label">
-                                <i :class="'icon-' + config.icon"></i>
-                                <span>{{config.text}}</span>
-                            </div>
+                <draggable
+                    class="drag-box"
+                    v-model="list"
+                    ghost-class="ghost"
+                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    :clone="cloneDog"
+                >
+                    <div v-for="{config} in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
+                        <div class="b-view-control-label">
+                            <i :class="'icon-' + config.icon"></i>
+                            <span>{{config.text}}</span>
                         </div>
-                    </draggable>
-                </div>
+                    </div>
+                </draggable>
             </div>
         </div>
         <div class="form-design-content">
             <draggable
                 class="form-design-content-drag"
                 v-model="list2"
+                v-bind="dragOptions"
                 group="people"
                 @chang="log"
+                @start="drag = true"
+                @end="drag = false"
             >
-                <div class="form-design-sortable-handle dropArea-tip" v-if="!list2.length">
-                    <p>点击或拖动左侧组件到改区域</p>
-                    <p>创建表单</p>
-                </div>
-                <component v-for="item in list2"  :key="item.id" :is="item.component" :config="item.config"></component>
+                <transition-group type="transition" :name="!drag ? 'flip-list' : null">
+                    <div class="form-design-sortable-handle dropArea-tip" key="ss" v-if="!list2.length">
+                        <p>点击或拖动左侧组件到改区域</p>
+                        <p>创建表单</p>
+                    </div>
+                    <div @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
+                        <component :is="item.component" :config="item.config"></component>
+                    </div>
+                </transition-group>
             </draggable>
         </div>
         <div class="from-design-property-editor controlBox">
-            <div class="tab tab-primary">
+            <!-- <div class="tab tab-primary">
                 <ul class="tab-nav">
                     <li class="current">
                         控件属性
@@ -48,126 +54,13 @@
                         流程属性
                     </li>
                 </ul>
-            </div>
+            </div> -->
             <div class="bpm-from-design-property-editor-container">
                 <div class="edit-control">
-                    <div class="controlForm">
-                        <div class="tip">字段控件标题 :</div>
-                        <input type="text" class="controlTitle">
-                    </div>
-
-                    <div class="controlForm">
-                        <div class="tip">是否必填 :</div>
-                        <label for="radio-true" class="control-radio">
-                            是
-                            <input name="nessesary-nessesary" type="radio" id="radio-true" class="controlRadio-nessesary" value='1'>
-                            <i class="control-placeholder"></i>
-                        </label>
-
-                        <label for="radio-false" class="right control-radio">
-                            否
-                            <input name="nessesary-nessesary" type="radio" id="radio-false" class="controlRadio-nessesary"
-                                   checked="checked" value='0'>
-                            <i class="control-placeholder"></i>
-                        </label>
-                    </div>
-
-                    <div class="controlForm control-input-default control-special drop-hidden">
-                        <div class="tip">默认内容 :</div>
-                        <input type="text" class="input-default">
-                    </div>
-
-                    <div class="controlForm control-number-default control-number control-special drop-hidden">
-                        <div class="tip">默认数值 :</div>
-                        <input type="number" class="number-default">
-                    </div>
-                    <div class="controlForm control-number-max control-number control-special drop-hidden">
-                        <div class="tip">最大数值 :</div>
-                        <input type="number" class="number-max" value="100">
-                    </div>
-                    <div class="controlForm control-number-min control-number control-special drop-hidden">
-                        <div class="tip">最小数值 :</div>
-                        <input type="number" class="number-min" value="-100">
-                    </div>
-
-                    <div class="controlForm control-number-decimal control-number control-special drop-hidden">
-                        <div class="tip">最多小数位 :</div>
-                        <select name="" id="decimal" class="number-decimal">
-                            <option value="0">0位</option>
-                            <option value="1">1位</option>
-                            <option value="2">2位</option>
-                            <option value="3">3位</option>
-                            <option value="4">4位</option>
-                            <option value="5">5位</option>
-                        </select>
-                    </div>
-
-                    <div class="controlForm control-input-width control-special drop-hidden">
-                        <div class="tip">最大输入长度 :</div>
-                        <input type="number" class="input-max-length">
-                    </div>
-
-                    <div class="controlForm control-textarea-width control-special drop-hidden">
-                        <div class="tip">最大输入长度 :</div>
-                        <input type="number" class="textarea-max-length">
-                    </div>
-
-                    <div class="controlForm control-special control-options drop-hidden">
-                        <div class="tip">选项设置 :</div>
-                        <textarea name="options" rows="3">option1,option2</textarea>
-                        <ul class="option-box"></ul>
-                        @*<div class="option-select"></div>*@
-                    </div>
-
-                    <div class="controlForm control-now control-special drop-hidden">
-                        <input type="checkbox" class="controlCheckbox-date"> <span>当前时间</span>
-                    </div>
-
-                    <div class="controlForm control-upload control-special drop-hidden">
-                        <div class="tip">上传设置 :</div>
-                        <input type="checkbox" class="controlCheckbox-upload"> <span>只能上传一个文件</span>
-                    </div>
-
-                    <div class="controlForm control-title-visibilily control-special drop-hidden">
-                        <div class="tip">是否显示 :</div>
-                        <label for="radio-title-show" class="control-radio">
-                            是
-                            <input name="title-visibilily" type="radio" id="radio-title-show" class="controlRadio-title" checked="checked" value='1'>
-                            <i class="control-placeholder"></i>
-                        </label>
-
-                        <label for="radio-title-hidden" class="right control-radio">
-                            否
-                            <input name="title-visibilily" type="radio" id="radio-title-hidden" class="controlRadio-title"
-                                   value='0'>
-                            <i class="control-placeholder"></i>
-                        </label>
-                    </div>
-
-                    <div class="controlForm control-date control-special drop-hidden">
-                        <div class="tip">日期格式 :</div>
-                        <div class="data-radio">
-                            <label for="">
-                                <input name="date-format" type="radio" class="controlRadio-date" checked value='年-月-日 时:分'>
-                                <span>年-月-日 时:分</span>
-                            </label>
-                        </div>
-                        <div class="data-radio">
-                            <label for="">
-                                <input name="date-format" type="radio" class="controlRadio-date" value='年-月-日'>
-                                <span>年-月-日</span>
-                            </label>
-                        </div>
-                        <div class="data-radio">
-                            <label for="">
-                                <input name="date-format" type="radio" class="controlRadio-date" value='年-月'>
-                                <span>年-月</span>
-                            </label>
-                        </div>
-                    </div>
+                    <property-edit v-if="currentEditControl" :control="currentEditControl" :key="currentEditControl.id"></property-edit>
                 </div>
                 <div class="control-form-box hide">
-                    <div class="controlForm flow-control-editable">
+                    <!-- <div class="controlForm flow-control-editable">
                         <div class="tip">设置可编辑节点 :</div>
                         <div class="flow-box-apply">
                             <label class="control-checkbox">
@@ -176,9 +69,9 @@
                                 申请
                             </label>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="controlForm flow-control-visible">
+                    <!-- <div class="controlForm flow-control-visible">
                         <div class="tip">设置不可见节点 :</div>
                         <div class="flow-box-apply">
                             <label class="control-checkbox">
@@ -187,7 +80,7 @@
                                 申请
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -212,18 +105,32 @@
 <script lang="ts">
 import Vue from 'vue'
 import draggable from 'vuedraggable'
-import controls from '../components/controls/index'
+import controls, { IControl } from '../components/controls/index'
+import PropertyEdit from '../components/controls/PropertyEdit.vue'
 
 let index = 1
 
 export default Vue.extend({
     components: {
-        draggable
+        draggable,
+        PropertyEdit
     },
     data () {
         return {
             list: controls,
-            list2: []
+            list2: [],
+            drag: false,
+            currentEditControl: null as any
+        }
+    },
+    computed: {
+        dragOptions () {
+            return {
+                animation: 200,
+                group: 'description',
+                disabled: false,
+                ghostClass: 'ghost6'
+            }
         }
     },
     methods: {
@@ -231,10 +138,15 @@ export default Vue.extend({
             console.log(e)
         },
         cloneDog (e: any) {
-            return {
+            const clone = {
                 ...e,
                 id: index++
             }
+            clone.config = JSON.parse(JSON.stringify(clone.config))
+            return clone
+        },
+        controlClickHandler (control: IControl) {
+            this.currentEditControl = control
         }
     }
 })
@@ -317,11 +229,16 @@ export default Vue.extend({
     padding: 24px 20px;
 }
 .form-design-content{
+    height: 100%;
     flex: 1;
     border-right: 1px solid rgb(234, 234, 234);
     &-drag {
         height: 100%;
         overflow: auto;
+        > span {
+            height: 100%;
+            display: block;
+        }
     }
 
     margin: 0 20px;
@@ -336,7 +253,10 @@ export default Vue.extend({
     text-align: center;
 }
 
-.ghost{
+.ghost {
     transform: rotate(3deg) !important;
+}
+.ghost6 {
+    background-color: #e3f3ff;
 }
 </style>

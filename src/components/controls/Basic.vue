@@ -1,9 +1,9 @@
 <template>
     <div class="control">
         <dl>
-            <dt>文本框</dt>
+            <dt>{{ label }}</dt>
             <dd>
-                <input placeholder="请填写文本内容" />
+                <slot />
             </dd>
         </dl>
     </div>
@@ -16,8 +16,11 @@ import { Config } from './config'
 export default Vue.extend({
     props: ['config'],
     computed: {
-        options () {
+        options (): Config {
             return this.config as Config
+        },
+        label (): string {
+            return this.options.prop.label || this.options.text
         }
     }
 })
