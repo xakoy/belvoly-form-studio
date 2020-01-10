@@ -7,6 +7,7 @@ const config: Config = {
     text: '标题',
     icon: 'text_bold2',
     prop: {
+        color: '',
         label: '标题',
         fontsize: '14',
         textAlign: 'center',

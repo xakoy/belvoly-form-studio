@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <input placeholder="请填写文本内容" />
+        <el-input v-model="val" placeholder="请填写文本内容" :maxlength="options.prop.maxLength" />
     </basic>
 </template>
 
@@ -13,6 +13,11 @@ export default Vue.extend({
     props: ['config'],
     components: {
         Basic
+    },
+    data () {
+        return {
+            val: ''
+        }
     },
     computed: {
         options () {

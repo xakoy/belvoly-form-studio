@@ -24,7 +24,8 @@ export default Vue.extend({
                 paddingTop: this.prop.padding.top + 'px',
                 paddingBottom: this.prop.padding.bottom + 'px',
                 paddingLeft: this.prop.padding.left + 'px',
-                paddingRight: this.prop.padding.right + 'px'
+                paddingRight: this.prop.padding.right + 'px',
+                color: this.prop.color
             }
         }
     }

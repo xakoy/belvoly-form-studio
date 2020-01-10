@@ -7,7 +7,8 @@ const TextConfig: Config = {
     text: '单行文本框',
     icon: 'text_bold2',
     prop: {
-        label: '单行文本框'
+        label: '单行文本框',
+        maxLength: 30
     }
 }
 
