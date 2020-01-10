@@ -3,11 +3,15 @@
         <div class="box">
             <dl>
                 <dt>顶</dt>
-                <dd><input type="text" v-model="padding.top" />px</dd>
+                <dd>
+                    <el-input-number v-model="padding.top" :min="1" size="small" controls-position="right"></el-input-number> px
+                </dd>
             </dl>
             <dl>
                 <dt>底</dt>
-                <dd><input type="text" v-model="padding.bottom" />px</dd>
+                <dd>
+                    <el-input-number v-model="padding.bottom" :min="1" size="small" controls-position="right"></el-input-number> px
+                </dd>
             </dl>
         </div>
     </basic>
@@ -51,6 +55,7 @@ export default Vue.extend({
     .box {
         dl {
             display: flex;
+            padding: 5px 0;
             dt {
                 width: 30px;
             }

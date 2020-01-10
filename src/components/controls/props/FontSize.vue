@@ -1,20 +1,21 @@
 <template>
-    <div>
-        <h5>字号</h5>
-        <div>
-            <select v-model="options.prop.fontsize">
-                <option v-for="size in sizes" :key="size">{{size}}</option>
-            </select>
-        </div>
-    </div>
+    <basic label="字号">
+        <el-select size="small" v-model="options.prop.fontsize">
+            <el-option v-for="size in sizes" :label="size" :value="size" :key="size"></el-option>
+        </el-select>
+    </basic>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Config } from '../config'
 import { IControl } from '../index'
+import Basic from './Basic.vue'
 
 export default Vue.extend({
+    components: {
+        Basic
+    },
     props: ['config', 'control'],
     data () {
         return {

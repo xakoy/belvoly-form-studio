@@ -1,18 +1,19 @@
 <template>
-    <div>
-        <h5>标签</h5>
-        <div>
-            <input type="text" v-model="options.prop.label" />
-        </div>
-    </div>
+    <basic label="标签">
+        <el-input size="small" v-model="options.prop.label"></el-input>
+    </basic>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Config } from '../config'
 import { IControl } from '../index'
+import Basic from './Basic.vue'
 
 export default Vue.extend({
+    components: {
+        Basic
+    },
     props: ['config', 'control'],
     data () {
         return {

@@ -1,20 +1,21 @@
 <template>
-    <div>
-        <h5>文本对齐方式</h5>
-        <div>
-            <select v-model="options.prop.textAlign">
-                <option v-for="item in items" :key="item.value" :value="item.value">{{item.text}}</option>
-            </select>
-        </div>
-    </div>
+    <basic label="文本对齐方式">
+        <el-select v-model="options.prop.textAlign" size="small">
+            <el-option v-for="item in items" :key="item.value" :value="item.value" :label="item.text"></el-option>
+        </el-select>
+    </basic>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Config } from '../config'
 import { IControl } from '../index'
+import Basic from './Basic.vue'
 
 export default Vue.extend({
+    components: {
+        Basic
+    },
     props: ['config', 'control'],
     data () {
         return {

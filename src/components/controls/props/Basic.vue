@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="property-editor-item">
         <h5>{{label}}</h5>
         <div>
             <slot />
@@ -18,3 +18,14 @@ export default Vue.extend({
     }
 })
 </script>
+
+<style lang="less">
+.property-editor-item{
+    > h5 {
+        font-size: 14px;
+        line-height: 48px;
+    }
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+</style>
