@@ -18,6 +18,7 @@ html{
   padding: 0;
   box-sizing: border-box;
 }
+li { list-style: none; }
 
 body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
