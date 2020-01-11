@@ -34,9 +34,17 @@
                 @end="drag = false"
             >
                 <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                    <div class="design-control-item" @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
+                    <div class="design-control-item" :class="{'design-control-item-active': currentEditControl === item}" @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
                         <component :is="item.component" :config="item.config"></component>
                         <div class="design-control-item-placeholder"></div>
+                        <div class="design-control-item-editarea">
+                            <strong>当前编辑：</strong>
+                            <span>
+                                <el-tooltip content="删除">
+                                    <i class="el-icon-delete" @click="controlRemoveClickHandler(item)"></i>
+                                </el-tooltip>
+                            </span>
+                        </div>
                     </div>
                 </transition-group>
             </draggable>
@@ -101,7 +109,7 @@ export default Vue.extend({
     data () {
         return {
             list: controls,
-            list2: [],
+            list2: <IControl[]>[],
             drag: false,
             currentEditControl: null as any
         }
@@ -130,6 +138,11 @@ export default Vue.extend({
         },
         controlClickHandler (control: IControl) {
             this.currentEditControl = control
+        },
+        controlRemoveClickHandler (control: IControl) {
+            const index = this.list2.indexOf(control)
+            this.list2.splice(index, 1)
+            this.currentEditControl = null
         },
         getModel () {
             const model: DesignModel = {
@@ -258,6 +271,7 @@ export default Vue.extend({
     background-color: #e3f3ff;
 }
 .design-control-item {
+    min-height: 50px;
     position: relative;
     &-placeholder{
         position: absolute;
@@ -271,6 +285,35 @@ export default Vue.extend({
     }
     &:hover {
         background-color: #f1f2f3;
+    }
+    &-active{
+        border: 1px dashed red;
+    }
+    &-active &-editarea {
+        display: block !important;
+    }
+    &-editarea{
+        display: none;
+        position: absolute;
+        z-index: 3;
+        top: -7px;
+        width: 100%;
+        line-height: 1;
+
+        strong {
+            font-weight: normal;
+            font-size: 12px;
+            float: left;
+            margin-left: 5px;
+            padding: 0 5px;
+            background: #fff;
+        }
+        span {
+            float: right;
+            margin-right: 10px;
+            background: #fff;
+            cursor: pointer;
+        }
     }
 }
 </style>
