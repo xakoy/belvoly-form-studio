@@ -1,6 +1,6 @@
 <template>
     <div>
-        <previewer :designModel="data"></previewer>
+        <previewer :designModel="designModel"></previewer>
     </div>
 </template>
 
@@ -16,22 +16,26 @@ import { DesignModel } from '../components/model'
     }
 })
 export default class Preview extends Vue {
-    data: DesignModel = {
-        controls: [{
-            name: 'title',
-            prop: {
-                color: '',
-                label: '互联网软件请假单',
-                fontsize: '24',
-                textAlign: 'center',
-                padding: {
-                    top: 20,
-                    bottom: 20,
-                    left: 0,
-                    right: 0
+    @Prop() designModel: DesignModel | undefined;
+
+    init () {
+        this.designModel = {
+            controls: [{
+                name: 'title',
+                prop: {
+                    color: '',
+                    label: '互联网软件请假单',
+                    fontsize: '24',
+                    textAlign: 'center',
+                    padding: {
+                        top: 20,
+                        bottom: 20,
+                        left: 0,
+                        right: 0
+                    }
                 }
-            }
-        }]
+            }]
+        }
     }
 }
 </script>

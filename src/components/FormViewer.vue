@@ -16,7 +16,9 @@ export default class FormViewer extends Vue {
     controls: IControl[] = []
 
     init () {
-        this.controls = createControls(this.designModel)
+        if (this.designModel) {
+            this.controls = createControls(this.designModel)
+        }
     }
 
     mounted () {
