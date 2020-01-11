@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <el-radio-group v-model="val">
+        <el-radio-group :value="value" @input="$emit('input', $event)">
             <el-radio v-for="(item, index) in items" :key="index" :label="item.value" :style="{display: prop.optionsAlign == 'inline-block' ? 'inline-block' : 'block'}">{{item.text}}</el-radio>
         </el-radio-group>
     </basic>
@@ -15,10 +15,9 @@ export default Vue.extend({
     components: {
         Basic
     },
-    props: ['config'],
+    props: ['config', 'value'],
     data () {
         return {
-            val: ''
         }
     },
     computed: {

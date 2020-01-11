@@ -41,7 +41,7 @@
                             <strong>当前编辑：</strong>
                             <span>
                                 <el-tooltip content="删除">
-                                    <i class="el-icon-delete" @click="controlRemoveClickHandler(item)"></i>
+                                    <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item)"></i>
                                 </el-tooltip>
                             </span>
                         </div>
@@ -131,7 +131,7 @@ export default Vue.extend({
         cloneDog (e: any) {
             const clone = {
                 ...e,
-                id: index++
+                id: e.config.name + index++
             }
             clone.config = JSON.parse(JSON.stringify(clone.config))
             return clone
@@ -148,6 +148,7 @@ export default Vue.extend({
             const model: DesignModel = {
                 controls: this.list2.map(c => {
                     return {
+                        id: c.id,
                         name: c.config.name,
                         prop: c.config.prop
                     }

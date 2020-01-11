@@ -17,9 +17,9 @@ const controls: IControl[] = [
     Divider
 ]
 
-function buildControl (control: IControl, prop: any) {
-    const con = { ...control }
-    con.config = { ...control.config, prop: { ...control.config.prop, ...prop } }
+function buildControl (control: IControl, model: DesignControlModel) {
+    const con = { ...control, id: model.id }
+    con.config = { ...control.config, prop: { ...control.config.prop, ...model.prop } }
 
     return con
 }
@@ -27,7 +27,7 @@ function buildControl (control: IControl, prop: any) {
 function createControl (model: DesignControlModel): IControl {
     const control = controls.find(c => c.config.name === model.name)
     if (control) {
-        return buildControl(control, model.prop)
+        return buildControl(control, model)
     }
     return Unknown
 }

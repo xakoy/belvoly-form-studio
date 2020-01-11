@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <el-checkbox-group v-model="val">
+        <el-checkbox-group v-model="val" @change="changeHandler">
             <el-checkbox v-for="(item, index) in items" :key="index" :label="item.value" :style="{display: prop.optionsAlign == 'inline-block' ? 'inline-block' : 'block'}">{{item.text}}</el-checkbox>
         </el-checkbox-group>
     </basic>
@@ -30,6 +30,16 @@ export default Vue.extend({
         },
         items (): any {
             return this.prop.options
+        }
+    },
+    watch: {
+        value () {
+            this.val = this.value || []
+        }
+    },
+    methods: {
+        changeHandler (value) {
+            this.$emit('input', value)
         }
     }
 })

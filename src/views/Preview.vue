@@ -21,6 +21,7 @@ export default class Preview extends Vue {
     init () {
         this.designModel = {
             controls: [{
+                id: 1,
                 name: 'title',
                 prop: {
                     color: '',

@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <input placeholder="请填写数值内容" />
+        <el-input-number :value="value" @input="$emit('input', $event)"  placeholder="请填写数值" />
     </basic>
 </template>
 
@@ -10,7 +10,7 @@ import Basic from '../Basic.vue'
 import { Config } from '../config'
 
 export default Vue.extend({
-    props: ['config'],
+    props: ['config', 'value'],
     components: {
         Basic
     },

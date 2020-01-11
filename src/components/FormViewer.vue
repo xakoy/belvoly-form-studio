@@ -1,6 +1,9 @@
 <template>
     <div>
-        <component v-for="item in controls" :key="item.id" :is="item.component" :config="item.config"></component>
+        <component v-model="item[control.id]" v-for="control in controls" :key="control.id" :is="control.component" :config="control.config"></component>
+        <el-button @click="saveHandler">
+            保存
+        </el-button>
     </div>
 </template>
 
@@ -14,6 +17,7 @@ export default class FormViewer extends Vue {
     @Prop() designModel: any;
 
     controls: IControl[] = []
+    item = {}
 
     init () {
         if (this.designModel) {
@@ -23,6 +27,15 @@ export default class FormViewer extends Vue {
 
     mounted () {
         this.init()
+    }
+
+    getData () {
+        return this.item
+    }
+
+    saveHandler () {
+        const data = this.getData()
+        this.$message.success(JSON.stringify(data))
     }
 }
 </script>

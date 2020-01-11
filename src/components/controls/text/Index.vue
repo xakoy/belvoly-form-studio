@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <el-input v-model="val" placeholder="请填写文本内容" :maxlength="options.prop.maxLength" />
+        <el-input :value="value" @input="$emit('input', $event)" placeholder="请填写文本内容" :maxlength="options.prop.maxLength" />
     </basic>
 </template>
 
@@ -10,13 +10,12 @@ import Basic from '../Basic.vue'
 import { Config } from '../config'
 
 export default Vue.extend({
-    props: ['config'],
+    props: ['config', 'value'],
     components: {
         Basic
     },
     data () {
         return {
-            val: ''
         }
     },
     computed: {
