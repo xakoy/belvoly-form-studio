@@ -20,6 +20,10 @@
             </div>
         </div>
         <div class="form-design-content">
+            <div class="form-design-sortable-handle dropArea-tip" v-if="!list2.length">
+                <p>点击或拖动左侧组件到改区域</p>
+                <p>创建表单</p>
+            </div>
             <draggable
                 class="form-design-content-drag"
                 v-model="list2"
@@ -30,12 +34,9 @@
                 @end="drag = false"
             >
                 <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                    <div class="form-design-sortable-handle dropArea-tip" key="ss" v-if="!list2.length">
-                        <p>点击或拖动左侧组件到改区域</p>
-                        <p>创建表单</p>
-                    </div>
-                    <div @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
+                    <div class="design-control-item" @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
                         <component :is="item.component" :config="item.config"></component>
+                        <div class="design-control-item-placeholder"></div>
                     </div>
                 </transition-group>
             </draggable>
@@ -226,6 +227,7 @@ export default Vue.extend({
     height: 100%;
     flex: 1;
     border-right: 1px solid rgb(234, 234, 234);
+    position: relative;
     &-drag {
         height: 100%;
         > span {
@@ -237,10 +239,13 @@ export default Vue.extend({
     }
 }
 .dropArea-tip{
+    position: absolute;
     border: 1px dashed #ccc;
     border-radius: 5px;
     width: 70%;
-    margin: 0 auto;
+    margin: auto;
+    left: 0;
+    right: 0;
     padding: 50px;
     margin-top: 50px;
     text-align: center;
@@ -251,5 +256,21 @@ export default Vue.extend({
 }
 .ghost6 {
     background-color: #e3f3ff;
+}
+.design-control-item {
+    position: relative;
+    &-placeholder{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        opacity: .1;
+        z-index: 2;
+        background: #fff;
+    }
+    &:hover {
+        background-color: #f1f2f3;
+    }
 }
 </style>
