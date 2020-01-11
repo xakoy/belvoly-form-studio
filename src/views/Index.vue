@@ -234,14 +234,13 @@ export default Vue.extend({
     border-right: 1px solid rgb(234, 234, 234);
     &-drag {
         height: 100%;
-        overflow: auto;
         > span {
             height: 100%;
+            padding: 20px 10px;
+            overflow: auto;
             display: block;
         }
     }
-
-    margin: 0 20px;
 }
 .dropArea-tip{
     border: 1px dashed #ccc;
