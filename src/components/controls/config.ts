@@ -11,6 +11,7 @@ export interface Control {
 }
 
 export interface IControl {
+    id?: any,
     config: Config,
     component: any,
     propertyEditor?: any
