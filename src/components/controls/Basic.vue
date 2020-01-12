@@ -1,5 +1,5 @@
 <template>
-    <div class="control">
+    <div class="bfs-control">
         <dl>
             <dt>{{ label }}</dt>
             <dd>
@@ -27,7 +27,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.control {
+.bfs-control {
     padding: 0 15px 12px 12px;
 
     &:hover{
@@ -45,17 +45,4 @@ export default Vue.extend({
         font-size: 13px;
     }
 }
-input{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    resize: none;
-    height: 36px;
-    line-height: 36px;
-    width: 100%;
-    padding: 0 7px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-
 </style>

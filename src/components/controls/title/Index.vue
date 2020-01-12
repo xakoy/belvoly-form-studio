@@ -1,5 +1,5 @@
 <template>
-    <div class="control" :style="style">
+    <div class="bfs-control bfs-control-title" :style="style">
         {{ prop.label }}
     </div>
 </template>
@@ -33,7 +33,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.control {
+.bfs-control {
     padding: 0 15px 12px 12px;
 
     &:hover{
@@ -43,25 +43,9 @@ export default Vue.extend({
     .active{
         background: #e3f3ff;
     }
-
-    dt {
-        height: 32px;
-        line-height: 32px;
-        color: #757575 !important;
-        font-size: 13px;
-    }
-}
-input{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    resize: none;
-    height: 36px;
-    line-height: 36px;
-    width: 100%;
-    padding: 0 7px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
 }
 
+.bfs-control-title {
+    line-height: 1.5;
+}
 </style>
