@@ -25,9 +25,11 @@ export default class FormItem extends Vue {
 
     inputChangeHandler (e) {
         const $formItem = this.$refs.formItem as any
-        this.$nextTick(() => {
-            $formItem.onFieldChange()
-        })
+        if ($formItem && $formItem.onFieldChange) {
+            this.$nextTick(() => {
+                $formItem.onFieldChange()
+            })
+        }
         this.$emit('input', e)
     }
 }
