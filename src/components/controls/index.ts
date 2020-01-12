@@ -5,6 +5,7 @@ import Radio from './radio'
 import Checkbox from './checkbox'
 import Divider from './divider'
 import Unknown from './unknown'
+import DateControl from './date'
 import { Config, IControl } from './config'
 import { DesignControlModel, DesignModel } from '../model'
 
@@ -13,6 +14,7 @@ const controls: IControl[] = [
     NumberControl,
     Radio,
     Checkbox,
+    DateControl,
     Title,
     Divider
 ]
