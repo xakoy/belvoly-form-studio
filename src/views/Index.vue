@@ -15,25 +15,13 @@
     <div class="form-design-container">
         <design ref="designer"></design>
     </div>
-    <!-- <div class="form-design-btn">
-        <button class="btn" type="submit" id="formdrag-edit-save-btn">
-            <i class="fa fa-save"></i>
-            保存
-        </button>
-        <button class="btn" type="button" id="formdrag-edit-preview-btn">
-            <i class="fa fa-eye"></i>
-            预览
-        </button>
-        <button class="btn" type="button" id="formdrag-edit-cancel-btn">
-            <i class="fa fa-close"></i>
-            取消
-        </button>
-    </div> -->
     <el-dialog
+        width="1200px"
+        title="预览表单"
         v-if="previewDialogVisible"
         :visible.sync="previewDialogVisible"
     >
-        <preview :designModel="designModel"></preview>
+        <preview  :designModel="designModel"></preview>
     </el-dialog>
 </div>
 </template>
@@ -67,7 +55,6 @@ export default Vue.extend({
 <style lang="less">
 .form-design {
     height: 100%;
-    // overflow: hidden;
     &-header {
         h3 {
             font-weight: normal;

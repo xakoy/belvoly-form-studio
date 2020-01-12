@@ -1,6 +1,11 @@
 <template>
     <div>
-        <previewer :designModel="designModel"></previewer>
+        <previewer ref="viewer" :designModel="designModel"></previewer>
+        <div>
+            <el-button @click="saveHandler">
+                保存
+            </el-button>
+        </div>
     </div>
 </template>
 
@@ -16,26 +21,18 @@ import { DesignModel } from '../components/model'
     }
 })
 export default class Preview extends Vue {
-    @Prop() designModel: DesignModel | undefined;
+    @Prop() designModel: DesignModel | undefined
 
-    init () {
-        this.designModel = {
-            controls: [{
-                id: 1,
-                name: 'title',
-                prop: {
-                    color: '',
-                    label: '互联网软件请假单',
-                    fontsize: '24',
-                    textAlign: 'center',
-                    padding: {
-                        top: 20,
-                        bottom: 20,
-                        left: 0,
-                        right: 0
-                    }
-                }
-            }]
+    async saveHandler () {
+        const viewer = this.$refs.viewer as any
+        try {
+            const valid = await viewer.validate()
+            if (valid) {
+                const data = viewer.getData()
+                this.$message.success(JSON.stringify(data))
+            }
+        } catch (e) {
+
         }
     }
 }

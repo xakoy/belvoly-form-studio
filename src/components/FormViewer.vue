@@ -3,9 +3,6 @@
         <el-form :model="item" ref="form">
             <form-item v-model="item[control.id]" v-for="control in controls" :key="control.id" :control="control"></form-item>
         </el-form>
-        <el-button @click="saveHandler">
-            保存
-        </el-button>
     </div>
 </template>
 
@@ -41,14 +38,9 @@ export default class FormViewer extends Vue {
         return this.item
     }
 
-    saveHandler () {
+    validate () {
         const from = this.$refs.form as Form
-        from.validate(valid => {
-            if (valid) {
-                const data = this.getData()
-                this.$message.success(JSON.stringify(data))
-            }
-        })
+        return from.validate()
     }
 }
 </script>
