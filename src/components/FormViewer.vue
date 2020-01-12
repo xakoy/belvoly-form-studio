@@ -1,6 +1,8 @@
 <template>
     <div>
-        <component v-model="item[control.id]" v-for="control in controls" :key="control.id" :is="control.component" :config="control.config"></component>
+        <el-form :model="item" ref="form">
+            <form-item v-model="item[control.id]" v-for="control in controls" :key="control.id" :control="control"></form-item>
+        </el-form>
         <el-button @click="saveHandler">
             保存
         </el-button>
@@ -11,8 +13,14 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { IControl, createControls } from './controls'
+import FormItem from './FormItem.vue'
+import { Form } from 'element-ui'
 
-@Component
+@Component({
+    components: {
+        FormItem
+    }
+})
 export default class FormViewer extends Vue {
     @Prop() designModel: any;
 
@@ -34,8 +42,13 @@ export default class FormViewer extends Vue {
     }
 
     saveHandler () {
-        const data = this.getData()
-        this.$message.success(JSON.stringify(data))
+        const from = this.$refs.form as Form
+        from.validate(valid => {
+            if (valid) {
+                const data = this.getData()
+                this.$message.success(JSON.stringify(data))
+            }
+        })
     }
 }
 </script>

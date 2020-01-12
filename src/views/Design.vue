@@ -29,7 +29,6 @@
                 v-model="list2"
                 v-bind="dragOptions"
                 group="people"
-                @chang="log"
                 @start="drag = true"
                 @end="drag = false"
             >
@@ -125,9 +124,6 @@ export default Vue.extend({
         }
     },
     methods: {
-        log (e: any) {
-            console.log(e)
-        },
         cloneDog (e: any) {
             const clone = {
                 ...e,

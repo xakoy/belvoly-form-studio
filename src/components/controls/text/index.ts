@@ -8,7 +8,12 @@ const TextConfig: Config = {
     icon: 'text_bold2',
     prop: {
         label: '单行文本框',
-        maxLength: 30
+        maxLength: 30,
+        rule: {
+            required: false,
+            type: null,
+            regexp: null
+        }
     }
 }
 
