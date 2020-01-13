@@ -20,33 +20,7 @@
             </div>
         </div>
         <div class="form-design-content">
-            <div class="form-design-sortable-handle dropArea-tip" v-if="!list2.length">
-                <p>点击或拖动左侧组件到改区域</p>
-                <p>创建表单</p>
-            </div>
-            <draggable
-                class="form-design-content-drag"
-                v-model="list2"
-                v-bind="dragOptions"
-                group="people"
-                @start="drag = true"
-                @end="drag = false"
-            >
-                <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                    <div class="design-control-item" :class="{'design-control-item-active': currentEditControl === item}" @click="controlClickHandler(item)" v-for="item in list2"  :key="item.id">
-                        <component :is="item.component" :config="item.config"></component>
-                        <div class="design-control-item-placeholder"></div>
-                        <div class="design-control-item-editarea">
-                            <strong>当前编辑：</strong>
-                            <span>
-                                <el-tooltip content="删除">
-                                    <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item)"></i>
-                                </el-tooltip>
-                            </span>
-                        </div>
-                    </div>
-                </transition-group>
-            </draggable>
+            <design-zone v-model="contentList" @change="designContentChangeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
         </div>
         <div class="from-design-property-editor controlBox">
             <!-- <div class="tab tab-primary">
@@ -97,18 +71,24 @@ import draggable from 'vuedraggable'
 import controls, { IControl } from '../components/controls/index'
 import PropertyEdit from '../components/controls/PropertyEdit.vue'
 import { DesignModel, DesignControlModel } from '../components/model'
+import DesignZone from '../components/DesignZone.vue'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../components/symbol'
 
 let index = 1
 
 export default Vue.extend({
     components: {
         draggable,
-        PropertyEdit
+        PropertyEdit,
+        DesignZone
+    },
+    provide: {
+        [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN
     },
     data () {
         return {
             list: controls,
-            list2: <IControl[]>[],
+            contentList: <IControl[]>[],
             drag: false,
             currentEditControl: null as any
         }
@@ -136,21 +116,29 @@ export default Vue.extend({
             this.currentEditControl = control
         },
         controlRemoveClickHandler (control: IControl) {
-            const index = this.list2.indexOf(control)
-            this.list2.splice(index, 1)
             this.currentEditControl = null
         },
+        designContentChangeHandler () {
+
+        },
         getModel () {
-            const model: DesignModel = {
-                controls: this.list2.map(c => {
-                    return {
-                        id: c.id,
-                        name: c.config.name,
-                        prop: c.config.prop
-                    }
+            const convertChild = (child: Array<any>) => {
+                return child.map(item => {
+                    return Array.isArray(item) ? convertChild(item) : convert(item)
                 })
             }
-
+            const convert = (control: IControl) => {
+                const { id, config: { name, prop }, child } = control
+                return {
+                    id: id,
+                    name: name,
+                    prop: prop,
+                    child: child ? convertChild(child) : null
+                }
+            }
+            const model: DesignModel = {
+                controls: this.contentList.map(c => convert(c))
+            }
             return model
         }
     }
@@ -238,79 +226,37 @@ export default Vue.extend({
     flex: 1;
     border-right: 1px solid rgb(234, 234, 234);
     position: relative;
-    &-drag {
-        height: 100%;
-        > span {
-            height: 100%;
-            padding: 20px 10px;
-            overflow: auto;
-            display: block;
-        }
-    }
-}
-.dropArea-tip{
-    position: absolute;
-    border: 1px dashed #ccc;
-    border-radius: 5px;
-    width: 70%;
-    margin: auto;
-    left: 0;
-    right: 0;
-    padding: 50px;
-    margin-top: 50px;
-    text-align: center;
 }
 
 .ghost {
     transform: rotate(3deg) !important;
 }
-.ghost6 {
-    background-color: #e3f3ff;
-}
-.design-control-item {
-    min-height: 50px;
+.ghost6w {
+    background: #F56C6C;
+    // border: 2px solid #F56C6C;
     position: relative;
-    &-placeholder{
+    content: '';
+    float: left;
+    height: 5px;
+    width: 100%;
+    list-style: none;
+    font-size: 0;
+    overflow: hidden;
+    outline: none;
+
+    &::after{
+        background: #F56C6C;
         position: absolute;
         top: 0;
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        opacity: .1;
-        z-index: 2;
-        background: #fff;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 9999;
+        content: '';
+        outline: none;
     }
-    &:hover {
-        background-color: #f1f2f3;
-    }
-    &-active{
-        border: 1px dashed red;
-    }
-    &-active &-editarea {
-        display: block !important;
-    }
-    &-editarea{
-        display: none;
-        position: absolute;
-        z-index: 3;
-        top: -7px;
-        width: 100%;
-        line-height: 1;
-
-        strong {
-            font-weight: normal;
-            font-size: 12px;
-            float: left;
-            margin-left: 5px;
-            padding: 0 5px;
-            background: #fff;
-        }
-        span {
-            float: right;
-            margin-right: 10px;
-            background: #fff;
-            cursor: pointer;
-        }
-    }
+}
+.ghost6 {
+    background-color: #e3f3ff;
 }
 </style>

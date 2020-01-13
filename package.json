@@ -54,7 +54,8 @@
       "indent": [
         1,
         4
-      ]
+      ],
+      "no-debugger": "off"
     },
     "parserOptions": {
       "parser": "@typescript-eslint/parser",

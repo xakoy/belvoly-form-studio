@@ -3,6 +3,7 @@ export interface Config {
     text: string;
     icon: string;
     prop: any;
+    isLayout?: boolean;
     [propName: string]: any;
 }
 
@@ -14,5 +15,6 @@ export interface IControl {
     id?: any,
     config: Config,
     component: any,
-    propertyEditor?: any
+    propertyEditor?: any,
+    child?: Array<any>
 }

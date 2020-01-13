@@ -6,6 +6,7 @@ import Checkbox from './checkbox'
 import Divider from './divider'
 import Unknown from './unknown'
 import DateControl from './date'
+import Guid from './guid'
 import { Config, IControl } from './config'
 import { DesignControlModel, DesignModel } from '../model'
 
@@ -16,12 +17,25 @@ const controls: IControl[] = [
     Checkbox,
     DateControl,
     Title,
-    Divider
+    Divider,
+    Guid
 ]
 
 function buildControl (control: IControl, model: DesignControlModel) {
-    const con = { ...control, id: model.id }
+    const con = { ...control, id: model.id, child: model.child }
     con.config = { ...control.config, prop: { ...control.config.prop, ...model.prop } }
+
+    if (con.child) {
+        con.child = con.child.map(item => {
+            if (Array.isArray(item)) {
+                return item.map(i => {
+                    return createControl(i)
+                })
+            } else {
+                return createControl(item)
+            }
+        })
+    }
 
     return con
 }

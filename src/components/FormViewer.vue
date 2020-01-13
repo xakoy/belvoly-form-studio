@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-form :model="item" ref="form">
-            <form-item v-model="item[getFieldName(control)]" :fieldName="getFieldName(control)" v-for="control in controls" :key="control.id" :control="control"></form-item>
+            <form-viewer-zone :formModel="item" :itemValueField="itemValueField" :controls="controls"></form-viewer-zone>
         </el-form>
     </div>
 </template>
@@ -10,12 +10,16 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { IControl, createControls } from './controls'
-import FormItem from './FormItem.vue'
+import FormViewerZone from './FormViewerZone.vue'
 import { Form } from 'element-ui'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER } from './symbol'
 
 @Component({
     components: {
-        FormItem
+        FormViewerZone
+    },
+    provide: {
+        [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER
     }
 })
 export default class FormViewer extends Vue {
@@ -47,13 +51,6 @@ export default class FormViewer extends Vue {
 
     mounted () {
         this.init()
-    }
-
-    getFieldName (control: IControl) {
-        if (this.itemValueField === 'id') {
-            return control.id
-        }
-        return control.config.prop[this.itemValueField]
     }
 
     getData () {
