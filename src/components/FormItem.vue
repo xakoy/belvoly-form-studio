@@ -1,5 +1,5 @@
 <template>
-    <el-form-item ref="formItem" :rules="rules" :prop="control.id" class="fs-from-item">
+    <el-form-item ref="formItem" :rules="rules" :prop="fieldName" class="fs-from-item">
         <component ref="control" :value="value" @input="inputChangeHandler($event)" :is="control.component" :config="control.config"></component>
     </el-form-item>
 </template>
@@ -12,6 +12,7 @@ import { IControl } from './controls'
 export default class FormItem extends Vue {
     @Prop() control: IControl
     @Prop() value: any
+    @Prop() fieldName!: string
 
     rules = []
 
