@@ -1,7 +1,8 @@
 <template>
     <div>
         <label-prop :control="control"></label-prop>
-        <default-value :control="control"></default-value>
+        <type-prop :control="control"></type-prop>
+        <format-prop :control="control"></format-prop>
         <validation>
             <validation-required :control="control"></validation-required>
         </validation>
@@ -11,13 +12,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Label as LabelProp, Validation, ValidationRequired } from '../props'
-import DefaultValue from './DefaultValuePropertyEditor.vue'
+import TypeProp from './TypeProperty.vue'
+import FormatProp from './FormatProperty.vue'
 
 export default Vue.extend({
     props: ['control'],
     components: {
         LabelProp,
-        DefaultValue,
+        TypeProp,
+        FormatProp,
         Validation,
         ValidationRequired
     }

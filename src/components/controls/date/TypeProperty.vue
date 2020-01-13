@@ -1,7 +1,8 @@
 <template>
-    <basic label="默认值">
-        <el-date-picker size="small" v-model="options.prop.defaultValue" placeholder="选择指定日期"></el-date-picker>
-        <el-checkbox>当前值</el-checkbox>
+    <basic label="类型">
+        <el-select v-model="options.prop.type" size="small">
+            <el-option v-for="item in items" :key="item.value" :label="item.text" :value="item.value"></el-option>
+        </el-select>
     </basic>
 </template>
 
@@ -12,8 +13,11 @@ import { IControl } from '../index'
 import Basic from '../props/Basic.vue'
 
 const ITEMS = [
-    { text: '当前日期', value: '$date', type: 'date' },
-    { text: '指定日期', value: '$onedate', type: 'date' }
+    { text: '日期', value: 'date' },
+    { text: '年', value: 'year' },
+    { text: '月', value: 'month' },
+    { text: '日期时间', value: 'datetime' },
+    { text: '时间', value: 'time' }
 ]
 
 @Component({
@@ -21,11 +25,11 @@ const ITEMS = [
         Basic
     }
 })
-export default class DefaultValuePropertyEditor extends Vue {
+export default class Type extends Vue {
     @Prop() config
     @Prop() control
 
-    items = ITEMS.filter(item => item.type === 'date')
+    items = ITEMS
 
     get editControl (): IControl {
         return this.control as IControl
