@@ -3,7 +3,7 @@
         <ul class="options">
             <li  v-for="item in options.prop.options" :key="item.value">
                 <i class="el-icon-menu"></i>
-                <el-input size="small" v-model="item.value" />
+                <el-input size="small" v-model="item.value" @change="textChangeHandler(item, $event)" />
                 <i class="el-icon-close"></i>
             </li>
         </ul>
@@ -43,6 +43,9 @@ export default Vue.extend({
             const text = '选项' + this.index
             this.options.prop.options.push({ text: text, value: text })
             this.index = this.index + 1
+        },
+        textChangeHandler (item, value) {
+            item.text = value
         }
     }
 })
