@@ -84,7 +84,9 @@ export default class DesignZone extends Vue {
 
     controlRemoveClickHandler (control: IControl) {
         const index = this.list.indexOf(control)
-        this.list.splice(index, 1)
+        if (index > -1) {
+            this.list.splice(index, 1)
+        }
         this.$emit('itemRemove', control)
     }
 }

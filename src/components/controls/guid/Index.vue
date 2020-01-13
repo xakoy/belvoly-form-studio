@@ -68,6 +68,7 @@ export default class Guid extends Vue {
         this.$emit('itemClick', control)
     }
     controlRemoveClickHandler (control: IControl) {
+        this.changeHandler()
         this.$emit('itemRemove', control)
     }
 
