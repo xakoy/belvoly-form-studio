@@ -33,18 +33,6 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.bfs-control {
-    padding: 0 15px 12px 12px;
-
-    &:hover{
-        background: #f1f2f3;
-    }
-
-    .active{
-        background: #e3f3ff;
-    }
-}
-
 .bfs-control-title {
     line-height: 1.5;
 }

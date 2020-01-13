@@ -1,6 +1,6 @@
 <template>
-    <div class="bfs-control-guid">
-        <el-row :gutter="20">
+    <div class="bfs-control-guid" :class="{'bfs-control-guid-designmode': isInDesignMode}">
+        <el-row :gutter="isInDesignMode ? 20: 0">
             <el-col :span="12">
                 <div class="bfs-control-guid-zone">
                     <design-zone v-if="isInDesignMode" v-model="ListOne" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
@@ -83,7 +83,7 @@ export default class Guid extends Vue {
         min-height: 200px;
     }
 
-    &-zone {
+    &-designmode &-zone {
         border: 1px dashed #cccccc;
     }
 }
