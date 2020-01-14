@@ -68,6 +68,11 @@ export default class DesignZone extends Vue {
         }
     }
 
+    @Watch('value')
+    valueWatch (val, oldVal) {
+        this.list = val
+    }
+
     @Watch('list')
     listWatch (val, oldVal) {
         this.$emit('input', this.list)

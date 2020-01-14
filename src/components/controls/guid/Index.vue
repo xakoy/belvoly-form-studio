@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Inject } from 'vue-property-decorator'
+import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import DesignZone from '../../DesignZone.vue'
 import FormViewerZone from '../../FormViewerZone.vue'
@@ -54,6 +54,12 @@ export default class Guid extends Vue {
     ListOne = []
     ListTwo =[]
     drag = false
+
+    @Watch('control')
+    controlWatch (val, oldVal) {
+        this.ListOne = val.child[0]
+        this.ListTwo = val.child[1]
+    }
 
     get dragOptions () {
         return {

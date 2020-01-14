@@ -7,7 +7,18 @@
 import Vue from 'vue'
 import * as monaco from 'monaco-editor'
 export default Vue.extend({
-    props: ['value'],
+    props: {
+        value: { },
+        readOnly: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data () {
+        return {
+            editor: null
+        }
+    },
     mounted () {
         const editor = monaco.editor.create(this.$refs.jsoncodeeditor, {
             value: this.value,
@@ -15,12 +26,29 @@ export default Vue.extend({
             lineNumbers: 'on',
             formatOnType: true
         })
+        this.editor = editor
         setTimeout(async () => {
             await editor.getAction('editor.action.formatDocument').run()
-            editor.updateOptions({
-                readOnly: true
-            })
+            if (this.readOnly) {
+                editor.updateOptions({
+                    readOnly: true
+                })
+            }
         }, 500)
+        editor.onDidBlurEditorText(() => {
+            const code = editor.getValue()
+            this.changeHandler(code)
+        })
+    },
+    beforeDestroy () {
+        if (this.editor) {
+            this.editor.dispose()
+        }
+    },
+    methods: {
+        changeHandler (code) {
+            this.$emit('input', code)
+        }
     }
 })
 </script>

@@ -4,17 +4,18 @@
         <el-row>
             <el-col :span="8">
                 <h3>
-                    表单设置：  <text><span style="color:#FF0000">（修改表单设计将会丢失原有数据，请慎重操作）</span></text>
+                    表单设置：<text><span style="color:#FF0000">（修改表单设计将会丢失原有数据，请慎重操作）</span></text>
                 </h3>
             </el-col>
             <el-col :span="16" style="text-align: right">
+                <el-button size="small" @click="exportJsonHandler">导入JSON</el-button>
                 <el-button size="small" @click="getModelHandler">获取JSON</el-button>
                 <el-button size="small" @click="preview">预览</el-button>
             </el-col>
         </el-row>
     </div>
     <div class="form-design-container">
-        <design ref="designer"></design>
+        <design :defaultModel="defaultDesignMode" ref="designer"></design>
     </div>
     <el-dialog
         width="1200px"
@@ -30,7 +31,19 @@
         v-if="jsonDialogVisible"
         :visible.sync="jsonDialogVisible"
     >
-        <code-editor :value="jsoncode"></code-editor>
+        <code-editor :readonly="true" :value="jsoncode"></code-editor>
+    </el-dialog>
+    <el-dialog
+        width="800px"
+        title="导入JSON"
+        v-if="jsonExportDialogVisible"
+        :visible.sync="jsonExportDialogVisible"
+    >
+        <code-editor v-model="jsoncode"></code-editor>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="jsonExportDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="exportJsonOkHandler">确 定</el-button>
+        </div>
     </el-dialog>
 </div>
 </template>
@@ -50,9 +63,11 @@ export default Vue.extend({
     data () {
         return {
             previewDialogVisible: false,
+            jsonExportDialogVisible: false,
             jsonDialogVisible: false,
             jsoncode: '',
-            designModel: null
+            designModel: null,
+            defaultDesignMode: null
         }
     },
     methods: {
@@ -65,6 +80,22 @@ export default Vue.extend({
             const model = (<any> this.$refs.designer).getModel()
             this.jsoncode = JSON.stringify(model)
             this.jsonDialogVisible = true
+        },
+        exportJsonHandler () {
+            this.jsoncode = JSON.stringify({})
+            this.jsonExportDialogVisible = true
+        },
+        exportJsonOkHandler () {
+            let json = null
+            try {
+                json = JSON.parse(this.jsoncode)
+            } catch (e) {
+                this.$message.error('JSON 格式解析错误，请检查格式：\n' + e.message)
+            }
+            if (json) {
+                this.jsonExportDialogVisible = false
+                this.defaultDesignMode = json
+            }
         }
     }
 })

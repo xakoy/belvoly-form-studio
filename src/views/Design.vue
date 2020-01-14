@@ -68,7 +68,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import draggable from 'vuedraggable'
-import controls, { IControl } from '../components/controls/index'
+import controls, { IControl, createControls } from '../components/controls/index'
 import PropertyEdit from '../components/controls/PropertyEdit.vue'
 import { DesignModel, DesignControlModel } from '../components/model'
 import DesignZone from '../components/DesignZone.vue'
@@ -77,6 +77,9 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../components/symbol'
 let index = 1
 
 export default Vue.extend({
+    props: {
+        defaultModel: { }
+    },
     components: {
         draggable,
         PropertyEdit,
@@ -93,6 +96,9 @@ export default Vue.extend({
             currentEditControl: null as any
         }
     },
+    mounted () {
+
+    },
     computed: {
         dragOptions () {
             return {
@@ -103,7 +109,17 @@ export default Vue.extend({
             }
         }
     },
+    watch: {
+        defaultModel: function () {
+            this.drawModelDesign()
+        }
+    },
     methods: {
+        drawModelDesign () {
+            if (this.defaultModel) {
+                this.contentList = createControls(this.defaultModel)
+            }
+        },
         cloneDog (e: any) {
             const clone = {
                 ...e,
