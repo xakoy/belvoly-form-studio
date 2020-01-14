@@ -8,6 +8,7 @@
                 </h3>
             </el-col>
             <el-col :span="16" style="text-align: right">
+                <el-button size="small" @click="getModelHandler">获取JSON</el-button>
                 <el-button size="small" @click="preview">预览</el-button>
             </el-col>
         </el-row>
@@ -23,6 +24,14 @@
     >
         <preview  :designModel="designModel"></preview>
     </el-dialog>
+    <el-dialog
+        width="800px"
+        title="设计JSON"
+        v-if="jsonDialogVisible"
+        :visible.sync="jsonDialogVisible"
+    >
+        <code-editor :value="jsoncode"></code-editor>
+    </el-dialog>
 </div>
 </template>
 
@@ -30,15 +39,19 @@
 import Vue from 'vue'
 import Design from './Design.vue'
 import Preview from './Preview.vue'
+import CodeEditor from './components/Code.vue'
 
 export default Vue.extend({
     components: {
         Design,
-        Preview
+        Preview,
+        CodeEditor
     },
     data () {
         return {
             previewDialogVisible: false,
+            jsonDialogVisible: false,
+            jsoncode: '',
             designModel: null
         }
     },
@@ -47,6 +60,11 @@ export default Vue.extend({
             const model = (<any> this.$refs.designer).getModel()
             this.designModel = model
             this.previewDialogVisible = true
+        },
+        getModelHandler () {
+            const model = (<any> this.$refs.designer).getModel()
+            this.jsoncode = JSON.stringify(model)
+            this.jsonDialogVisible = true
         }
     }
 })
