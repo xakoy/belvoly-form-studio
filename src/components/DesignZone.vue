@@ -94,6 +94,8 @@ export default class DesignZone extends Vue {
             this.list.splice(index, 1)
         }
         this.$emit('itemRemove', control)
+        this.$emit('input', this.list)
+        this.$emit('change', this.list)
     }
 }
 </script>

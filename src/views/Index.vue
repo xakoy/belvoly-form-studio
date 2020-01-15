@@ -16,7 +16,7 @@
         </el-row>
     </div>
     <div class="form-design-container">
-        <design v-model="designModel" ref="designer"></design>
+        <design :defaultModel="designDefaultModel" ref="designer"></design>
     </div>
     <el-dialog
         width="1200px"
@@ -67,15 +67,19 @@ export default Vue.extend({
             jsonExportDialogVisible: false,
             jsonDialogVisible: false,
             jsoncode: '',
-            designModel: null
+            designModel: null,
+            designDefaultModel: null
         }
     },
     methods: {
         preview () {
+            const model = (this.$refs.designer.getModel())
+            this.designModel = model
             this.previewDialogVisible = true
         },
         getModelHandler () {
-            this.jsoncode = JSON.stringify(this.designModel)
+            const model = (this.$refs.designer.getModel())
+            this.jsoncode = JSON.stringify(model)
             this.jsonDialogVisible = true
         },
         exportJsonHandler () {
@@ -91,7 +95,7 @@ export default Vue.extend({
             }
             if (json) {
                 this.jsonExportDialogVisible = false
-                this.designModel = json
+                this.designDefaultModel = json
             }
         },
         clearHandler () {
@@ -100,7 +104,7 @@ export default Vue.extend({
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                this.designModel = null
+                this.$refs.designer.clear()
             }).catch(() => { })
         }
     }

@@ -47,7 +47,7 @@ let index = 1
 
 export default Vue.extend({
     props: {
-        value: {}
+        defaultModel: {}
     },
     components: {
         draggable,
@@ -76,23 +76,19 @@ export default Vue.extend({
                 disabled: false,
                 ghostClass: 'ghost6'
             }
-        },
-        defaultModel () {
-            return this.value
         }
     },
     watch: {
-        value: function () {
+        defaultModel: function () {
             this.drawModelDesign()
         }
     },
     methods: {
         drawModelDesign () {
-            if (this.defaultModel) {
+            if (this.defaultModel && this.defaultModel.controls) {
                 this.contentList = createControls(this.defaultModel)
             } else {
-                this.contentList = []
-                this.currentEditControl = null
+                this.clear()
             }
         },
         cloneDog (e: any) {
@@ -110,8 +106,7 @@ export default Vue.extend({
             this.currentEditControl = null
         },
         designContentChangeHandler () {
-            const model = this.getModel()
-            this.$emit('input', model)
+            this.$emit('change')
         },
         getModel () {
             const convertChild = (child: Array<any>) => {
@@ -132,6 +127,10 @@ export default Vue.extend({
                 controls: this.contentList.map(c => convert(c))
             }
             return model
+        },
+        clear () {
+            this.contentList = []
+            this.currentEditControl = null
         }
     }
 })
