@@ -74,8 +74,10 @@ export default class DesignZone extends Vue {
 
     @Watch('list')
     listWatch (val, oldVal) {
-        this.$emit('input', this.list)
-        this.$emit('change', this.list)
+        if (val !== this.value) {
+            this.$emit('input', this.list)
+            this.$emit('change', this.list)
+        }
     }
 
     dragEndHandler () {

@@ -10,12 +10,13 @@
             <el-col :span="16" style="text-align: right">
                 <el-button size="small" @click="exportJsonHandler">导入JSON</el-button>
                 <el-button size="small" @click="getModelHandler">获取JSON</el-button>
+                <el-button size="small" @click="clearHandler">清空</el-button>
                 <el-button size="small" @click="preview">预览</el-button>
             </el-col>
         </el-row>
     </div>
     <div class="form-design-container">
-        <design :defaultModel="defaultDesignMode" ref="designer"></design>
+        <design v-model="designModel" ref="designer"></design>
     </div>
     <el-dialog
         width="1200px"
@@ -66,19 +67,15 @@ export default Vue.extend({
             jsonExportDialogVisible: false,
             jsonDialogVisible: false,
             jsoncode: '',
-            designModel: null,
-            defaultDesignMode: null
+            designModel: null
         }
     },
     methods: {
         preview () {
-            const model = (<any> this.$refs.designer).getModel()
-            this.designModel = model
             this.previewDialogVisible = true
         },
         getModelHandler () {
-            const model = (<any> this.$refs.designer).getModel()
-            this.jsoncode = JSON.stringify(model)
+            this.jsoncode = JSON.stringify(this.designModel)
             this.jsonDialogVisible = true
         },
         exportJsonHandler () {
@@ -94,8 +91,17 @@ export default Vue.extend({
             }
             if (json) {
                 this.jsonExportDialogVisible = false
-                this.defaultDesignMode = json
+                this.designModel = json
             }
+        },
+        clearHandler () {
+            this.$confirm('此操作将清空设计区, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.designModel = null
+            }).catch(() => { })
         }
     }
 })
