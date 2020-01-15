@@ -1,9 +1,9 @@
 <template>
     <basic label="选项">
         <ul class="options">
-            <li  v-for="item in options.prop.options" :key="item.value">
+            <li  v-for="(item, index) in options.prop.options" :key="index">
                 <i class="el-icon-menu"></i>
-                <el-input size="small" v-model="item.value" @change="textChangeHandler(item, $event)" />
+                <el-input size="small" :value="item.value" @input="textChangeHandler(item, $event)" />
                 <i class="el-icon-close"></i>
             </li>
         </ul>
@@ -27,7 +27,8 @@ export default Vue.extend({
     data () {
         return {
             index: 4,
-            label: ''
+            label: '',
+            value: ''
         }
     },
     computed: {
@@ -46,6 +47,7 @@ export default Vue.extend({
         },
         textChangeHandler (item, value) {
             item.text = value
+            item.value = value
         }
     }
 })
