@@ -9,7 +9,7 @@ import * as monaco from 'monaco-editor'
 export default Vue.extend({
     props: {
         value: { },
-        readOnly: {
+        readonly: {
             type: Boolean,
             default: false
         }
@@ -29,7 +29,7 @@ export default Vue.extend({
         this.editor = editor
         setTimeout(async () => {
             await editor.getAction('editor.action.formatDocument').run()
-            if (this.readOnly) {
+            if (this.readonly) {
                 editor.updateOptions({
                     readOnly: true
                 })
