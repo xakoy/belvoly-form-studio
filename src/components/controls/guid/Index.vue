@@ -56,15 +56,20 @@ export default class Guid extends Vue {
     drag = false
 
     mounted () {
-        this.ListOne = this.control.child[0]
-        this.ListTwo = this.control.child[1]
+        this.init()
     }
 
     @Watch('control')
     controlWatch (val, oldVal) {
-        console.log(val)
-        this.ListOne = val.child[0]
-        this.ListTwo = val.child[1]
+        this.init()
+    }
+
+    init () {
+        const { child } = this.control
+        if (child.length === 2) {
+            this.ListOne = this.control.child[0]
+            this.ListTwo = this.control.child[1]
+        }
     }
 
     get dragOptions () {
