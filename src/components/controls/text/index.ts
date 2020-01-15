@@ -1,6 +1,8 @@
 import { Config, IControl } from '../config'
 import Text from './Index.vue'
 import Editor from './PropertyEditor.vue'
+import { IProperty } from '@/components/interface'
+import { LabelProperty, MaxLengthProperty } from '../props'
 
 const TextConfig: Config = {
     name: 'text',
@@ -17,10 +19,16 @@ const TextConfig: Config = {
     }
 }
 
+const props: IProperty[] = [
+    new LabelProperty('单行文本框'),
+    new MaxLengthProperty(30)
+]
+
 const control: IControl = {
     config: TextConfig,
     component: Text,
-    propertyEditor: Editor
+    propertyEditor: Editor,
+    propertys: props
 }
 
 export default control

@@ -1,6 +1,6 @@
 <template>
     <basic label="最大字数">
-        <el-input-number size="small" v-model="options.prop.maxLength" :min="0"></el-input-number>
+        <el-input-number :step="1" size="small" v-model="options.prop.maxLength" :min="0"></el-input-number>
     </basic>
 </template>
 

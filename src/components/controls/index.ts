@@ -7,7 +7,7 @@ import Divider from './divider'
 import Unknown from './unknown'
 import DateControl from './date'
 import Guid from './guid'
-import { Config, IControl } from './config'
+import { IControl, IPropertyControlPlugin } from '../interface'
 import { DesignControlModel, DesignModel } from '../model'
 
 const controls: IControl[] = [
@@ -54,6 +54,12 @@ function createControl (model: DesignControlModel): IControl {
  */
 export function createControls (model: DesignModel) {
     return model.controls.map(c => createControl(c))
+}
+
+export function registerControlPlugin (name: string, plugin: IPropertyControlPlugin) {
+    const control = controls.find(c => c.config.name === name)
+    control.config.prop[plugin.propName] = plugin.defaultValue || null
+    control.propertys.push(plugin)
 }
 
 export default controls
