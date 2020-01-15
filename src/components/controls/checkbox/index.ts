@@ -10,9 +10,9 @@ const config: Config = {
         label: '多选',
         optionsAlign: 'inline-block',
         options: [
-            { text: '选项1', value: '选项1' },
-            { text: '选项2', value: '选项2' },
-            { text: '选项3', value: '选项3' }
+            { text: '选项1', value: '选项1', id: 1 },
+            { text: '选项2', value: '选项2', id: 2 },
+            { text: '选项3', value: '选项3', id: 3 }
         ]
     }
 }
