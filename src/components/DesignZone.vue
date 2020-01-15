@@ -8,7 +8,7 @@
             class="bfs-design-zone-drag"
             v-model="list"
             v-bind="dragOptions"
-            group="people"
+            group="design-zone"
             @start="drag = true"
             @end="dragEndHandler"
         >
@@ -62,9 +62,8 @@ export default class DesignZone extends Vue {
     get dragOptions () {
         return {
             animation: 200,
-            group: 'description',
             disabled: false,
-            ghostClass: 'ghost6'
+            ghostClass: 'bfs-design-zone-ghost'
         }
     }
 
@@ -179,6 +178,10 @@ export default class DesignZone extends Vue {
             display: block;
             min-height: 200px;
         }
+    }
+
+    &-ghost {
+        background-color: #e3f3ff;
     }
 }
 </style>

@@ -1,13 +1,13 @@
 <template>
-    <div class="form-design-box">
-        <div class="form-design-sider dragArea from-design-control-toolbars">
-            <div class="from-design-control-toolbars-container">
+    <div class="bfs-design">
+        <div class="bfs-design-sider">
+            <div class="bfs-design-controls-area">
                 <h4>常用控件</h4>
                 <draggable
-                    class="drag-box"
+                    class="bfs-design-controls"
                     v-model="list"
-                    ghost-class="ghost"
-                    :group="{ name: 'people', pull: 'clone', put: false }"
+                    :group="{ name: 'design-zone', pull: 'clone', put: false }"
+                    :sort="false"
                     :clone="cloneDog"
                 >
                     <div v-for="{config} in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
@@ -19,46 +19,15 @@
                 </draggable>
             </div>
         </div>
-        <div class="form-design-content">
+        <div class="bfs-design-content">
             <design-zone v-model="contentList" @change="designContentChangeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
         </div>
-        <div class="from-design-property-editor controlBox">
-            <!-- <div class="tab tab-primary">
-                <ul class="tab-nav">
-                    <li class="current">
-                        控件属性
-                    </li>
-                    <li>
-                        流程属性
-                    </li>
-                </ul>
-            </div> -->
+        <div class="bfs-design-property-editor">
             <div class="bpm-from-design-property-editor-container">
                 <div class="edit-control">
                     <property-edit v-if="currentEditControl" :control="currentEditControl" :key="currentEditControl.id"></property-edit>
                 </div>
                 <div class="control-form-box hide">
-                    <!-- <div class="controlForm flow-control-editable">
-                        <div class="tip">设置可编辑节点 :</div>
-                        <div class="flow-box-apply">
-                            <label class="control-checkbox">
-                                <input type="checkbox" name="name" value="申请" />
-                                <i class="control-placeholder"></i>
-                                申请
-                            </label>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="controlForm flow-control-visible">
-                        <div class="tip">设置不可见节点 :</div>
-                        <div class="flow-box-apply">
-                            <label class="control-checkbox">
-                                <input type="checkbox" name="name" value="申请" />
-                                <i class="control-placeholder"></i>
-                                申请
-                            </label>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -162,9 +131,13 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.form-design {
+.bfs-design {
     height: 100%;
-    // overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 50px;
+    height: 100%;
+    display: flex;
+    flex: 1;
     > h3 {
         box-sizing: border-box;
         height: 50px;
@@ -177,34 +150,38 @@ export default Vue.extend({
         position: absolute;
         width: 100%;
     }
-
-    &-box{
-        box-sizing: border-box;
-        padding-top: 50px;
-        height: 100%;
-        display: flex;
-        flex: 1;
-    }
-
     &-sider{
         background: #f1f2f3;
         width: 300px;
         font-size: 12px;
+        flex-shrink: 0;
     }
-}
-
-.from-design-control-toolbars{
-    padding: 26px 20px;
-    h4 {
-        font-size: 13px;
-        line-height: 1;
+    &-controls-area {
+        padding: 26px 20px;
+        h4 {
+            font-size: 13px;
+            line-height: 1;
+        }
     }
-}
-.drag-box{
-    margin: 12px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    &-controls {
+        margin: 12px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    &-property-editor{
+        width: 350px;
+        background-color: #fcfdfe;
+        padding: 24px 20px;
+        flex-shrink: 0;
+    }
+    &-content{
+        height: 100%;
+        flex: 1;
+        border-right: 1px solid rgb(234, 234, 234);
+        position: relative;
+        overflow: auto;
+    }
 }
 .b-view-control-static{
     width: 124px;
@@ -232,47 +209,7 @@ export default Vue.extend({
         font-size: 16px;
     }
 }
-.from-design-property-editor{
-    width: 350px;
-    background-color: #fcfdfe;
-    padding: 24px 20px;
-}
-.form-design-content{
-    height: 100%;
-    flex: 1;
-    border-right: 1px solid rgb(234, 234, 234);
-    position: relative;
-}
-
-.ghost {
+.ghost2 {
     transform: rotate(3deg) !important;
-}
-.ghost6w {
-    background: #F56C6C;
-    // border: 2px solid #F56C6C;
-    position: relative;
-    content: '';
-    float: left;
-    height: 5px;
-    width: 100%;
-    list-style: none;
-    font-size: 0;
-    overflow: hidden;
-    outline: none;
-
-    &::after{
-        background: #F56C6C;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 9999;
-        content: '';
-        outline: none;
-    }
-}
-.ghost6 {
-    background-color: #e3f3ff;
 }
 </style>
