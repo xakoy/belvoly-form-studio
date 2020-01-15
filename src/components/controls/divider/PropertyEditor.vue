@@ -1,17 +1,18 @@
 <template>
-    <div>
+    <prop>
         <color :control="control"></color>
         <padding :control="control"></padding>
-    </div>
+    </prop>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Padding, Color } from '../props'
+import { Prop, Padding, Color } from '../props'
 
 export default Vue.extend({
     props: ['control'],
     components: {
+        Prop,
         Color,
         Padding
     }

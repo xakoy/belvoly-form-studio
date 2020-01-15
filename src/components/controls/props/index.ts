@@ -1,3 +1,4 @@
+export { default as Prop } from './Index.vue'
 export { default as FontSize } from './FontSize.vue'
 export { default as Label } from './Label.vue'
 export { default as Color } from './Color.vue'
