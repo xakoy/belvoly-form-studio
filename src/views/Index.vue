@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Design from './Design.vue'
+import Design from '../components/Design.vue'
 import Preview from './Preview.vue'
 import CodeEditor from './components/Code.vue'
 
