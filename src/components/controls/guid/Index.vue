@@ -55,8 +55,14 @@ export default class Guid extends Vue {
     ListTwo =[]
     drag = false
 
+    mounted () {
+        this.ListOne = this.control.child[0]
+        this.ListTwo = this.control.child[1]
+    }
+
     @Watch('control')
     controlWatch (val, oldVal) {
+        console.log(val)
         this.ListOne = val.child[0]
         this.ListTwo = val.child[1]
     }
@@ -73,6 +79,7 @@ export default class Guid extends Vue {
     controlClickHandler (control: IControl) {
         this.$emit('itemClick', control)
     }
+
     controlRemoveClickHandler (control: IControl) {
         this.changeHandler()
         this.$emit('itemRemove', control)
