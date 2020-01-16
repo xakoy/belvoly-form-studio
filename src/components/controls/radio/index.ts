@@ -1,6 +1,5 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
-import Editor from './PropertyEditor.vue'
 import { LabelProperty, OptionsProperty, OptionsAlignProperty } from '../props'
 
 const config: Config = {

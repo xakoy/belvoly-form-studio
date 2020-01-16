@@ -4,9 +4,6 @@
         <template v-if="propertys">
             <component v-for="prop in propertys" :key="prop.propName" :control="control" :is="prop.editor"></component>
         </template>
-        <template v-else>
-            <component v-if="editControl.propertyEditor" :control="control" :is="editControl.propertyEditor"></component>
-        </template>
         <template v-if="rules">
             <validation>
                 <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor"></component>

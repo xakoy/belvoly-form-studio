@@ -12,7 +12,6 @@ export interface IControl {
     id?: any,
     config: IConfig,
     component: any,
-    propertyEditor?: any,
     child?: Array<any>
     propertys?: IProperty[],
     rules?: IRule<any>[]
