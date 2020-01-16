@@ -79,6 +79,16 @@ export function registerGlobalPlugin (plugin: IPropertyControlPlugin) {
     })
 }
 
+export function registerControl (control: IControl) {
+    const { config: { name } } = control
+    const index = controls.findIndex(c => c.config.name === name)
+    if (index >= 0) {
+        console.warn(`组件已经存在，不可以重复注册, name: ${name}`)
+        return
+    }
+    controls.push(control)
+}
+
 export default controls
 
 export {

@@ -1,9 +1,9 @@
-import { registerPlugin, registerGlobalPlugin } from './controls'
+import controls, { registerPlugin, registerGlobalPlugin, IControl, registerControl } from './controls'
 import { IPropertyControlPlugin } from './interface'
 import { IPluginObject } from './plugins'
 
 class BelvolyFormStudio {
-    use<T> (plugin: IPluginObject<T>, options) {
+    use<T> (plugin: IPluginObject<T>, options?) {
         const { install } = plugin
         install(this, options as any)
     }
@@ -14,6 +14,10 @@ class BelvolyFormStudio {
         } else {
             registerGlobalPlugin(propertyPlugin)
         }
+    }
+
+    control (control: IControl) {
+        registerControl(control)
     }
 }
 

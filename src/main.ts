@@ -5,9 +5,16 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Studio from './components'
-import { fieldPlugin } from '@/components/plugins'
 
-Studio.use(fieldPlugin, { name: 'number' })
+// import { fieldPlugin } from '@/components/plugins'
+// Studio.use(fieldPlugin, { name: 'number' })
+
+// import Radio from './components/controls/radio'
+// Studio.use({
+//     install: (studio, options) => {
+//         studio.control(Radio)
+//     }
+// })
 
 Vue.use(ElementUI)
 
