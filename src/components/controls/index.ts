@@ -60,10 +60,23 @@ export function createControls (model: DesignModel) {
     return model.controls.map(c => createControl(c))
 }
 
-export function registerControlPlugin (name: string, plugin: IPropertyControlPlugin) {
+export function registerPlugin (name: string, plugin: IPropertyControlPlugin) {
     const control = controls.find(c => c.config.name === name)
+    registerControlPlugin(control, plugin)
+}
+
+function registerControlPlugin (control: IControl, plugin: IPropertyControlPlugin) {
     control.config.prop[plugin.propName] = plugin.defaultValue || null
+    if (!control.propertys) {
+        control.propertys = []
+    }
     control.propertys.push(plugin)
+}
+
+export function registerGlobalPlugin (plugin: IPropertyControlPlugin) {
+    controls.forEach(control => {
+        registerControlPlugin(control, plugin)
+    })
 }
 
 export default controls

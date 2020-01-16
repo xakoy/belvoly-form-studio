@@ -1,6 +1,6 @@
 <template>
     <div>
-        <previewer ref="viewer" :designModel="designModel"></previewer>
+        <previewer ref="viewer" itemValueField="fieldName" :designModel="designModel"></previewer>
         <div>
             <el-button @click="saveHandler">
                 保存
