@@ -1,9 +1,10 @@
-import { IRule, IControl } from '@/components/interface'
+import { IRule, IControl } from '../../../interface'
+import Editor from './TextType.vue'
 
 export class TextTypeRule implements IRule<string> {
     ruleName: string = 'type'
     defaultValue = null
-    editor: any = () => import('./TextType.vue')
+    editor: any = Editor
     getRule (value: any, control: IControl, vue: Vue) {
         if (!value) {
             return null

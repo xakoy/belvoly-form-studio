@@ -1,8 +1,10 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
 import { LabelProperty, RequiredRule } from '../props'
-import { IProperty } from '@/components/interface'
+import { IProperty } from '../../interface'
 import { Property } from '../props/property'
+import TypePropertyEditor from './TypeProperty.vue'
+import FormatPropertyEditor from './FormatProperty.vue'
 
 type TYPE = 'date' | 'datetime'
 
@@ -32,8 +34,8 @@ const config: Config = {
 
 const props: IProperty[] = [
     new LabelProperty('日期'),
-    new Property('type', () => import('./TypeProperty.vue'), 'date'),
-    new Property('format', () => import('./FormatProperty.vue'), 'yyyy-MM-dd')
+    new Property('type', TypePropertyEditor, 'date'),
+    new Property('format', FormatPropertyEditor, 'yyyy-MM-dd')
 ]
 
 const control: IControl = {

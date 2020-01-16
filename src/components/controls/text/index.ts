@@ -1,8 +1,9 @@
 import { Config, IControl } from '../config'
 import Text from './Index.vue'
-import { IProperty, IRule } from '@/components/interface'
+import { IProperty, IRule } from '../../interface'
 import { LabelProperty, MaxLengthProperty, RequiredRule, TextTypeRule, RegexpRule } from '../props'
 import { Property } from '../props/property'
+import DefaultValuePropertyEditor from './DefaultValuePropertyEditor.vue'
 
 const TextConfig: Config = {
     name: 'text',
@@ -22,7 +23,7 @@ const TextConfig: Config = {
 const props: IProperty[] = [
     new LabelProperty('单行文本框'),
     new MaxLengthProperty(30),
-    new Property('defaultValue', () => import('./DefaultValuePropertyEditor.vue'), '')
+    new Property('defaultValue', DefaultValuePropertyEditor, '')
 ]
 
 const rules: IRule<any>[] = [

@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { Basic } from '../../controls/props'
-import { IControl, IConfig } from '@/components/interface'
+import { IControl, IConfig } from '../../interface'
 
 @Component({
     components: {
