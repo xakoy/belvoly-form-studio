@@ -1,6 +1,7 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
 import Editor from './PropertyEditor.vue'
+import { LabelProperty, OptionsProperty, OptionsAlignProperty } from '../props'
 
 const config: Config = {
     name: 'radio',
@@ -20,7 +21,11 @@ const config: Config = {
 const control: IControl = {
     config: config,
     component: Component,
-    propertyEditor: Editor
+    propertys: [
+        new LabelProperty(),
+        new OptionsProperty(),
+        new OptionsAlignProperty()
+    ]
 }
 
 export default control

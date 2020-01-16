@@ -1,6 +1,6 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
-import Editor from './PropertyEditor.vue'
+import { LabelProperty, ColorProperty, FontSizeProperty, TextAlignProperty, PaddingProperty } from '../props'
 
 const config: Config = {
     name: 'title',
@@ -23,7 +23,13 @@ const config: Config = {
 const control: IControl = {
     config: config,
     component: Component,
-    propertyEditor: Editor
+    propertys: [
+        new LabelProperty(),
+        new ColorProperty(),
+        new FontSizeProperty(),
+        new TextAlignProperty(),
+        new PaddingProperty()
+    ]
 }
 
 export default control

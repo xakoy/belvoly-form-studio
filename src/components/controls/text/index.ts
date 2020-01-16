@@ -1,8 +1,8 @@
 import { Config, IControl } from '../config'
 import Text from './Index.vue'
-import Editor from './PropertyEditor.vue'
-import { IProperty } from '@/components/interface'
-import { LabelProperty, MaxLengthProperty } from '../props'
+import { IProperty, IRule } from '@/components/interface'
+import { LabelProperty, MaxLengthProperty, RequiredRule, TextTypeRule, RegexpRule } from '../props'
+import { Property } from '../props/property'
 
 const TextConfig: Config = {
     name: 'text',
@@ -10,25 +10,32 @@ const TextConfig: Config = {
     icon: 'text_bold2',
     prop: {
         label: '单行文本框',
-        maxLength: 30,
-        rule: {
-            required: false,
-            type: null,
-            regexp: null
-        }
+        maxLength: 30
+    },
+    rule: {
+        required: false,
+        type: null,
+        regexp: null
     }
 }
 
 const props: IProperty[] = [
     new LabelProperty('单行文本框'),
-    new MaxLengthProperty(30)
+    new MaxLengthProperty(30),
+    new Property('defaultValue', () => import('./DefaultValuePropertyEditor.vue'), '')
+]
+
+const rules: IRule<any>[] = [
+    new RequiredRule(),
+    new TextTypeRule(),
+    new RegexpRule()
 ]
 
 const control: IControl = {
     config: TextConfig,
     component: Text,
-    propertyEditor: Editor,
-    propertys: props
+    propertys: props,
+    rules: rules
 }
 
 export default control

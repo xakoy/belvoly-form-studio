@@ -44,9 +44,9 @@ export default class FormItem extends Vue {
 
     mounted () {
         const $control = this.$refs.control as any
-        const getRulesDelegate = $control.getRules
-        if (getRulesDelegate) {
-            this.rules = [...getRulesDelegate()]
+        const { rules, config: { rule: configRule } } = this.control
+        if (rules) {
+            this.rules = rules.map(rule => rule.getRule(configRule[rule.ruleName], this.control, $control)).filter(rule => rule)
         }
     }
 

@@ -23,7 +23,7 @@ export default Vue.extend({
             return this.control as IControl
         },
         rule (): any {
-            return this.editControl.config.prop.rule
+            return this.editControl.config.rule
         }
     }
 })

@@ -1,6 +1,6 @@
 import { Config, IControl } from '../config'
 import Number from './Index.vue'
-import Editor from './PropertyEditor.vue'
+import { LabelProperty } from '../props'
 
 const NumberConfig: Config = {
     name: 'number',
@@ -14,7 +14,9 @@ const NumberConfig: Config = {
 const control: IControl = {
     config: NumberConfig,
     component: Number,
-    propertyEditor: Editor
+    propertys: [
+        new LabelProperty()
+    ]
 }
 
 export default control

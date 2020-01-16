@@ -34,12 +34,5 @@ export default class Date extends Vue {
     inputChangeHandler (e) {
         this.$emit('input', e)
     }
-
-    getRules () {
-        const rules = []
-        const { required } = this.rule
-        if (required) rules.push({ required: true, message: `请选择${this.prop.label}` })
-        return rules
-    }
 }
 </script>

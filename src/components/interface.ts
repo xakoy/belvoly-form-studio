@@ -3,6 +3,7 @@ export interface IConfig {
     text: string;
     icon: string;
     prop: any;
+    rule?: any;
     isLayout?: boolean;
     [propName: string]: any;
 }
@@ -13,7 +14,8 @@ export interface IControl {
     component: any,
     propertyEditor?: any,
     child?: Array<any>
-    propertys?: IProperty[]
+    propertys?: IProperty[],
+    rules?: IRule<any>[]
 }
 
 export interface IControlPlugin {
@@ -54,4 +56,24 @@ export interface IPropertyControlPlugin extends IControlPlugin {
      * 属性的默认值
      */
     defaultValue: any;
+}
+
+export interface IRule<T> {
+    /**
+     * 规则名称
+     */
+    ruleName: string;
+    /**
+     * 属性的默认值
+     */
+    defaultValue: T;
+    /**
+     * 规则属性编辑器
+     */
+    editor: any;
+    /**
+     * 获取规则
+     */
+    getRule (value:T, control: IControl, vue: Vue);
+
 }

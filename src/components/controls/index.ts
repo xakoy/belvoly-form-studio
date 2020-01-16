@@ -23,7 +23,11 @@ const controls: IControl[] = [
 
 function buildControl (control: IControl, model: DesignControlModel) {
     const con = { ...control, id: model.id, child: model.child }
-    con.config = { ...control.config, prop: { ...control.config.prop, ...model.prop } }
+    con.config = {
+        ...control.config,
+        prop: { ...control.config.prop, ...model.prop },
+        rule: { ...control.config.rule, ...model.rule }
+    }
 
     if (con.child) {
         con.child = con.child.map(item => {

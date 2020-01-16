@@ -115,11 +115,12 @@ export default Vue.extend({
                 })
             }
             const convert = (control: IControl) => {
-                const { id, config: { name, prop }, child } = control
+                const { id, config: { name, prop, rule }, child } = control
                 return {
                     id: id,
                     name: name,
                     prop: prop,
+                    rule: rule,
                     child: child ? convertChild(child) : null
                 }
             }
