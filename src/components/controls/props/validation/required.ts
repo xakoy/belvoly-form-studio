@@ -5,7 +5,9 @@ type fun = (c: IControl) => string
 export class RequiredRule implements IRule<boolean> {
     private message: string | fun = '请填写内容，不能为空'
     constructor (message?: string | fun) {
-        this.message = message
+        if (message) {
+            this.message = message
+        }
     }
     ruleName: string = 'required'
     defaultValue: boolean = false
