@@ -4,7 +4,7 @@
             <el-col :span="12">
                 <div class="bfs-control-guid-zone">
                     <design-zone v-if="isInDesignMode" v-model="ListOne" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
-                    <form-viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[0]"></form-viewer-zone>
+                    <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[0]"></viewer-zone>
                 </div>
             </el-col>
             <el-col :span="12">
