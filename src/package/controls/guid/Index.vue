@@ -10,7 +10,7 @@
             <el-col :span="12">
                 <div class="bfs-control-guid-zone">
                     <design-zone  v-if="isInDesignMode" v-model="ListTwo" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
-                    <form-viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[1]"></form-viewer-zone>
+                    <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[1]"></viewer-zone>
                 </div>
             </el-col>
         </el-row>
@@ -20,8 +20,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
-import DesignZone from '../../DesignZone.vue'
-import FormViewerZone from '../../FormViewerZone.vue'
+import { DesignZone, ViewerZone } from '../../compontents'
 import Basic from '../Basic.vue'
 import { IControl } from '../config'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../../symbol'
@@ -31,7 +30,7 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../../symbol'
         Basic,
         draggable,
         DesignZone,
-        FormViewerZone
+        ViewerZone
     }
 })
 export default class Guid extends Vue {

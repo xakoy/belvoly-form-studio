@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { IControl } from './controls'
+import { IControl } from '../interface'
 
 @Component
 export default class FormItem extends Vue {

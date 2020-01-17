@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import Studio from './components'
+// import Studio from './package/studio'y
 
 // import { fieldPlugin } from '@/components/plugins'
 // Studio.use(fieldPlugin, { name: 'number' })

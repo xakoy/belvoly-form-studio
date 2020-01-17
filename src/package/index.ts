@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import BelvolyFormStudio from './studio'
-import Design from './Design.vue'
-import FormViewer from './FormViewer.vue'
+import { Design, Viewer } from './compontents'
 
-let instance = new BelvolyFormStudio()
+let Studio = new BelvolyFormStudio()
 
 const install = (vue: typeof Vue) => {
     vue.component('bfs-design', Design)
-    vue.component('bfs-viewer', FormViewer)
+    vue.component('bfs-viewer', Viewer)
 }
 
 export default {
     install,
+    Studio,
     Design,
-    FormViewer
+    Viewer
 }

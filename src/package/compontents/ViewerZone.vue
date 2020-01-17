@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import { IControl } from './controls/config'
+import { IControl } from '../interface'
 import FormItem from './FormItem.vue'
 
 @Component({

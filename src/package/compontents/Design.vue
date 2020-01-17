@@ -37,11 +37,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import draggable from 'vuedraggable'
-import controls, { IControl, createControls } from './controls/index'
-import PropertyEdit from './controls/PropertyEdit.vue'
-import { DesignModel, DesignControlModel } from './model'
+import controls, { createControls } from '../controls'
+import PropertyEdit from '../controls/PropertyEdit.vue'
+import { DesignModel, DesignControlModel, IControl } from '../interface'
 import DesignZone from './DesignZone.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from './symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../symbol'
 
 let index = 1
 

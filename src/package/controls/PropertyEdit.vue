@@ -15,8 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Validation } from './props/validation'
-import { Config } from './config'
-import { IControl } from '../interface'
+import { IControl, IConfig } from '../interface'
 
 export default Vue.extend({
     props: ['config', 'control'],
@@ -27,7 +26,7 @@ export default Vue.extend({
         editControl (): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options (): IConfig {
             return this.editControl.config
         },
         propertys () {

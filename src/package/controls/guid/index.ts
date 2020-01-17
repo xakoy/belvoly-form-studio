@@ -1,6 +1,6 @@
 import Compontent from './Index.vue'
 import { Config } from '../config'
-import { IControl } from '..'
+import { IControl } from '../../controls'
 
 const config: Config = {
     name: 'guid',

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-form :model="item" ref="form">
-            <form-viewer-zone :formModel="item" :itemValueField="itemValueField" :controls="controls"></form-viewer-zone>
+            <viewer-zone :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
         </el-form>
     </div>
 </template>
@@ -9,14 +9,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import { IControl, createControls } from './controls'
-import FormViewerZone from './FormViewerZone.vue'
+import { createControls } from '../controls'
+import { IControl } from '../interface'
+import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER } from './symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER } from '../symbol'
 
 @Component({
     components: {
-        FormViewerZone
+        ViewerZone
     },
     provide: {
         [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER

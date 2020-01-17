@@ -1,4 +1,4 @@
-import { IPluginObject } from '.'
+import { IPluginObject } from '../plugins'
 import BelvolyFormStudio from '../studio'
 import { FieldPropertyControlPlugin } from './field'
 

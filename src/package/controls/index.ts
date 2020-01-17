@@ -7,8 +7,7 @@ import Divider from './divider'
 import Unknown from './unknown'
 import DateControl from './date'
 import Guid from './guid'
-import { IControl, IPropertyControlPlugin } from '../interface'
-import { DesignControlModel, DesignModel } from '../model'
+import { IControl, IPropertyControlPlugin, DesignControlModel, DesignModel } from '../interface'
 
 const controls: IControl[] = [
     Text,

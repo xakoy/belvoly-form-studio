@@ -1,6 +1,6 @@
 <template>
     <div>
-        <previewer ref="viewer" itemValueField="fieldName" :designModel="designModel"></previewer>
+        <viewer ref="viewer" itemValueField="fieldName" :designModel="designModel"></viewer>
         <div>
             <el-button @click="saveHandler">
                 保存
@@ -11,13 +11,13 @@
 
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator'
-import Previewer from '../components/FormViewer.vue'
 
-import { DesignModel } from '../components/model'
+import { DesignModel } from '../package/interface'
+import { Viewer } from '../package/compontents'
 
 @Component({
     components: {
-        Previewer
+        Viewer
     }
 })
 export default class Preview extends Vue {
