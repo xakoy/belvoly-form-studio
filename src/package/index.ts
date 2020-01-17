@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import BelvolyFormStudio from './studio'
 import { Design, Viewer } from './components'
+import * as Controls from './controls/control'
+import * as Properties from './controls/props'
 
 let Studio = new BelvolyFormStudio()
 
@@ -13,5 +15,7 @@ export default {
     install,
     Studio,
     Design,
-    Viewer
+    Viewer,
+    Controls,
+    Properties
 }
