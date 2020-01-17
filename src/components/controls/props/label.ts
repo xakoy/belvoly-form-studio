@@ -1,7 +1,8 @@
 import { Property } from './property'
+import Editor from './Label.vue'
 
 export class LabelProperty extends Property {
     constructor (defaultValue?: any) {
-        super('label', import('./Label.vue'), defaultValue)
+        super('label', Editor, defaultValue)
     }
 }

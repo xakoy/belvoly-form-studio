@@ -1,7 +1,8 @@
 import { Property } from './property'
+import Editor from './OptionsAlign.vue'
 
 export class OptionsAlignProperty extends Property {
     constructor (defaultValue?: any) {
-        super('optionsAlign', import('./OptionsAlign.vue'), defaultValue)
+        super('optionsAlign', Editor, defaultValue)
     }
 }
