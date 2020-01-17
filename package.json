@@ -1,6 +1,6 @@
 {
   "name": "belvoly-form-studio",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/xakoy/belvoly-form-studio"
@@ -13,7 +13,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name belvoly-form-model ./src/package/index.ts --mode lib"
+    "lib": "vue-cli-service build --target lib --name belvoly-form-model ./src/package/index.ts --mode lib",
+    "prepublish": "npm run lib"
   },
   "dependencies": {
     "core-js": "^3.4.4",
