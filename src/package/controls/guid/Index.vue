@@ -20,7 +20,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
-import { DesignZone, ViewerZone } from '../../components'
+import DesignZone from '../../components/DesignZone.vue'
+import ViewerZone from '../../components/ViewerZone.vue'
 import Basic from '../Basic.vue'
 import { IControl } from '../config'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../../symbol'
