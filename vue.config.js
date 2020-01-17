@@ -2,9 +2,9 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 const plugins = []
 
-const isLib = process.env.ISLIB === true
+const isLib = process.env.ISLIB === 'true'
 
-if (isLib) {
+if (!isLib) {
     plugins.push(new MonacoWebpackPlugin({
         languages:["javascript","css","html","json"],
         features:["coreCommands","find"]
