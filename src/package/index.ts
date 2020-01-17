@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import BelvolyFormStudio from './studio'
-import { Design, Viewer } from './compontents'
+import { Design, Viewer } from './components'
 
 let Studio = new BelvolyFormStudio()
 

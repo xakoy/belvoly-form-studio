@@ -13,7 +13,7 @@
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
 import { DesignModel } from '../package/interface'
-import { Viewer } from '../package/compontents'
+import { Viewer } from '../package/components'
 
 @Component({
     components: {
