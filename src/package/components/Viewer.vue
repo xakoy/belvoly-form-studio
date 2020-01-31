@@ -13,14 +13,17 @@ import { createControls } from '../controls'
 import { IControl } from '../interface'
 import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
 
 @Component({
     components: {
         ViewerZone
     },
-    provide: {
-        [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER
+    provide () {
+        return {
+            [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
+            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty
+        }
     }
 })
 export default class FormViewer extends Vue {
@@ -38,12 +41,18 @@ export default class FormViewer extends Vue {
      */
     @Prop({ default: 'id' }) itemValueField!: string
 
+    formProperty = {}
     controls: IControl[] = []
     item = {}
 
     init () {
         if (this.designModel) {
             this.controls = createControls(this.designModel)
+            // 将form 属性，通过provide注入到子孙元素上
+            const { form } = this.designModel
+            Object.keys(form).forEach(key => {
+                this.$set(this.formProperty, key, form[key])
+            })
         }
         if (this.defaultValue) {
             this.item = this.defaultValue

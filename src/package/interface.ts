@@ -78,7 +78,15 @@ export interface IRule<T> {
 }
 
 export interface DesignModel {
-    controls: DesignControlModel[]
+    controls: DesignControlModel[],
+    form: FormPropertyModel
+}
+
+/**
+ * 表单属性接口
+ */
+export interface FormPropertyModel {
+    requiredShowPoint: boolean
 }
 
 export interface DesignControlModel {

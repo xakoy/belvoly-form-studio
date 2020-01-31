@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
         <dl>
-            <dt>{{ label }}<em v-if="isRequired" class="bfs-control-label-required">*</em></dt>
+            <dt>{{ label }}<em v-if="isRequiredShowPoint && isRequired" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -12,10 +12,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Config } from './config'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { FormPropertyModel } from '../interface'
 
 export default Vue.extend({
-    inject: { SYMBOL_MODE_KEY },
+    inject: {
+        formProperty: {
+            from: SYMBOL_FORM_PROPERTY_KEY,
+            default: {}
+        }
+    },
     props: ['config'],
     computed: {
         options (): Config {
@@ -30,6 +36,10 @@ export default Vue.extend({
         isRequired () {
             const { rule } = this.options
             return rule && rule.required
+        },
+        isRequiredShowPoint () {
+            const { requiredShowPoint } = this.formProperty
+            return requiredShowPoint !== false
         }
     }
 })
