@@ -1,6 +1,6 @@
 <template>
     <div>
-        <viewer ref="viewer" itemValueField="fieldName" :designModel="designModel"></viewer>
+        <viewer ref="viewer" itemValueField="id" :designModel="designModel"></viewer>
         <div>
             <el-button @click="saveHandler">
                 保存
