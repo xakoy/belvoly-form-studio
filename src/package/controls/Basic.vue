@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
         <dl>
-            <dt>{{ label }}</dt>
+            <dt>{{ label }}<em v-if="isRequired" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -26,6 +26,10 @@ export default Vue.extend({
         },
         isInDesignMode () {
             return this.mode === SYMBOL_MODE_DESIGN
+        },
+        isRequired () {
+            const { rule } = this.options
+            return rule && rule.required
         }
     }
 })
@@ -48,6 +52,12 @@ export default Vue.extend({
         line-height: 32px;
         color: #757575 !important;
         font-size: 13px;
+    }
+
+    &-label-required {
+        color: red;
+        font-style: normal;
+        padding-left: 5px;
     }
 }
 </style>
