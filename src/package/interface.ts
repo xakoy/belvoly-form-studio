@@ -94,7 +94,7 @@ export interface FormPropertyModel {
     /**
      * 必填是否显示红点
      */
-    requiredShowPoint: boolean
+    showRequiredAsterisk: boolean
     /**
      * label的位置
      */

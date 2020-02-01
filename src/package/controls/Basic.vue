@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
         <dl :position="labelPosition">
-            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isRequiredShowPoint && isRequired" class="bfs-control-label-required">*</em></dt>
+            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isShowRequiredAsterisk && isRequired" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -37,9 +37,9 @@ export default Vue.extend({
             const { rule } = this.options
             return rule && rule.required
         },
-        isRequiredShowPoint () {
-            const { requiredShowPoint } = this.formProperty
-            return requiredShowPoint !== false
+        isShowRequiredAsterisk () {
+            const { showRequiredAsterisk } = this.formProperty
+            return showRequiredAsterisk !== false
         },
         labelPosition () {
             return this.formProperty.labelPosition

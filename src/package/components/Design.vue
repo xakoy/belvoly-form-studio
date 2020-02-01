@@ -48,7 +48,7 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '.
 let index = 1
 
 const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
-    requiredShowPoint: true,
+    showRequiredAsterisk: true,
     labelPosition: 'top',
     labelWidth: 80
 }
