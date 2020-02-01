@@ -20,7 +20,6 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_I
         ViewerZone
     },
     provide () {
-        console.log(`provider`, this.mobile)
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
             [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,

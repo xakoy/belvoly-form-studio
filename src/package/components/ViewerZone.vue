@@ -1,6 +1,9 @@
 <template>
-    <div>
-        <form-item :itemValueField="itemValueField" :formModel="formModel" v-model="formModel[getFieldName(control)]" :fieldName="getFieldName(control)" v-for="control in controls" :key="control.id" :control="control"></form-item>
+    <div class="bfs-viewer-zone">
+        <div v-if="!controls || controls.length === 0" class="bfs-viewer-empty-placeholder"></div>
+        <template v-else>
+            <form-item :itemValueField="itemValueField" :formModel="formModel" v-model="formModel[getFieldName(control)]" :fieldName="getFieldName(control)" v-for="control in controls" :key="control.id" :control="control"></form-item>
+        </template>
     </div>
 </template>
 
@@ -27,3 +30,9 @@ export default class FormViewerZone extends Vue {
     }
 }
 </script>
+
+<style lang="less">
+.bfs-viewer-empty-placeholder{
+    height: 1px;
+}
+</style>
