@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{'bfs-mobile': mobile}">
         <el-form :model="item" ref="form">
             <viewer-zone :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
         </el-form>
@@ -13,16 +13,18 @@ import { createControls } from '../controls'
 import { IControl } from '../interface'
 import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_IN_MOBILE_KEY } from '../symbol'
 
 @Component({
     components: {
         ViewerZone
     },
     provide () {
+        console.log(`provider`, this.mobile)
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
-            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty
+            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
+            [SYMBOL_IN_MOBILE_KEY]: this.mobile
         }
     }
 })
@@ -40,6 +42,11 @@ export default class FormViewer extends Vue {
      * 表单元素根据控件属性的哪个字段获取值，默认 'id'
      */
     @Prop({ default: 'id' }) itemValueField!: string
+
+    /**
+     * 移动模式
+     */
+    @Prop(Boolean) mobile: boolean
 
     formProperty = {}
     controls: IControl[] = []
@@ -73,3 +80,9 @@ export default class FormViewer extends Vue {
     }
 }
 </script>
+
+<style lang="less">
+.bfs-mobile {
+
+}
+</style>

@@ -46,6 +46,7 @@ import { Viewer } from 'belvoly-form-studio'
 - `defaultModel`：设计器生成的模型数据，Viewer根据此模型数据渲染表单.
 - `defaultValue`：表单默认的数据，第一次有用。
 - `itemValueField`：表单元素根据控件属性的哪个字段获取值，默认 'id'。
+- `mobile`：是否渲染为移动表单，默认 `false`。
 #### 方法
 - `validate`：验证所有控件。
 - `getData`：获取表单的数据

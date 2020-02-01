@@ -19,7 +19,7 @@
         <design :defaultModel="designDefaultModel" ref="designer"></design>
     </div>
     <el-dialog
-        width="1200px"
+        width="80%"
         title="预览表单"
         v-if="previewDialogVisible"
         :visible.sync="previewDialogVisible"
