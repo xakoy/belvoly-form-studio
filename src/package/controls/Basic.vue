@@ -1,6 +1,6 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
-        <dl>
+        <dl :position="labelPosition">
             <dt>{{ label }}<em v-if="isRequiredShowPoint && isRequired" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
@@ -40,6 +40,9 @@ export default Vue.extend({
         isRequiredShowPoint () {
             const { requiredShowPoint } = this.formProperty
             return requiredShowPoint !== false
+        },
+        labelPosition () {
+            return this.formProperty.labelPosition
         }
     }
 })
@@ -69,5 +72,30 @@ export default Vue.extend({
         font-style: normal;
         padding-left: 5px;
     }
+
+    // begin label position css
+    dl[position=left],
+    dl[position=right] {
+        display: flex;
+        dt {
+            width: 80px;
+        }
+        dd{
+            flex: 1;
+        }
+    }
+
+    dl[position=top] {
+
+    }
+
+    dl[position=right]{
+        dt {
+            text-align: right;
+            padding-right: 5px;
+        }
+    }
+
+    // end label position css
 }
 </style>

@@ -6,6 +6,16 @@
                 <el-switch v-model="item.requiredShowPoint"></el-switch>
             </dd>
         </dl>
+        <dl>
+            <dt>控件布局方式</dt>
+            <dd>
+                <el-radio-group v-model="item.labelPosition" size="small">
+                    <el-radio-button label="left">左对齐</el-radio-button>
+                    <el-radio-button label="right">右对齐</el-radio-button>
+                    <el-radio-button label="top">顶部对齐</el-radio-button>
+                </el-radio-group>
+            </dd>
+        </dl>
     </div>
 </template>
 

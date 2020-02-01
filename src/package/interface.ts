@@ -83,10 +83,16 @@ export interface DesignModel {
 }
 
 /**
+ * 表单文本位置
+ */
+export type LabelPosition = 'left' | 'right' | 'top'
+
+/**
  * 表单属性接口
  */
 export interface FormPropertyModel {
     requiredShowPoint: boolean
+    labelPosition: LabelPosition
 }
 
 export interface DesignControlModel {
