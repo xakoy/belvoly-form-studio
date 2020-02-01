@@ -91,8 +91,18 @@ export type LabelPosition = 'left' | 'right' | 'top'
  * 表单属性接口
  */
 export interface FormPropertyModel {
+    /**
+     * 必填是否显示红点
+     */
     requiredShowPoint: boolean
+    /**
+     * label的位置
+     */
     labelPosition: LabelPosition
+    /**
+     * label的宽度，在labelPosition位置为 left | right 起作用
+     */
+    labelWidth?: number
 }
 
 export interface DesignControlModel {

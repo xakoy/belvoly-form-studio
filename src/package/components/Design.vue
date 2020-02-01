@@ -49,7 +49,8 @@ let index = 1
 
 const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
     requiredShowPoint: true,
-    labelPosition: 'top'
+    labelPosition: 'top',
+    labelWidth: 80
 }
 
 export default Vue.extend({
