@@ -102,7 +102,11 @@ export interface FormPropertyModel {
     /**
      * label的宽度，在labelPosition位置为 left | right 起作用
      */
-    labelWidth?: number
+    labelWidth?: number,
+    /**
+     * label的后缀
+     */
+    labelSuffix?: string
 }
 
 export interface DesignControlModel {

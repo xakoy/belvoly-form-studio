@@ -24,6 +24,12 @@
                 </el-input>
             </dd>
         </dl>
+        <dl>
+            <dt>文本后缀</dt>
+            <dd>
+                <el-input v-model="item.labelSuffix" placeholder="请输入文本后缀" />
+            </dd>
+        </dl>
     </div>
 </template>
 

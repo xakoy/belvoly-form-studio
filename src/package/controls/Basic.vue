@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
         <dl :position="labelPosition">
-            <dt :style="labelStyle">{{ label }}<em v-if="isRequiredShowPoint && isRequired" class="bfs-control-label-required">*</em></dt>
+            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isRequiredShowPoint && isRequired" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -50,6 +50,9 @@ export default Vue.extend({
                 style.width = this.formProperty.labelWidth + 'px'
             }
             return style
+        },
+        labelSuffix () {
+            return this.formProperty.labelSuffix
         }
     }
 })
