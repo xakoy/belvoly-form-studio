@@ -1,6 +1,6 @@
 <template>
     <basic :config="config">
-        <el-input-number :value="value" @input="$emit('input', $event)"  placeholder="请填写数值" />
+        <el-input-number :value="value" @input="$emit('input', $event)"  :placeholder="placeholder" />
     </basic>
 </template>
 
@@ -17,6 +17,12 @@ export default Vue.extend({
     computed: {
         options () {
             return this.config as Config
+        },
+        prop () {
+            return this.options.prop
+        },
+        placeholder () {
+            return this.prop.placeholder || '请填写数值'
         }
     }
 })

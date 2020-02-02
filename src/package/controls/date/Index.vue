@@ -1,7 +1,7 @@
 <template>
     <basic :config="config">
-        <el-time-picker v-if="type==='time'" :value="value" @input="inputChangeHandler"></el-time-picker>
-        <el-date-picker v-else :type="type" :value="value" @input="inputChangeHandler" :value-format="format" :format="format"></el-date-picker>
+        <el-time-picker v-if="type==='time'" :value="value" @input="inputChangeHandler" :placeholder="placeholder"></el-time-picker>
+        <el-date-picker v-else :type="type" :value="value" @input="inputChangeHandler" :value-format="format" :format="format" :placeholder="placeholder"></el-date-picker>
     </basic>
 </template>
 
@@ -27,8 +27,8 @@ export default class Date extends Vue {
     get format () {
         return this.prop.format
     }
-    get rule () {
-        return this.prop.rule
+    get placeholder () {
+        return this.prop.placeholder || `请选择${this.type === 'time' ? '时间' : '日期'}`
     }
 
     inputChangeHandler (e) {

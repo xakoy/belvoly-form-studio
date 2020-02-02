@@ -1,6 +1,6 @@
 import { Config, IControl } from '../config'
 import Number from './Index.vue'
-import { LabelProperty } from '../props'
+import { LabelProperty, PlaceholderProperty } from '../props'
 
 const NumberConfig: Config = {
     name: 'number',
@@ -15,7 +15,8 @@ const control: IControl = {
     config: NumberConfig,
     component: Number,
     propertys: [
-        new LabelProperty()
+        new LabelProperty(),
+        new PlaceholderProperty()
     ]
 }
 
