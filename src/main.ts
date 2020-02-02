@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// import Studio from './package/studio'y
+// import BFS from './package'
+// import { fieldTextPlugin, fieldNamePlugin } from './package/plugins'
 
-// import { fieldPlugin } from '@/components/plugins'
+// BFS.Studio.use(fieldNamePlugin)
+// BFS.Studio.use(fieldTextPlugin)
+
 // Studio.use(fieldPlugin, { name: 'number' })
 
 // import Radio from './components/controls/radio'
