@@ -9,6 +9,7 @@ const TextConfig: Config = {
     name: 'text',
     text: '单行文本框',
     icon: 'text_bold2',
+    isData: true,
     prop: {
         label: '单行文本框',
         maxLength: 30,

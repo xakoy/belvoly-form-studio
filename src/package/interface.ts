@@ -4,7 +4,14 @@ export interface IConfig {
     icon: string;
     prop: any;
     rule?: any;
+    /**
+     * 是否为布局控件
+     */
     isLayout?: boolean;
+    /**
+     * 是否为数据控件
+     */
+    isData?: boolean;
     [propName: string]: any;
 }
 
@@ -114,5 +121,7 @@ export interface DesignControlModel {
     prop: any;
     rule?: any;
     name: string;
+    isLayout?: boolean;
+    isData?: boolean;
     child?: Array<any>;
 }

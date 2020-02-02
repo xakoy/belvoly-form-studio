@@ -147,14 +147,19 @@ export default Vue.extend({
                 })
             }
             const convert = (control: IControl) => {
-                const { id, config: { name, prop, rule }, child } = control
-                return {
+                const { id, config: { name, prop, rule, isLayout, isData }, child } = control
+                const result: DesignControlModel = {
                     id: id,
                     name: name,
+                    isLayout: isLayout,
+                    isData: isData,
                     prop: prop,
-                    rule: rule,
-                    child: child ? convertChild(child) : null
+                    rule: rule
                 }
+                if (child) {
+                    result.child = convertChild(child)
+                }
+                return result
             }
             const model: DesignModel = {
                 controls: this.contentList.map(c => convert(c)),

@@ -6,6 +6,7 @@ const config: Config = {
     name: 'radio',
     text: '单选',
     icon: 'ic_title',
+    isData: true,
     prop: {
         label: '单选',
         optionsAlign: 'inline-block',
