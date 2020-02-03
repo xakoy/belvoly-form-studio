@@ -1,6 +1,6 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
-import { LabelProperty, OptionsProperty, OptionsAlignProperty } from '../props'
+import { LabelProperty, OptionsProperty, OptionsAlignProperty, RequiredRule } from '../props'
 
 const config: Config = {
     name: 'radio',
@@ -15,6 +15,9 @@ const config: Config = {
             { text: '选项2', value: '选项2', id: 2 },
             { text: '选项3', value: '选项3', id: 3 }
         ]
+    },
+    rule: {
+        required: false
     }
 }
 
@@ -25,6 +28,9 @@ const control: IControl = {
         new LabelProperty(),
         new OptionsProperty(),
         new OptionsAlignProperty()
+    ],
+    rules: [
+        new RequiredRule((c) => `请选择${c.config.prop.label}`)
     ]
 }
 
