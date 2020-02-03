@@ -2,6 +2,8 @@ import { Config, IControl } from '../config'
 import Component from './Index.vue'
 import { LabelProperty, OptionsProperty, OptionsAlignProperty, RequiredRule } from '../props'
 
+type OptionsAlign = 'inline-block' | 'block' | 'select'
+
 const config: Config = {
     name: 'radio',
     text: '单选',
@@ -9,7 +11,7 @@ const config: Config = {
     isData: true,
     prop: {
         label: '单选',
-        optionsAlign: 'inline-block',
+        optionsAlign: 'inline-block' as OptionsAlign,
         options: [
             { text: '选项1', value: '选项1', id: 1 },
             { text: '选项2', value: '选项2', id: 2 },

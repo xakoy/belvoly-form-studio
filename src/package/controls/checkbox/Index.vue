@@ -1,8 +1,11 @@
 <template>
     <basic :config="config">
-        <el-checkbox-group v-model="val" @change="changeHandler">
+        <el-checkbox-group v-if="!isSelectLayout" v-model="val" @change="changeHandler">
             <el-checkbox v-for="(item, index) in items" :key="index" :label="item.value" :style="{display: prop.optionsAlign == 'inline-block' ? 'inline-block' : 'block'}">{{item.text}}</el-checkbox>
         </el-checkbox-group>
+        <el-select v-else size="small" :multiple="true" :value="value" @change="$emit('input', $event)">
+            <el-option v-for="(item, index) in items" :key="index" :value="item.value" :label="item.text"></el-option>
+        </el-select>
     </basic>
 </template>
 
@@ -15,7 +18,7 @@ export default Vue.extend({
     components: {
         Basic
     },
-    props: ['config'],
+    props: ['config', 'value'],
     data () {
         return {
             val: []
@@ -30,6 +33,9 @@ export default Vue.extend({
         },
         items (): any {
             return this.prop.options
+        },
+        isSelectLayout () {
+            return this.prop.optionsAlign === 'select'
         }
     },
     watch: {

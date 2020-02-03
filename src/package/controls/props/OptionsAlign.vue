@@ -3,6 +3,7 @@
         <el-radio-group v-model="options.prop.optionsAlign">
             <el-radio-button label="block">块级</el-radio-button>
             <el-radio-button label="inline-block">行内</el-radio-button>
+            <el-radio-button label="select">下拉框</el-radio-button>
         </el-radio-group>
     </basic>
 </template>
