@@ -51,8 +51,11 @@ export default Vue.extend({
             return this.readonly
         },
         text (): any {
-            const option = this.items.find(item => item.value === this.value)
-            return option ? option.text : this.value
+            const values = (this.value || '').split(',')
+            return values.map(v => {
+                const option = this.items.find(item => item.value === v)
+                return option ? option.text : v
+            }).join(',')
         }
     },
     watch: {
