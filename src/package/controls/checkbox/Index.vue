@@ -57,12 +57,18 @@ export default Vue.extend({
     },
     watch: {
         value () {
-            this.val = this.value || []
+            if (this.value) {
+                this.val = this.value.split(',')
+            } else {
+                this.val = []
+            }
+            // this.val = this.value || []
         }
     },
     methods: {
         changeHandler (value) {
-            this.$emit('input', value)
+            const text = value.join(',')
+            this.$emit('input', text)
         }
     }
 })

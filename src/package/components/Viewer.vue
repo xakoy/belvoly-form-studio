@@ -1,7 +1,7 @@
 <template>
     <div :class="{'bfs-mobile': mobile}">
         <el-form :model="item" ref="form">
-            <viewer-zone :readonly="true" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
+            <viewer-zone :readonly="readonly" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
         </el-form>
     </div>
 </template>
@@ -41,6 +41,11 @@ export default class FormViewer extends Vue {
      * 表单元素根据控件属性的哪个字段获取值，默认 'id'
      */
     @Prop({ default: 'id' }) itemValueField!: string
+
+    /**
+     * 是否只读模式
+     */
+    @Prop({ default: false }) readonly readonly!: Boolean
 
     /**
      * 移动模式
