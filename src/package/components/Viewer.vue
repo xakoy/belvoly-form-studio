@@ -1,7 +1,7 @@
 <template>
     <div :class="{'bfs-mobile': mobile}">
         <el-form :model="item" ref="form">
-            <viewer-zone :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
+            <viewer-zone :readonly="true" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
         </el-form>
     </div>
 </template>

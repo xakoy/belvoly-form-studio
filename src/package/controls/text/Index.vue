@@ -1,6 +1,9 @@
 <template>
-    <basic :config="config">
-        <el-input :value="value" @input="$emit('input', $event)" :placeholder="placeholder" :maxlength="options.prop.maxLength" />
+    <basic :config="config" :readonly="isReadonly">
+        <span v-if="isReadonly">{{ value }}</span>
+        <template v-else>
+            <el-input :value="value" @input="$emit('input', $event)" :placeholder="placeholder" :maxlength="options.prop.maxLength" />
+        </template>
     </basic>
 </template>
 
@@ -10,7 +13,14 @@ import Basic from '../Basic.vue'
 import { Config } from '../config'
 
 export default Vue.extend({
-    props: ['config', 'value'],
+    props: {
+        config: {},
+        value: {},
+        readonly: {
+            type: Boolean,
+            default: false
+        }
+    },
     components: {
         Basic
     },
@@ -27,6 +37,9 @@ export default Vue.extend({
         },
         placeholder () {
             return this.prop.placeholder || '请填写内容'
+        },
+        isReadonly () {
+            return this.readonly
         }
     },
     methods: {

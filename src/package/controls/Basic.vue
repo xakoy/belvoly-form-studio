@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
         <dl :position="labelPosition">
-            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isShowRequiredAsterisk && isRequired" class="bfs-control-label-required">*</em></dt>
+            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isShowRequiredAsterisk && isRequired && !readonly" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -22,7 +22,13 @@ export default Vue.extend({
             default: {}
         }
     },
-    props: ['config'],
+    props: {
+        config: {},
+        readonly: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
         options (): Config {
             return this.config as Config
