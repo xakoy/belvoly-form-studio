@@ -101,7 +101,7 @@ export default class Guid extends Vue {
         }
     }
 
-    get cols(): Array<any> {
+    get cols(): any[] {
         return this.config.prop.cols
     }
 

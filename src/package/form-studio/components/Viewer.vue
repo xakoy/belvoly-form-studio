@@ -38,6 +38,11 @@ export default class FormViewer extends Vue {
     @Prop() defaultValue: any
 
     /**
+     * 所有的控件集合，如果不为空，则解析的控件从这些控件中查找
+     */
+    @Prop() allControls: IControl[]
+
+    /**
      * 表单元素根据控件属性的哪个字段获取值，默认 'id'
      */
     @Prop({ default: 'id' }) itemValueField!: string
@@ -58,7 +63,7 @@ export default class FormViewer extends Vue {
 
     init() {
         if (this.designModel) {
-            this.controls = createControls(this.designModel)
+            this.controls = createControls(this.designModel, this.allControls)
             // 将form 属性，通过provide注入到子孙元素上
             const { form } = this.designModel
             Object.keys(form).forEach(key => {

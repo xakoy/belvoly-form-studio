@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-design-zone">
         <div class="bfs-design-zone-tip" v-if="!list.length">
-            <p>点击或拖动左侧组件到该区域</p>
+            <p>{{ placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
         <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
@@ -50,6 +50,7 @@ import { IControl } from '../interface'
 export default class DesignZone extends Vue {
     @Prop() currentEditControl
     @Prop() value
+    @Prop() placeholder
 
     list = []
     drag = false

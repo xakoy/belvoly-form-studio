@@ -100,11 +100,11 @@ export interface FormPropertyModel {
     /**
      * 必填是否显示红点
      */
-    showRequiredAsterisk: boolean
+    showRequiredAsterisk?: boolean
     /**
      * label的位置
      */
-    labelPosition: LabelPosition
+    labelPosition?: LabelPosition
     /**
      * label的宽度，在labelPosition位置为 left | right 起作用
      */

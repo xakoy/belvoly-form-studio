@@ -1,5 +1,5 @@
 <template>
-    <span>未识别的控件, 控件类型：{{ options.config.name }}}</span>
+    <span>未识别的控件, 控件类型：{{ options.name }}</span>
 </template>
 
 <script lang="ts">
