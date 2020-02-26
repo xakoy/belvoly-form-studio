@@ -26,14 +26,8 @@ const config: Config = {
 const control: IControl = {
     config: config,
     component: Component,
-    propertys: [
-        new LabelProperty(),
-        new OptionsProperty(),
-        new OptionsAlignProperty()
-    ],
-    rules: [
-        new RequiredRule((c) => `请选择${c.config.prop.label}`)
-    ]
+    propertys: [new LabelProperty(), new OptionsProperty(), new OptionsAlignProperty()],
+    rules: [new RequiredRule(c => `请选择${c.config.prop.label}`)]
 }
 
 export default control

@@ -3,24 +3,24 @@
         <div class="bfs-design-sider">
             <div class="bfs-design-controls-area">
                 <h4>常用控件</h4>
-                <draggable
-                    class="bfs-design-controls"
-                    v-model="list"
-                    :group="{ name: 'design-zone', pull: 'clone', put: false }"
-                    :sort="false"
-                    :clone="cloneDog"
-                >
-                    <div v-for="{config} in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
+                <draggable class="bfs-design-controls" v-model="list" :group="{ name: 'design-zone', pull: 'clone', put: false }" :sort="false" :clone="cloneDog">
+                    <div v-for="{ config } in list" :key="config.name" class="b-view-control-static" data-b-view-control-type="Text">
                         <div class="b-view-control-label">
                             <i :class="'icon-' + config.icon"></i>
-                            <span>{{config.text}}</span>
+                            <span>{{ config.text }}</span>
                         </div>
                     </div>
                 </draggable>
             </div>
         </div>
         <div class="bfs-design-content">
-            <design-zone v-model="contentList" @change="designContentChangeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
+            <design-zone
+                v-model="contentList"
+                @change="designContentChangeHandler"
+                :currentEditControl="currentEditControl"
+                @itemClick="controlClickHandler"
+                @itemRemove="controlRemoveClickHandler"
+            ></design-zone>
         </div>
         <div class="bfs-design-property-editor">
             <el-tabs v-model="propertyTabName">
@@ -63,13 +63,13 @@ export default Vue.extend({
         FormPropertyEdit,
         DesignZone
     },
-    provide () {
+    provide() {
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN,
             [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty
         }
     },
-    data () {
+    data() {
         return {
             list: controls,
             contentList: <IControl[]>[],
@@ -79,11 +79,9 @@ export default Vue.extend({
             formProperty: { ...DEFAULT_FORM_PROPERTY }
         }
     },
-    mounted () {
-
-    },
+    mounted() {},
     computed: {
-        dragOptions () {
+        dragOptions() {
             return {
                 animation: 200,
                 group: 'description',
@@ -93,17 +91,17 @@ export default Vue.extend({
         }
     },
     watch: {
-        defaultModel: function () {
+        defaultModel: function() {
             this.drawModelDesign()
         }
     },
     methods: {
-        setFormProperty (property) {
+        setFormProperty(property) {
             Object.keys(property).forEach(key => {
                 this.$set(this.formProperty, key, property[key])
             })
         },
-        drawModelDesign () {
+        drawModelDesign() {
             if (this.defaultModel) {
                 if (this.defaultModel.controls) {
                     this.contentList = createControls(this.defaultModel)
@@ -114,7 +112,7 @@ export default Vue.extend({
                 this.setFormProperty(defautFormProperty)
 
                 // 将form 属性，通过provide注入到子孙元素上
-                let { form } = this.defaultModel
+                const { form } = this.defaultModel
                 if (form) {
                     this.setFormProperty(form)
                 }
@@ -122,7 +120,7 @@ export default Vue.extend({
                 this.clear()
             }
         },
-        cloneDog (e: any) {
+        cloneDog(e: any) {
             const clone = {
                 ...e,
                 id: e.config.name + index++
@@ -130,24 +128,28 @@ export default Vue.extend({
             clone.config = JSON.parse(JSON.stringify(clone.config))
             return clone
         },
-        controlClickHandler (control: IControl) {
+        controlClickHandler(control: IControl) {
             this.currentEditControl = control
             this.propertyTabName = 'control'
         },
-        controlRemoveClickHandler (control: IControl) {
+        controlRemoveClickHandler(control: IControl) {
             this.currentEditControl = null
         },
-        designContentChangeHandler () {
+        designContentChangeHandler() {
             this.$emit('change')
         },
-        getModel () {
-            const convertChild = (child: Array<any>) => {
+        getModel() {
+            const convertChild = (child: any[]) => {
                 return child.map(item => {
                     return Array.isArray(item) ? convertChild(item) : convert(item)
                 })
             }
             const convert = (control: IControl) => {
-                const { id, config: { name, prop, rule, isLayout, isData }, child } = control
+                const {
+                    id,
+                    config: { name, prop, rule, isLayout, isData },
+                    child
+                } = control
                 const result: DesignControlModel = {
                     id: id,
                     name: name,
@@ -167,7 +169,7 @@ export default Vue.extend({
             }
             return model
         },
-        clear () {
+        clear() {
             this.contentList = []
             this.currentEditControl = null
         }
@@ -187,7 +189,7 @@ export default Vue.extend({
         box-sizing: border-box;
         height: 50px;
         line-height: 50px;
-        box-shadow: 0 2px 4px rgba(0,0,0,.15);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         padding: 0px 24px;
         font-weight: normal;
         font-size: 16px;
@@ -195,7 +197,7 @@ export default Vue.extend({
         position: absolute;
         width: 100%;
     }
-    &-sider{
+    &-sider {
         background: #f1f2f3;
         width: 300px;
         font-size: 12px;
@@ -214,13 +216,13 @@ export default Vue.extend({
         flex-wrap: wrap;
         justify-content: space-between;
     }
-    &-property-editor{
+    &-property-editor {
         width: 350px;
         background-color: #fcfdfe;
         padding: 24px 20px;
         flex-shrink: 0;
     }
-    &-content{
+    &-content {
         height: 100%;
         flex: 1;
         border-right: 1px solid rgb(234, 234, 234);
@@ -228,7 +230,7 @@ export default Vue.extend({
         overflow: auto;
     }
 }
-.b-view-control-static{
+.b-view-control-static {
     width: 124px;
     box-sizing: border-box;
     line-height: 36px;
@@ -238,12 +240,12 @@ export default Vue.extend({
     position: relative;
     background-color: #fff;
     border: 1px solid transparent;
-    box-shadow: 0 0 4px rgba(0,0,0,.16);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
     border-radius: 4px;
     font-size: 13px;
     cursor: grab;
     &:hover,
-    &.active{
+    &.active {
         border-color: #2196f3;
         color: #2196f3;
     }

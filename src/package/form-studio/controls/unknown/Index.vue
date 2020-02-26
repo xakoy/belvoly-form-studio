@@ -9,10 +9,10 @@ import { Config } from '../config'
 export default Vue.extend({
     props: ['config'],
     computed: {
-        options (): Config {
+        options(): Config {
             return this.config as Config
         },
-        prop (): any {
+        prop(): any {
             return this.options.prop
         }
     }

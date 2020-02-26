@@ -15,10 +15,7 @@ const NumberConfig: Config = {
 const control: IControl = {
     config: NumberConfig,
     component: Number,
-    propertys: [
-        new LabelProperty(),
-        new PlaceholderProperty()
-    ]
+    propertys: [new LabelProperty(), new PlaceholderProperty()]
 }
 
 export default control

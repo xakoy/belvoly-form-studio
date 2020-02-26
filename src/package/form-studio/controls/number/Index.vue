@@ -2,7 +2,7 @@
     <basic :config="config" :readonly="isReadonly">
         <span v-if="isReadonly">{{ text }}</span>
         <template v-else>
-            <el-input-number :value="value" @input="$emit('input', $event)"  :placeholder="placeholder" />
+            <el-input-number :value="value" @input="$emit('input', $event)" :placeholder="placeholder" />
         </template>
     </basic>
 </template>
@@ -25,19 +25,19 @@ export default Vue.extend({
         Basic
     },
     computed: {
-        options () {
+        options() {
             return this.config as Config
         },
-        prop () {
+        prop() {
             return this.options.prop
         },
-        placeholder () {
+        placeholder() {
             return this.prop.placeholder || '请填写数值'
         },
-        isReadonly () {
+        isReadonly() {
             return this.readonly
         },
-        text () {
+        text() {
             return this.value
         }
     }

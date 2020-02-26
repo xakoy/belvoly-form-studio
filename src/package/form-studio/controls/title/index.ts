@@ -23,13 +23,7 @@ const config: Config = {
 const control: IControl = {
     config: config,
     component: Component,
-    propertys: [
-        new LabelProperty(),
-        new ColorProperty(),
-        new FontSizeProperty(),
-        new TextAlignProperty(),
-        new PaddingProperty()
-    ]
+    propertys: [new LabelProperty(), new ColorProperty(), new FontSizeProperty(), new TextAlignProperty(), new PaddingProperty()]
 }
 
 export default control

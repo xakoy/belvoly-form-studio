@@ -19,11 +19,7 @@ const config: Config = {
 const control: IControl = {
     config: config,
     component: Component,
-    propertys: [
-        new LabelProperty(),
-        new ColorProperty(),
-        new PaddingProperty()
-    ]
+    propertys: [new LabelProperty(), new ColorProperty(), new PaddingProperty()]
 }
 
 export default control

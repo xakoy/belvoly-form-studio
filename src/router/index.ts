@@ -13,6 +13,16 @@ const routes = [
         path: '/preview',
         name: 'preview',
         component: () => import('../views/Preview.vue')
+    },
+    {
+        path: '/studio',
+        component: () => import('../views/studio/Index.vue'),
+        children: [
+            {
+                path: 'design',
+                component: () => import('../views/studio/Design.vue')
+            }
+        ]
     }
 ]
 

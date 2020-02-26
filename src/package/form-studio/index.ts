@@ -4,7 +4,7 @@ import { Design, Viewer } from './components'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
 
-let Studio = new BelvolyFormStudio()
+const Studio = new BelvolyFormStudio()
 
 const install = (vue: typeof Vue) => {
     vue.component('bfs-design', Design)

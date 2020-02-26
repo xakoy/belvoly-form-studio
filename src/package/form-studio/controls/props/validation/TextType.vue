@@ -8,11 +8,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { IControl, Config } from '../../config'
+import { IControl } from '../../config'
 
 export default Vue.extend({
     props: ['control'],
-    data () {
+    data() {
         return {
             items: [
                 { text: 'URL地址', type: 'url' },
@@ -21,10 +21,10 @@ export default Vue.extend({
         }
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        rule (): any {
+        rule(): any {
             return this.editControl.config.rule
         }
     }

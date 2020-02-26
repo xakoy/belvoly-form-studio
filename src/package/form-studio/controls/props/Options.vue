@@ -6,17 +6,10 @@
             <span>选项值</span>
             <em>删除</em>
         </div>
-        <draggable
-            :list = "items"
-            v-bind="{animation: 200}"
-            handle=".bfs-property-editor-options-item-drag-handler"
-            @start="drag = true"
-            @end="drag = false"
-        >
-            <transition-group tag="ul" type="transition"  :name="!drag ? 'flip-list' : null">
-                <li v-for="(item) in items" :key="'li' + item.id">
-                    <el-tooltip content="排序" placement="right">
-                    </el-tooltip>
+        <draggable :list="items" v-bind="{ animation: 200 }" handle=".bfs-property-editor-options-item-drag-handler" @start="drag = true" @end="drag = false">
+            <transition-group tag="ul" type="transition" :name="!drag ? 'flip-list' : null">
+                <li v-for="item in items" :key="'li' + item.id">
+                    <el-tooltip content="排序" placement="right"> </el-tooltip>
                     <i class="el-icon-menu bfs-property-editor-options-item-drag-handler"></i>
                     <el-input size="small" v-model="item.text" placeholder="选项文本" />
                     <el-input size="small" v-model="item.value" placeholder="选项值" />
@@ -39,7 +32,7 @@ import { IControl } from '../index'
 import Basic from './Basic.vue'
 import Draggable from 'vuedraggable'
 
-function generateID () {
+function generateID() {
     return new Date().getTime() + Math.ceil(Math.random() * 10000)
 }
 
@@ -49,37 +42,37 @@ export default Vue.extend({
         Draggable
     },
     props: ['config', 'control'],
-    data () {
+    data() {
         return {
             index: 4,
             drag: false
         }
     },
-    mounted () {
+    mounted() {
         this.index = this.items.length + 1
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options(): Config {
             return this.editControl.config
         },
-        items () {
+        items() {
             return this.options.prop.options
         }
     },
     methods: {
-        addClickHandler () {
+        addClickHandler() {
             const text = '选项' + this.index
             this.items.push({ text: text, value: text, id: generateID() })
             this.index = this.index + 1
         },
-        textChangeHandler (item, value) {
+        textChangeHandler(item, value) {
             item.text = value
             item.value = value
         },
-        removeItemHandler (item) {
+        removeItemHandler(item) {
             const index = this.items.indexOf(item)
             if (index > -1) {
                 this.items.splice(index, 1)
@@ -125,7 +118,7 @@ export default Vue.extend({
             width: 24px;
             cursor: pointer;
             &:hover {
-                color: #409EFF;
+                color: #409eff;
             }
         }
         padding: 5px 0;

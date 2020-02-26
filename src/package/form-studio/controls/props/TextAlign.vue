@@ -17,7 +17,7 @@ export default Vue.extend({
         Basic
     },
     props: ['config', 'control'],
-    data () {
+    data() {
         return {
             items: [
                 { text: '左对齐', value: 'left' },
@@ -27,10 +27,10 @@ export default Vue.extend({
         }
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options(): Config {
             return this.editControl.config
         }
     }

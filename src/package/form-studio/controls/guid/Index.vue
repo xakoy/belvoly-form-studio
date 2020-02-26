@@ -1,10 +1,17 @@
 <template>
-    <div class="bfs-control-guid" :class="{'bfs-control-guid-designmode': isInDesignMode}">
-        <el-row :gutter="isInDesignMode ? 20: 0">
+    <div class="bfs-control-guid" :class="{ 'bfs-control-guid-designmode': isInDesignMode }">
+        <el-row :gutter="isInDesignMode ? 20 : 0">
             <template v-for="(col, index) in cols">
-                <el-col :key="col.id" :span="mobile ? 24: col.span">
+                <el-col :key="col.id" :span="mobile ? 24 : col.span">
                     <div class="bfs-control-guid-zone">
-                        <design-zone v-if="isInDesignMode" v-model="Tuple[col.id]" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
+                        <design-zone
+                            v-if="isInDesignMode"
+                            v-model="Tuple[col.id]"
+                            @change="changeHandler"
+                            :currentEditControl="currentEditControl"
+                            @itemClick="controlClickHandler"
+                            @itemRemove="controlRemoveClickHandler"
+                        ></design-zone>
                         <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
                     </div>
                 </el-col>
@@ -53,26 +60,26 @@ export default class Guid extends Vue {
     @Prop() config
     @Prop() value
 
-    @Inject(SYMBOL_MODE_KEY) readonly mode!: Symbol
-    @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: Boolean
+    @Inject(SYMBOL_MODE_KEY) readonly mode!: symbol
+    @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: boolean
 
-    get isInDesignMode () {
+    get isInDesignMode() {
         return this.mode === SYMBOL_MODE_DESIGN
     }
 
     Tuple = {}
     drag = false
 
-    mounted () {
+    mounted() {
         this.init()
     }
 
     @Watch('control')
-    controlWatch (val, oldVal) {
+    controlWatch(val, oldVal) {
         this.init()
     }
 
-    init () {
+    init() {
         this.cols.forEach(col => {
             this.$set(this.Tuple, col.id, [])
         })
@@ -85,7 +92,7 @@ export default class Guid extends Vue {
         }
     }
 
-    get dragOptions () {
+    get dragOptions() {
         return {
             animation: 200,
             group: 'description',
@@ -94,21 +101,21 @@ export default class Guid extends Vue {
         }
     }
 
-    get cols (): Array<any> {
+    get cols(): Array<any> {
         return this.config.prop.cols
     }
 
-    controlClickHandler (control: IControl) {
+    controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
     }
 
-    controlRemoveClickHandler (control: IControl) {
+    controlRemoveClickHandler(control: IControl) {
         this.changeHandler()
         this.$emit('itemRemove', control)
     }
 
-    changeHandler () {
-        this.control.child = this.cols.map(col => (this.Tuple[col.id]))
+    changeHandler() {
+        this.control.child = this.cols.map(col => this.Tuple[col.id])
     }
 }
 </script>

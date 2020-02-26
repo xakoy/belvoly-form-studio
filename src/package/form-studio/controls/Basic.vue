@@ -1,5 +1,5 @@
 <template>
-    <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
+    <div class="bfs-control" :class="{ 'bfs-control-designmode': isInDesignMode }">
         <dl :position="labelPosition">
             <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isShowRequiredAsterisk && isRequired && !readonly" class="bfs-control-label-required">*</em></dt>
             <dd>
@@ -30,34 +30,34 @@ export default Vue.extend({
         }
     },
     computed: {
-        options (): Config {
+        options(): Config {
             return this.config as Config
         },
-        label (): string {
+        label(): string {
             return this.options.prop.label || this.options.text
         },
-        isInDesignMode () {
+        isInDesignMode() {
             return this.mode === SYMBOL_MODE_DESIGN
         },
-        isRequired () {
+        isRequired() {
             const { rule } = this.options
             return rule && rule.required
         },
-        isShowRequiredAsterisk () {
+        isShowRequiredAsterisk() {
             const { showRequiredAsterisk } = this.formProperty
             return showRequiredAsterisk !== false
         },
-        labelPosition () {
+        labelPosition() {
             return this.formProperty.labelPosition
         },
-        labelStyle () {
-            const style:any = {}
+        labelStyle() {
+            const style: any = {}
             if (this.labelPosition === 'left' || this.labelPosition === 'right') {
                 style.width = this.formProperty.labelWidth + 'px'
             }
             return style
         },
-        labelSuffix () {
+        labelSuffix() {
             return this.formProperty.labelSuffix
         }
     }
@@ -68,11 +68,11 @@ export default Vue.extend({
 .bfs-control {
     padding: 0 15px 12px 12px;
 
-    &-designmode &:hover{
+    &-designmode &:hover {
         background: #f1f2f3;
     }
 
-    .active{
+    .active {
         background: #e3f3ff;
     }
 
@@ -90,22 +90,21 @@ export default Vue.extend({
     }
 
     // begin label position css
-    dl[position=left],
-    dl[position=right] {
+    dl[position='left'],
+    dl[position='right'] {
         display: flex;
         dt {
             width: 80px;
         }
-        dd{
+        dd {
             flex: 1;
         }
     }
 
-    dl[position=top] {
-
+    dl[position='top'] {
     }
 
-    dl[position=right]{
+    dl[position='right'] {
         dt {
             text-align: right;
             padding-right: 5px;

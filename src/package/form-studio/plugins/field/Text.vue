@@ -17,10 +17,10 @@ import { IControl, IConfig } from '../../interface'
 export default class Index extends Vue {
     @Prop() control
 
-    get editControl (): IControl {
+    get editControl(): IControl {
         return this.control as IControl
     }
-    get options (): IConfig {
+    get options(): IConfig {
         return this.editControl.config
     }
 }

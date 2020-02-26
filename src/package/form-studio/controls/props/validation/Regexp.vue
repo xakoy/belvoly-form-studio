@@ -14,15 +14,14 @@ import { IControl, Config } from '../../config'
 
 export default Vue.extend({
     props: ['control'],
-    data () {
-        return {
-        }
+    data() {
+        return {}
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        rule (): any {
+        rule(): any {
             return this.editControl.config.rule
         }
     }

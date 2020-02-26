@@ -27,10 +27,10 @@ export default class DefaultValuePropertyEditor extends Vue {
 
     items = ITEMS.filter(item => item.type === 'date')
 
-    get editControl (): IControl {
+    get editControl(): IControl {
         return this.control as IControl
     }
-    get options (): Config {
+    get options(): Config {
         return this.editControl.config
     }
 }

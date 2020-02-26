@@ -4,18 +4,13 @@
             <p>点击或拖动左侧组件到该区域</p>
             <!-- <p>创建表单</p> -->
         </div>
-        <draggable
-            class="bfs-design-zone-drag"
-            v-model="list"
-            v-bind="dragOptions"
-            group="design-zone"
-            @start="drag = true"
-            @end="dragEndHandler"
-        >
+        <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                <div class="bfs-design-item-container"
+                <div
+                    class="bfs-design-item-container"
                     :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
-                    @click.stop="controlClickHandler(item)" v-for="item in list"
+                    @click.stop="controlClickHandler(item)"
+                    v-for="item in list"
                     :key="item.id"
                 >
                     <component
@@ -59,7 +54,7 @@ export default class DesignZone extends Vue {
     list = []
     drag = false
 
-    get dragOptions () {
+    get dragOptions() {
         return {
             animation: 200,
             disabled: false,
@@ -68,27 +63,27 @@ export default class DesignZone extends Vue {
     }
 
     @Watch('value')
-    valueWatch (val, oldVal) {
+    valueWatch(val, oldVal) {
         this.list = val
     }
 
     @Watch('list')
-    listWatch (val, oldVal) {
+    listWatch(val, oldVal) {
         if (val !== this.value) {
             this.$emit('input', this.list)
             this.$emit('change', this.list)
         }
     }
 
-    dragEndHandler () {
+    dragEndHandler() {
         this.drag = false
     }
 
-    controlClickHandler (control: IControl) {
+    controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
     }
 
-    controlRemoveClickHandler (control: IControl) {
+    controlRemoveClickHandler(control: IControl) {
         const index = this.list.indexOf(control)
         if (index > -1) {
             this.list.splice(index, 1)
@@ -108,26 +103,26 @@ export default class DesignZone extends Vue {
 .bfs-design-item-container {
     min-height: 50px;
     position: relative;
-    &-placeholder{
+    &-placeholder {
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
         margin: 0 auto;
-        opacity: .1;
+        opacity: 0.1;
         z-index: 2;
         background: #fff;
     }
     &:hover {
         background-color: #f1f2f3;
     }
-    &-active{
+    &-active {
         border: 1px dashed red;
     }
     &-active > &-editarea {
         display: block !important;
     }
-    &-editarea{
+    &-editarea {
         display: none;
         position: absolute;
         z-index: 3;
@@ -150,7 +145,6 @@ export default class DesignZone extends Vue {
             cursor: pointer;
         }
     }
-
 }
 
 .bfs-design-item-container-layout {

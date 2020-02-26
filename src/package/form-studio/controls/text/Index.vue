@@ -24,25 +24,23 @@ export default Vue.extend({
     components: {
         Basic
     },
-    data () {
-        return {
-        }
+    data() {
+        return {}
     },
     computed: {
-        options () {
+        options() {
             return this.config as Config
         },
-        prop () {
+        prop() {
             return this.options.prop
         },
-        placeholder () {
+        placeholder() {
             return this.prop.placeholder || '请填写内容'
         },
-        isReadonly () {
+        isReadonly() {
             return this.readonly
         }
     },
-    methods: {
-    }
+    methods: {}
 })
 </script>

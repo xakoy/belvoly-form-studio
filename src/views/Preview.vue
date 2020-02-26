@@ -1,5 +1,5 @@
 <template>
-    <div class="bfs-preview-box" :class="{'bfs-preview-box-mobile': mode === 'mobile'}">
+    <div class="bfs-preview-box" :class="{ 'bfs-preview-box-mobile': mode === 'mobile' }">
         <div class="bfs-preview-box-layout">
             <el-radio-group v-model="mode">
                 <el-radio-button label="pc"> P C </el-radio-button>
@@ -33,7 +33,7 @@ export default class Preview extends Vue {
 
     mode = 'pc'
 
-    async saveHandler () {
+    async saveHandler() {
         const viewer = this.$refs.viewer as any
         try {
             const valid = await viewer.validate()
@@ -41,15 +41,13 @@ export default class Preview extends Vue {
                 const data = viewer.getData()
                 this.$message.success(JSON.stringify(data))
             }
-        } catch (e) {
-
-        }
+        } catch (e) {}
     }
 }
 </script>
 
 <style lang="less">
-.bfs-preview-box{
+.bfs-preview-box {
     position: relative;
     &-layout {
         position: absolute;

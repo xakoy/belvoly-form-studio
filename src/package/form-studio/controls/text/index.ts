@@ -22,18 +22,9 @@ const TextConfig: Config = {
     }
 }
 
-const props: IProperty[] = [
-    new LabelProperty('单行文本框'),
-    new MaxLengthProperty(30),
-    new Property('defaultValue', DefaultValuePropertyEditor, ''),
-    new PlaceholderProperty()
-]
+const props: IProperty[] = [new LabelProperty('单行文本框'), new MaxLengthProperty(30), new Property('defaultValue', DefaultValuePropertyEditor, ''), new PlaceholderProperty()]
 
-const rules: IRule<any>[] = [
-    new RequiredRule(),
-    new TextTypeRule(),
-    new RegexpRule()
-]
+const rules: IRule<any>[] = [new RequiredRule(), new TextTypeRule(), new RegexpRule()]
 
 const control: IControl = {
     config: TextConfig,

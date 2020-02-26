@@ -8,18 +8,18 @@ import Vue from 'vue'
 import * as monaco from 'monaco-editor'
 export default Vue.extend({
     props: {
-        value: { },
+        value: {},
         readonly: {
             type: Boolean,
             default: false
         }
     },
-    data () {
+    data() {
         return {
             editor: null
         }
     },
-    mounted () {
+    mounted() {
         const editor = monaco.editor.create(this.$refs.jsoncodeeditor, {
             value: this.value,
             language: 'json',
@@ -40,13 +40,13 @@ export default Vue.extend({
             this.changeHandler(code)
         })
     },
-    beforeDestroy () {
+    beforeDestroy() {
         if (this.editor) {
             this.editor.dispose()
         }
     },
     methods: {
-        changeHandler (code) {
+        changeHandler(code) {
             this.$emit('input', code)
         }
     }
@@ -54,7 +54,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.code-container{
+.code-container {
     height: 500px;
     > div {
         height: 100%;

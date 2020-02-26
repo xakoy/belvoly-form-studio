@@ -1,7 +1,6 @@
 import { DesignModel } from '../interface'
 import { Component } from './component'
 
-
 export declare class Design extends Component {
     /**
      * 初始的JSON Model

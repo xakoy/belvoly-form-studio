@@ -19,10 +19,10 @@ export default class FormatProperty extends Vue {
     @Prop() config
     @Prop() control
 
-    get editControl (): IControl {
+    get editControl(): IControl {
         return this.control as IControl
     }
-    get options (): Config {
+    get options(): Config {
         return this.editControl.config
     }
 }

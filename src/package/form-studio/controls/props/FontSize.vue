@@ -17,17 +17,17 @@ export default Vue.extend({
         Basic
     },
     props: ['config', 'control'],
-    data () {
+    data() {
         return {
             sizes: [14, 18, 25, 32, 58],
             label: ''
         }
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options(): Config {
             return this.editControl.config
         }
     }
