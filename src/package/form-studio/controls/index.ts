@@ -15,6 +15,7 @@ function buildControl(control: IControl, model: DesignControlModel) {
     const con = { ...control, id: model.id, child: model.child }
     con.config = {
         ...control.config,
+        name: model.name,
         prop: { ...control.config.prop, ...model.prop },
         rule: { ...control.config.rule, ...model.rule }
     }
@@ -39,7 +40,7 @@ function createControl(model: DesignControlModel): IControl {
     if (control) {
         return buildControl(control, model)
     }
-    return Unknown
+    return buildControl(Unknown, model)
 }
 
 /**
