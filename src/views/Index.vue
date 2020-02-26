@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Design } from '../package/components'
+import { Design } from '../package/form-studio/components'
 import Preview from './Preview.vue'
 import CodeEditor from './components/Code.vue'
 
