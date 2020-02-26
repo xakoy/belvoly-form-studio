@@ -6,6 +6,7 @@
         @input="inputChangeHandler($event)"
         :is="control.component"
         :itemValueField="itemValueField"
+        :readonly="readonly"
         :control="control"
         :config="control.config"
         :formModel="formModel"></component>
@@ -17,6 +18,7 @@
     >
         <component
             ref="control"
+            :readonly="readonly"
             :value="value"
             @input="inputChangeHandler($event)"
             :is="control.component"
@@ -39,6 +41,7 @@ export default class FormItem extends Vue {
     @Prop() value: any
     @Prop() fieldName!: string
     @Prop() formModel!: any
+    @Prop({ default: false }) readonly readonly!: Boolean
 
     rules = []
 

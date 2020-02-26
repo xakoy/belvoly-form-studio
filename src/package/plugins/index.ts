@@ -7,4 +7,5 @@ export interface IPluginObject<T> {
     [key: string]: any;
 }
 
-export * from './fieldPlugin'
+export * from './fieldNamePlugin'
+export * from './fieldTextPlugin'

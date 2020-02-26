@@ -1,12 +1,13 @@
 import { Config, IControl } from '../config'
 import Component from './Index.vue'
 import { IProperty } from '../../interface'
-import { LabelProperty, OptionsProperty, OptionsAlignProperty } from '../props'
+import { LabelProperty, OptionsProperty, OptionsAlignProperty, RequiredRule } from '../props'
 
 const config: Config = {
     name: 'checkbox',
     text: '多选',
     icon: 'ic_title',
+    isData: true,
     prop: {
         label: '多选',
         optionsAlign: 'inline-block',
@@ -15,6 +16,9 @@ const config: Config = {
             { text: '选项2', value: '选项2', id: 2 },
             { text: '选项3', value: '选项3', id: 3 }
         ]
+    },
+    rule: {
+        required: false
     }
 }
 
@@ -31,7 +35,10 @@ const props: IProperty[] = [
 const control: IControl = {
     config: config,
     component: Component,
-    propertys: props
+    propertys: props,
+    rules: [
+        new RequiredRule(c => `请选择${c.config.prop.label}`)
+    ]
 }
 
 export default control

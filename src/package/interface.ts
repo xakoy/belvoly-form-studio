@@ -4,7 +4,14 @@ export interface IConfig {
     icon: string;
     prop: any;
     rule?: any;
+    /**
+     * 是否为布局控件
+     */
     isLayout?: boolean;
+    /**
+     * 是否为数据控件
+     */
+    isData?: boolean;
     [propName: string]: any;
 }
 
@@ -78,7 +85,35 @@ export interface IRule<T> {
 }
 
 export interface DesignModel {
-    controls: DesignControlModel[]
+    controls: DesignControlModel[],
+    form: FormPropertyModel
+}
+
+/**
+ * 表单文本位置
+ */
+export type LabelPosition = 'left' | 'right' | 'top'
+
+/**
+ * 表单属性接口
+ */
+export interface FormPropertyModel {
+    /**
+     * 必填是否显示红点
+     */
+    showRequiredAsterisk: boolean
+    /**
+     * label的位置
+     */
+    labelPosition: LabelPosition
+    /**
+     * label的宽度，在labelPosition位置为 left | right 起作用
+     */
+    labelWidth?: number,
+    /**
+     * label的后缀
+     */
+    labelSuffix?: string
 }
 
 export interface DesignControlModel {
@@ -86,5 +121,7 @@ export interface DesignControlModel {
     prop: any;
     rule?: any;
     name: string;
+    isLayout?: boolean;
+    isData?: boolean;
     child?: Array<any>;
 }

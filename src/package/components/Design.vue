@@ -23,13 +23,14 @@
             <design-zone v-model="contentList" @change="designContentChangeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
         </div>
         <div class="bfs-design-property-editor">
-            <div class="bpm-from-design-property-editor-container">
-                <div class="edit-control">
+            <el-tabs v-model="propertyTabName">
+                <el-tab-pane label="控件属性设置" name="control">
                     <property-edit v-if="currentEditControl" :control="currentEditControl" :key="currentEditControl.id"></property-edit>
-                </div>
-                <div class="control-form-box hide">
-                </div>
-            </div>
+                </el-tab-pane>
+                <el-tab-pane label="表单属性设置" name="form">
+                    <form-property-edit :value="formProperty"></form-property-edit>
+                </el-tab-pane>
+            </el-tabs>
         </div>
     </div>
 </template>
@@ -39,11 +40,18 @@ import Vue from 'vue'
 import draggable from 'vuedraggable'
 import controls, { createControls } from '../controls'
 import PropertyEdit from '../controls/PropertyEdit.vue'
-import { DesignModel, DesignControlModel, IControl } from '../interface'
+import FormPropertyEdit from './FormPropertyEdit.vue'
+import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
 
 let index = 1
+
+const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
+    showRequiredAsterisk: true,
+    labelPosition: 'top',
+    labelWidth: 80
+}
 
 export default Vue.extend({
     props: {
@@ -52,17 +60,23 @@ export default Vue.extend({
     components: {
         draggable,
         PropertyEdit,
+        FormPropertyEdit,
         DesignZone
     },
-    provide: {
-        [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN
+    provide () {
+        return {
+            [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN,
+            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty
+        }
     },
     data () {
         return {
             list: controls,
             contentList: <IControl[]>[],
             drag: false,
-            currentEditControl: null as any
+            currentEditControl: null as any,
+            propertyTabName: 'control',
+            formProperty: { ...DEFAULT_FORM_PROPERTY }
         }
     },
     mounted () {
@@ -84,9 +98,26 @@ export default Vue.extend({
         }
     },
     methods: {
+        setFormProperty (property) {
+            Object.keys(property).forEach(key => {
+                this.$set(this.formProperty, key, property[key])
+            })
+        },
         drawModelDesign () {
-            if (this.defaultModel && this.defaultModel.controls) {
-                this.contentList = createControls(this.defaultModel)
+            if (this.defaultModel) {
+                if (this.defaultModel.controls) {
+                    this.contentList = createControls(this.defaultModel)
+                }
+
+                // 初始化表单属性
+                const defautFormProperty = { ...DEFAULT_FORM_PROPERTY }
+                this.setFormProperty(defautFormProperty)
+
+                // 将form 属性，通过provide注入到子孙元素上
+                let { form } = this.defaultModel
+                if (form) {
+                    this.setFormProperty(form)
+                }
             } else {
                 this.clear()
             }
@@ -101,6 +132,7 @@ export default Vue.extend({
         },
         controlClickHandler (control: IControl) {
             this.currentEditControl = control
+            this.propertyTabName = 'control'
         },
         controlRemoveClickHandler (control: IControl) {
             this.currentEditControl = null
@@ -115,17 +147,23 @@ export default Vue.extend({
                 })
             }
             const convert = (control: IControl) => {
-                const { id, config: { name, prop, rule }, child } = control
-                return {
+                const { id, config: { name, prop, rule, isLayout, isData }, child } = control
+                const result: DesignControlModel = {
                     id: id,
                     name: name,
+                    isLayout: isLayout,
+                    isData: isData,
                     prop: prop,
-                    rule: rule,
-                    child: child ? convertChild(child) : null
+                    rule: rule
                 }
+                if (child) {
+                    result.child = convertChild(child)
+                }
+                return result
             }
             const model: DesignModel = {
-                controls: this.contentList.map(c => convert(c))
+                controls: this.contentList.map(c => convert(c)),
+                form: { ...this.formProperty }
             }
             return model
         },

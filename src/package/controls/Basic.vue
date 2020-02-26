@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-control" :class="{'bfs-control-designmode': isInDesignMode}">
-        <dl>
-            <dt>{{ label }}</dt>
+        <dl :position="labelPosition">
+            <dt :style="labelStyle">{{ label }}{{ labelSuffix }}<em v-if="isShowRequiredAsterisk && isRequired && !readonly" class="bfs-control-label-required">*</em></dt>
             <dd>
                 <slot />
             </dd>
@@ -12,11 +12,23 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Config } from './config'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { FormPropertyModel } from '../interface'
 
 export default Vue.extend({
-    inject: { SYMBOL_MODE_KEY },
-    props: ['config'],
+    inject: {
+        formProperty: {
+            from: SYMBOL_FORM_PROPERTY_KEY,
+            default: {}
+        }
+    },
+    props: {
+        config: {},
+        readonly: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
         options (): Config {
             return this.config as Config
@@ -26,6 +38,27 @@ export default Vue.extend({
         },
         isInDesignMode () {
             return this.mode === SYMBOL_MODE_DESIGN
+        },
+        isRequired () {
+            const { rule } = this.options
+            return rule && rule.required
+        },
+        isShowRequiredAsterisk () {
+            const { showRequiredAsterisk } = this.formProperty
+            return showRequiredAsterisk !== false
+        },
+        labelPosition () {
+            return this.formProperty.labelPosition
+        },
+        labelStyle () {
+            const style:any = {}
+            if (this.labelPosition === 'left' || this.labelPosition === 'right') {
+                style.width = this.formProperty.labelWidth + 'px'
+            }
+            return style
+        },
+        labelSuffix () {
+            return this.formProperty.labelSuffix
         }
     }
 })
@@ -49,5 +82,36 @@ export default Vue.extend({
         color: #757575 !important;
         font-size: 13px;
     }
+
+    &-label-required {
+        color: red;
+        font-style: normal;
+        padding-left: 5px;
+    }
+
+    // begin label position css
+    dl[position=left],
+    dl[position=right] {
+        display: flex;
+        dt {
+            width: 80px;
+        }
+        dd{
+            flex: 1;
+        }
+    }
+
+    dl[position=top] {
+
+    }
+
+    dl[position=right]{
+        dt {
+            text-align: right;
+            padding-right: 5px;
+        }
+    }
+
+    // end label position css
 }
 </style>

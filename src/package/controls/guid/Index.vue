@@ -1,18 +1,26 @@
 <template>
     <div class="bfs-control-guid" :class="{'bfs-control-guid-designmode': isInDesignMode}">
         <el-row :gutter="isInDesignMode ? 20: 0">
-            <el-col :span="12">
+            <template v-for="(col, index) in cols">
+                <el-col :key="col.id" :span="mobile ? 24: col.span">
+                    <div class="bfs-control-guid-zone">
+                        <design-zone v-if="isInDesignMode" v-model="Tuple[col.id]" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
+                        <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
+                    </div>
+                </el-col>
+            </template>
+            <!-- <el-col :span="mobile ? 24: 12">
                 <div class="bfs-control-guid-zone">
                     <design-zone v-if="isInDesignMode" v-model="ListOne" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
                     <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[0]"></viewer-zone>
                 </div>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="mobile ? 24: 12">
                 <div class="bfs-control-guid-zone">
                     <design-zone  v-if="isInDesignMode" v-model="ListTwo" @change="changeHandler" :currentEditControl="currentEditControl" @itemClick="controlClickHandler" @itemRemove="controlRemoveClickHandler"></design-zone>
                     <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[1]"></viewer-zone>
                 </div>
-            </el-col>
+            </el-col> -->
         </el-row>
     </div>
 </template>
@@ -24,7 +32,7 @@ import DesignZone from '../../components/DesignZone.vue'
 import ViewerZone from '../../components/ViewerZone.vue'
 import Basic from '../Basic.vue'
 import { IControl } from '../config'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN } from '../../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_IN_MOBILE_KEY } from '../../symbol'
 
 @Component({
     components: {
@@ -46,13 +54,13 @@ export default class Guid extends Vue {
     @Prop() value
 
     @Inject(SYMBOL_MODE_KEY) readonly mode!: Symbol
+    @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: Boolean
 
     get isInDesignMode () {
         return this.mode === SYMBOL_MODE_DESIGN
     }
 
-    ListOne = []
-    ListTwo =[]
+    Tuple = {}
     drag = false
 
     mounted () {
@@ -65,10 +73,15 @@ export default class Guid extends Vue {
     }
 
     init () {
+        this.cols.forEach(col => {
+            this.$set(this.Tuple, col.id, [])
+        })
         const { child } = this.control
-        if (child.length === 2) {
-            this.ListOne = this.control.child[0]
-            this.ListTwo = this.control.child[1]
+        if (child.length > 0) {
+            for (let i = 0; i < child.length; i++) {
+                const id = this.cols[i].id
+                this.$set(this.Tuple, id, this.control.child[i])
+            }
         }
     }
 
@@ -81,6 +94,10 @@ export default class Guid extends Vue {
         }
     }
 
+    get cols (): Array<any> {
+        return this.config.prop.cols
+    }
+
     controlClickHandler (control: IControl) {
         this.$emit('itemClick', control)
     }
@@ -91,7 +108,7 @@ export default class Guid extends Vue {
     }
 
     changeHandler () {
-        this.control.child = [this.ListOne, this.ListTwo]
+        this.control.child = this.cols.map(col => (this.Tuple[col.id]))
     }
 }
 </script>

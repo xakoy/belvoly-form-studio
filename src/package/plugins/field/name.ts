@@ -1,7 +1,7 @@
 import { IPropertyControlPlugin } from '../../interface'
-import Editor from './Index.vue'
+import Editor from './Name.vue'
 
-export class FieldPropertyControlPlugin implements IPropertyControlPlugin {
+export class FieldNamePropertyControlPlugin implements IPropertyControlPlugin {
     propName: string = 'fieldName'
     editor: any = Editor
     defaultValue: any = ''
