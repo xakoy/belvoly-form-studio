@@ -16,7 +16,7 @@
             </el-row>
         </div>
         <div class="form-design-container">
-            <design :defaultModel="designDefaultModel" ref="designer"></design>
+            <form-design :defaultModel="designDefaultModel" ref="designer"></form-design>
         </div>
         <el-dialog width="80%" title="预览表单" v-if="previewDialogVisible" :visible.sync="previewDialogVisible">
             <preview :designModel="designModel"></preview>
@@ -36,13 +36,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Design } from '../package/form-studio/components'
+import { FormDesign } from '../package/form-studio/components'
 import Preview from './Preview.vue'
 import CodeEditor from './components/Code.vue'
 
 export default Vue.extend({
     components: {
-        Design,
+        FormDesign,
         Preview,
         CodeEditor
     },
