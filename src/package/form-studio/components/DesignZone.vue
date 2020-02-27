@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-design-zone">
         <div class="bfs-design-zone-tip" v-if="!list.length">
-            <p>{{ placeholder || '点击或拖动左侧组件到该区域' }}</p>
+            <p>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
         <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
@@ -18,6 +18,7 @@
                         :config="item.config"
                         :control="item"
                         :currentEditControl="currentEditControl"
+                        :class="canMove(item) ? '' : 'filtered'"
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
                     >
@@ -38,9 +39,10 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import { IControl } from '../interface'
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
 
 @Component({
     components: {
@@ -55,10 +57,13 @@ export default class DesignZone extends Vue {
     list = []
     drag = false
 
+    @Inject(SYM_DESIGN_PROP_KEY) designPubProp: DesignPubPropModel
+
     get dragOptions() {
         return {
             animation: 200,
             disabled: false,
+            filter: '.filtered',
             ghostClass: 'bfs-design-zone-ghost'
         }
     }
@@ -82,6 +87,14 @@ export default class DesignZone extends Vue {
 
     controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
+    }
+
+    canMove(control: IControl) {
+        const { canMove } = this.designPubProp
+        if (canMove) {
+            return canMove(control)
+        }
+        return true
     }
 
     controlRemoveClickHandler(control: IControl) {

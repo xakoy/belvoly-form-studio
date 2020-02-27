@@ -20,7 +20,7 @@ import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../../form-studio/interface'
 import DesignZone from '../../form-studio/components/DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../../form-studio/symbol'
-
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
 let index = 1
 
 @Component({
@@ -31,6 +31,8 @@ let index = 1
 export default class Design extends Vue {
     @Prop() beginIndex: number
     @Prop() placeholder: string
+    @Prop() canMove: CanMoveFunc
+    @Prop({ default: false }) isNeedSuportDisplay: boolean
     /**
      * 设计器生成的模型数据，Viewer根据此模型数据渲染表单
      */
@@ -41,6 +43,13 @@ export default class Design extends Vue {
     @Prop() allControls: IControl[]
 
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
+
+    @Provide(SYM_DESIGN_PROP_KEY)
+    pubProp: DesignPubPropModel = {
+        canMove: this.canMove,
+        placeholder: this.placeholder,
+        isNeedSuportDisplay: this.isNeedSuportDisplay
+    }
 
     list = controls
     contentList: IControl[] = []

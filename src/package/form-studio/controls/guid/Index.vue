@@ -123,7 +123,7 @@ export default class Guid extends Vue {
 <style lang="less">
 .bfs-control-guid {
     .form-design-content-drag {
-        min-height: 200px;
+        // min-height: 200px;
     }
 
     &-designmode &-zone {

@@ -7,7 +7,7 @@
             </el-radio-group>
         </div>
         <div class="bfs-preview-box-content">
-            <viewer :key="mode" :allControls="allControls" :mobile="mode === 'mobile'" ref="viewer" itemValueField="id" :designModel="designModel"></viewer>
+            <design :canMove="canMove" :key="mode" :allControls="allControls" :mobile="mode === 'mobile'" ref="viewer" itemValueField="id" :defaultModel="designModel"></design>
         </div>
         <div>
             <el-button @click="saveHandler">
@@ -20,13 +20,14 @@
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
-import { DesignModel } from '../../package/form-studio/interface'
-import { Viewer } from '../../package/form-studio/components'
+import { DesignModel, IControl } from '../../package/form-studio/interface'
+import { Design } from '../../package/form-studio/components'
 import { controls } from './controls'
 
 @Component({
     components: {
-        Viewer
+        // Viewer
+        Design
     }
 })
 export default class Preview extends Vue {
@@ -45,6 +46,10 @@ export default class Preview extends Vue {
             }
         } catch (e) {}
     }
+
+    canMove(control: IControl) {
+        return !control.config.isLayout
+    }
 }
 </script>
 
@@ -56,6 +61,13 @@ export default class Preview extends Vue {
         width: 100%;
         text-align: center;
         top: -80px;
+    }
+
+    .bfs-design-item-container-placeholder {
+        display: none;
+    }
+    .bfs-design-item-container-editarea {
+        display: none;
     }
 }
 
