@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/xakoy/belvoly-form-studio"
   },
-  "main": "dist/belvoly-form-model.umd.min.js",
+  "main": "dist/belvoly-form-studio.umd.min.js",
   "typings": "types/index.d.ts",
   "scripts": {
     "start": "npm run serve",
