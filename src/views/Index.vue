@@ -101,6 +101,8 @@ export default Vue.extend({
 <style lang="less">
 .form-design {
     height: 100%;
+    display: flex;
+    flex-direction: column;
     &-header {
         h3 {
             font-weight: normal;
@@ -112,12 +114,13 @@ export default Vue.extend({
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         padding: 0px 24px;
         text-align: left;
-        position: absolute;
+        position: relative;
         width: 100%;
+        z-index: 1;
     }
 
     &-container {
-        height: 100%;
+        flex: 1;
     }
 }
 </style>

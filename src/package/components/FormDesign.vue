@@ -164,7 +164,6 @@ export default Vue.extend({
 .bfs-design {
     height: 100%;
     box-sizing: border-box;
-    padding-top: 50px;
     height: 100%;
     display: flex;
     flex: 1;
@@ -207,6 +206,7 @@ export default Vue.extend({
     }
     &-content {
         height: 100%;
+        padding: 10px 0;
         flex: 1;
         border-right: 1px solid rgb(234, 234, 234);
         position: relative;
