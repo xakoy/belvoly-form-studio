@@ -51,7 +51,8 @@ export default class Preview extends Vue {
     position: relative;
     &-layout {
         position: absolute;
-        width: 100%;
+        width: 80%;
+        left: 10%;
         text-align: center;
         top: -80px;
     }
