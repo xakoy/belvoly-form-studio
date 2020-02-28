@@ -15,6 +15,9 @@ if (!isLib) {
 
 module.exports = {
     configureWebpack: {
-        plugins: plugins
+        plugins: plugins,
+        output: {
+            libraryExport: 'default'
+        }
     }
 }
