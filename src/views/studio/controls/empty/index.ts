@@ -1,4 +1,4 @@
-import { IControl, IConfig } from '@/package/form-studio/interface'
+import { IControl, IConfig } from '@/package/interface'
 import Compontent from './Index.vue'
 
 const config: IConfig = {

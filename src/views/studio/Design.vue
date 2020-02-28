@@ -39,11 +39,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { DesignDraggable, Design } from '@/package/form-studio/components'
+import { DesignDraggable, Design } from '@/package/components'
 import Preview from './Preview.vue'
 import Component from 'vue-class-component'
 import { controls } from './controls'
-import { DesignModel, IControl } from '../../package/form-studio/interface'
+import { DesignModel, IControl } from '../../package/interface'
 
 @Component({
     components: {

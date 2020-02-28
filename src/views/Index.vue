@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { FormDesign } from '../package/form-studio/components'
+import { FormDesign } from '../package/components'
 import Preview from './Preview.vue'
 import CodeEditor from './components/Code.vue'
 

@@ -14,12 +14,12 @@
 <script lang="ts">
 import { Vue, Component, Prop, Provide, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
-import controls, { createControls } from '../../form-studio/controls'
+import controls, { createControls } from '../controls'
 import PropertyEdit from '../controls/PropertyEdit.vue'
 import FormPropertyEdit from './FormPropertyEdit.vue'
-import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../../form-studio/interface'
-import DesignZone from '../../form-studio/components/DesignZone.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../../form-studio/symbol'
+import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
+import DesignZone from './DesignZone.vue'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
 let index = 1
 

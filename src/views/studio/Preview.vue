@@ -29,8 +29,8 @@
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
-import { DesignModel, IControl } from '../../package/form-studio/interface'
-import { Design } from '../../package/form-studio/components'
+import { DesignModel, IControl } from '../../package/interface'
+import { Design } from '../../package/components'
 import { controls } from './controls'
 
 @Component({

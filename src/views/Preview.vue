@@ -20,8 +20,8 @@
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
-import { DesignModel } from '../package/form-studio/interface'
-import { Viewer } from '../package/form-studio/components'
+import { DesignModel } from '../package/interface'
+import { Viewer } from '../package/components'
 
 @Component({
     components: {
