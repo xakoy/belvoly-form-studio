@@ -63,7 +63,7 @@ export default class Guid extends Vue {
 
     @Inject(SYMBOL_MODE_KEY) readonly mode!: symbol
     @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: boolean
-    @Inject({ from: SYM_DESIGN_PROP_KEY, default: {} }) designPubProp: DesignPubPropModel
+    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true } }) designPubProp: DesignPubPropModel
 
     get isInDesignMode() {
         return this.mode === SYMBOL_MODE_DESIGN
