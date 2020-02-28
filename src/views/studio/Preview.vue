@@ -7,7 +7,16 @@
             </el-radio-group>
         </div>
         <div class="bfs-preview-box-content">
-            <design :canMove="canMove" :key="mode" :allControls="allControls" :mobile="mode === 'mobile'" ref="viewer" itemValueField="id" :defaultModel="designModel"></design>
+            <design
+                :canMove="canMove"
+                :key="mode"
+                :isNeedSuportDisplay="false"
+                :allControls="allControls"
+                :mobile="mode === 'mobile'"
+                ref="viewer"
+                itemValueField="id"
+                :defaultModel="designModel"
+            ></design>
         </div>
         <div>
             <el-button @click="saveHandler">
@@ -58,17 +67,18 @@ export default class Preview extends Vue {
     position: relative;
     &-layout {
         position: absolute;
-        width: 100%;
+        width: 80%;
         text-align: center;
+        left: 10%;
         top: -80px;
     }
 
-    .bfs-design-item-container-placeholder {
-        display: none;
-    }
-    .bfs-design-item-container-editarea {
-        display: none;
-    }
+    // .bfs-design-item-container-placeholder {
+    //     display: none;
+    // }
+    // .bfs-design-item-container-editarea {
+    //     display: none;
+    // }
 }
 
 .bfs-preview-box-mobile {

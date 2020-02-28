@@ -1,6 +1,6 @@
 <template>
-    <div class="bfs-control-guid" :class="{ 'bfs-control-guid-designmode': isInDesignMode }">
-        <el-row :gutter="isInDesignMode ? 20 : 0">
+    <div class="bfs-control-guid" :class="{ 'bfs-control-guid-designmode': isNeedSuportDisplay && isInDesignMode }">
+        <el-row :gutter="isNeedSuportDisplay && isInDesignMode ? 0 : 0">
             <template v-for="(col, index) in cols">
                 <el-col :key="col.id" :span="mobile ? 24 : col.span">
                     <div class="bfs-control-guid-zone">
@@ -40,6 +40,7 @@ import ViewerZone from '../../components/ViewerZone.vue'
 import Basic from '../Basic.vue'
 import { IControl } from '../config'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_IN_MOBILE_KEY } from '../../symbol'
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from '../../components/design-prop'
 
 @Component({
     components: {
@@ -62,9 +63,14 @@ export default class Guid extends Vue {
 
     @Inject(SYMBOL_MODE_KEY) readonly mode!: symbol
     @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: boolean
+    @Inject(SYM_DESIGN_PROP_KEY) designPubProp: DesignPubPropModel
 
     get isInDesignMode() {
         return this.mode === SYMBOL_MODE_DESIGN
+    }
+
+    get isNeedSuportDisplay() {
+        return this.designPubProp.isNeedSuportDisplay
     }
 
     Tuple = {}
@@ -128,6 +134,11 @@ export default class Guid extends Vue {
 
     &-designmode &-zone {
         border: 1px dashed #cccccc;
+        .bfs-design-zone-drag {
+            > span {
+                // padding: 20px 10px;
+            }
+        }
     }
 }
 </style>

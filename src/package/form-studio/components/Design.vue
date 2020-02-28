@@ -32,7 +32,7 @@ export default class Design extends Vue {
     @Prop() beginIndex: number
     @Prop() placeholder: string
     @Prop() canMove: CanMoveFunc
-    @Prop({ default: false }) isNeedSuportDisplay: boolean
+    @Prop({ default: true }) isNeedSuportDisplay: boolean
     /**
      * 设计器生成的模型数据，Viewer根据此模型数据渲染表单
      */

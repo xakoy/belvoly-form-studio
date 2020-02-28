@@ -1,5 +1,5 @@
 <template>
-    <div class="bfs-design-zone">
+    <div class="bfs-design-zone" :class="{ 'bfs-design-zone-designmode': isNeedSuportDisplay }">
         <div class="bfs-design-zone-tip" v-if="!list.length">
             <p>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
@@ -68,6 +68,10 @@ export default class DesignZone extends Vue {
         }
     }
 
+    get isNeedSuportDisplay() {
+        return this.designPubProp.isNeedSuportDisplay
+    }
+
     @Watch('value')
     valueWatch(val, oldVal) {
         this.list = val
@@ -114,10 +118,11 @@ export default class DesignZone extends Vue {
     height: 100%;
     position: relative;
 }
+
 .bfs-design-item-container {
-    min-height: 50px;
     position: relative;
     &-placeholder {
+        display: none;
         position: absolute;
         top: 0;
         width: 100%;
@@ -127,15 +132,7 @@ export default class DesignZone extends Vue {
         z-index: 2;
         background: #fff;
     }
-    &:hover {
-        background-color: #f1f2f3;
-    }
-    &-active {
-        border: 1px dashed red;
-    }
-    &-active > &-editarea {
-        display: block !important;
-    }
+
     &-editarea {
         display: none;
         position: absolute;
@@ -161,11 +158,6 @@ export default class DesignZone extends Vue {
     }
 }
 
-.bfs-design-item-container-layout {
-    &:hover {
-        background-color: transparent;
-    }
-}
 .bfs-design-zone {
     &-tip {
         position: absolute;
@@ -185,15 +177,45 @@ export default class DesignZone extends Vue {
         height: 100%;
         > span {
             height: 100%;
-            padding: 20px 10px;
-            overflow: auto;
+            // overflow: auto;
             display: block;
-            min-height: 200px;
+            min-height: 50px;
         }
     }
 
     &-ghost {
         background-color: #e3f3ff;
+    }
+}
+.bfs-design-zone-designmode {
+    .bfs-design-item-container {
+        min-height: 50px;
+        &:hover {
+            background-color: #f1f2f3;
+        }
+        &-placeholder {
+            display: block;
+        }
+
+        &-active {
+            border: 1px dashed red;
+        }
+        &-active > .bfs-design-item-container-editarea {
+            display: block !important;
+        }
+        &-layout {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+    .bfs-design-zone {
+        &-drag {
+            > span {
+                min-height: 200px;
+                // padding: 20px 10px;
+            }
+        }
     }
 }
 </style>

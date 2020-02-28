@@ -96,6 +96,7 @@ export default class DesignStudio extends Vue {
         top: 0;
         left: 0;
         background: #fff;
+        z-index: 99;
     }
 }
 </style>
