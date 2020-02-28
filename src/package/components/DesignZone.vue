@@ -57,7 +57,7 @@ export default class DesignZone extends Vue {
     list = []
     drag = false
 
-    @Inject(SYM_DESIGN_PROP_KEY) designPubProp: DesignPubPropModel
+    @Inject({ from: SYM_DESIGN_PROP_KEY, default: {} }) designPubProp: DesignPubPropModel
 
     get dragOptions() {
         return {
