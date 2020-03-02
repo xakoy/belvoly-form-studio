@@ -21,6 +21,7 @@ import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '..
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
+import { VNode } from 'vue'
 let index = 1
 
 @Component({
@@ -48,7 +49,8 @@ export default class Design extends Vue {
     pubProp: DesignPubPropModel = {
         canMove: this.canMove,
         placeholder: this.placeholder,
-        isNeedSuportDisplay: this.isNeedSuportDisplay
+        isNeedSuportDisplay: this.isNeedSuportDisplay,
+        placeholderSlot: this.$slots.placeholder
     }
 
     list = controls
@@ -57,6 +59,7 @@ export default class Design extends Vue {
     propertyTabName = 'control'
 
     mounted() {
+        this.pubProp.placeholderSlot = this.$slots.placeholder
         if (this.defaultModel) {
             this.watchDefaultModel()
         }

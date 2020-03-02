@@ -1,7 +1,8 @@
 <template>
     <div class="bfs-design-zone" :class="{ 'bfs-design-zone-designmode': isNeedSuportDisplay }">
         <div class="bfs-design-zone-tip" v-if="!list.length">
-            <p>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
+            <el v-if="designPubProp.placeholderSlot" :content="designPubProp.placeholderSlot" />
+            <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
         <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
@@ -43,10 +44,12 @@ import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import { IControl } from '../interface'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
+import el from './el'
 
 @Component({
     components: {
-        draggable
+        draggable,
+        el
     }
 })
 export default class DesignZone extends Vue {
@@ -71,6 +74,8 @@ export default class DesignZone extends Vue {
     get isNeedSuportDisplay() {
         return this.designPubProp.isNeedSuportDisplay
     }
+
+    mounted() {}
 
     @Watch('value')
     valueWatch(val, oldVal) {

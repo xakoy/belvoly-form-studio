@@ -12,7 +12,11 @@
             </el-button>
         </div>
         <div class="studio-design-zone">
-            <design :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加组件到该区域" />
+            <design :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加组件到该区域">
+                <template v-slot:placeholder>
+                    添加组件到该区域
+                </template>
+            </design>
         </div>
         <div class="studio-design-dragselectcontrol" :style="{ display: dargSelectControlVisible ? 'block' : 'none' }">
             <design-draggable :controls="controls" tag="ul" :begin-index.sync="controlIndex">

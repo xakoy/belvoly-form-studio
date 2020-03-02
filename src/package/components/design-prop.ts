@@ -16,6 +16,10 @@ export interface DesignPubPropModel {
      */
     placeholder?: string
     /**
+     * 布局组件空白时,显示的slot vnode
+     */
+    placeholderSlot?: any
+    /**
      * 是否需要辅助显示线条
      */
     isNeedSuportDisplay: boolean
