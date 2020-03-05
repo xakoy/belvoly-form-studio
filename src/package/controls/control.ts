@@ -9,3 +9,5 @@ export { default as Date } from './date'
 export { default as Guid } from './guid'
 
 export { default as Basic } from './Basic.vue'
+
+export { default as PropertyEdit } from './PropertyEdit.vue'

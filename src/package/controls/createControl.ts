@@ -1,5 +1,6 @@
 import { DesignModel, IControl, DesignControlModel } from '../interface'
 import { Unknown } from './control'
+import { getUnniID } from '../utils'
 
 function buildControl(control: IControl, model: DesignControlModel, cs: IControl[]) {
     const con = { ...control, id: model.id, child: model.child }
@@ -39,4 +40,17 @@ function createControl(model: DesignControlModel, cs: IControl[]): IControl {
  */
 export function createControls(model: DesignModel, cs: IControl[]) {
     return model.controls.map(c => createControl(c, cs))
+}
+
+/**
+ * 创建控件示例
+ * @param control 控件类型
+ */
+export function createControlInstance(control: IControl) {
+    const clone = {
+        ...control,
+        id: getUnniID()
+    }
+    clone.config = JSON.parse(JSON.stringify(clone.config))
+    return clone
 }
