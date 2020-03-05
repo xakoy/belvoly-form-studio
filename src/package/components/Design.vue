@@ -50,7 +50,8 @@ export default class Design extends Vue {
         canMove: this.canMove,
         placeholder: this.placeholder,
         isNeedSuportDisplay: this.isNeedSuportDisplay,
-        placeholderSlot: this.$slots.placeholder
+        placeholderSlot: this.$slots.placeholder,
+        layoutmoreSlot: this.$slots.layoutmore
     }
 
     list = controls
@@ -59,7 +60,8 @@ export default class Design extends Vue {
     propertyTabName = 'control'
 
     mounted() {
-        this.pubProp.placeholderSlot = this.$slots.placeholder
+        this.pubProp.placeholderSlot = this.$scopedSlots.placeholder
+        this.pubProp.layoutmoreSlot = this.$scopedSlots.layoutmore
         if (this.defaultModel) {
             this.watchDefaultModel()
         }

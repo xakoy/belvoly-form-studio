@@ -17,6 +17,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 //         studio.control(Radio)
 //     }
 // })
+import './common/filters/log'
 
 Vue.use(ElementUI)
 

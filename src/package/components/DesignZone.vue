@@ -36,6 +36,9 @@
                 </div>
             </transition-group>
         </draggable>
+        <slot name="layoutmore" v-if="designPubProp.layoutmoreSlot">
+            <el :content="designPubProp.layoutmoreSlot" :zone="this" />
+        </slot>
     </div>
 </template>
 
@@ -92,6 +95,22 @@ export default class DesignZone extends Vue {
 
     dragEndHandler() {
         this.drag = false
+    }
+
+    cloneDog(e: any) {
+        const clone = {
+            ...e,
+            id: e.config.name + new Date().getTime()
+        }
+        clone.config = JSON.parse(JSON.stringify(clone.config))
+        return clone
+    }
+
+    addControl(control: IControl) {
+        const clone = this.cloneDog(control)
+        this.list.push(clone)
+        this.$emit('input', this.list)
+        this.$emit('change', this.list)
     }
 
     controlClickHandler(control: IControl) {

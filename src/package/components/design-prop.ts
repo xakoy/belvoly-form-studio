@@ -19,6 +19,7 @@ export interface DesignPubPropModel {
      * 布局组件空白时,显示的slot vnode
      */
     placeholderSlot?: any
+    layoutmoreSlot?: any
     /**
      * 是否需要辅助显示线条
      */

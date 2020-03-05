@@ -5,12 +5,13 @@ export default Vue.extend({
         content: {}
     },
     render(h) {
-        const { content } = this
+        const { content } = this.$props
+
         if (!content) {
             return h('div')
         } else if (typeof content === 'string') {
             return h(content)
         }
-        return this.content
+        return this.content(this.$attrs)
     }
 })

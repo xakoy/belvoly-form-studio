@@ -21,6 +21,10 @@ const routes = [
             {
                 path: 'design',
                 component: () => import('../views/studio/Design.vue')
+            },
+            {
+                path: 'designp',
+                component: () => import('../views/studio/DesignP.vue')
             }
         ]
     }
