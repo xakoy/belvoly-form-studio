@@ -3,7 +3,7 @@ import BelvolyFormStudio from './studio'
 import { Design, Viewer, FormDesign } from './components'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
-import { createControlInstance } from './controls/createControl'
+import { createControlInstance, createControlByDesignControlModel, convertDesignControlModel } from './controls/controlUtil'
 
 const Studio = new BelvolyFormStudio()
 
@@ -21,5 +21,7 @@ export default {
     Viewer,
     Controls,
     Properties,
-    createControlInstance
+    createControlInstance,
+    createControlByDesignControlModel,
+    convertDesignControlModel
 }

@@ -15,10 +15,10 @@ function buildControl(control: IControl, model: DesignControlModel, cs: IControl
         con.child = con.child.map(item => {
             if (Array.isArray(item)) {
                 return item.map(i => {
-                    return createControl(i, cs)
+                    return createControlByDesignControlModel(i, cs)
                 })
             } else {
-                return createControl(item, cs)
+                return createControlByDesignControlModel(item, cs)
             }
         })
     }
@@ -26,7 +26,7 @@ function buildControl(control: IControl, model: DesignControlModel, cs: IControl
     return con
 }
 
-function createControl(model: DesignControlModel, cs: IControl[]): IControl {
+export function createControlByDesignControlModel(model: DesignControlModel, cs: IControl[]): IControl {
     const control = cs.find(c => c.config.name === model.name)
     if (control) {
         return buildControl(control, model, cs)
@@ -39,7 +39,7 @@ function createControl(model: DesignControlModel, cs: IControl[]): IControl {
  * @param model 设计模型
  */
 export function createControls(model: DesignModel, cs: IControl[]) {
-    return model.controls.map(c => createControl(c, cs))
+    return model.controls.map(c => createControlByDesignControlModel(c, cs))
 }
 
 /**
@@ -53,4 +53,30 @@ export function createControlInstance(control: IControl) {
     }
     clone.config = JSON.parse(JSON.stringify(clone.config))
     return clone
+}
+
+const convertDesignControlModelChild = (child: any[]) => {
+    return child.map(item => {
+        return Array.isArray(item) ? convertDesignControlModelChild(item) : convertDesignControlModel(item)
+    })
+}
+
+export function convertDesignControlModel(control: IControl) {
+    const {
+        id,
+        config: { name, prop, rule, isLayout, isData },
+        child
+    } = control
+    const result: DesignControlModel = {
+        id: id,
+        name: name,
+        isLayout: isLayout,
+        isData: isData,
+        prop: prop,
+        rule: rule
+    }
+    if (child) {
+        result.child = convertDesignControlModelChild(child)
+    }
+    return result
 }

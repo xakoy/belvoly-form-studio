@@ -46,6 +46,7 @@ import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '..
 import DesignZone from './DesignZone.vue'
 import DesignDraggable from './DesignDraggable.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { convertDesignControlModel } from '../controls/controlUtil'
 
 const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
     showRequiredAsterisk: true,
@@ -122,32 +123,8 @@ export default Vue.extend({
             this.$emit('change')
         },
         getModel() {
-            const convertChild = (child: any[]) => {
-                return child.map(item => {
-                    return Array.isArray(item) ? convertChild(item) : convert(item)
-                })
-            }
-            const convert = (control: IControl) => {
-                const {
-                    id,
-                    config: { name, prop, rule, isLayout, isData },
-                    child
-                } = control
-                const result: DesignControlModel = {
-                    id: id,
-                    name: name,
-                    isLayout: isLayout,
-                    isData: isData,
-                    prop: prop,
-                    rule: rule
-                }
-                if (child) {
-                    result.child = convertChild(child)
-                }
-                return result
-            }
             const model: DesignModel = {
-                controls: this.contentList.map(c => convert(c)),
+                controls: this.contentList.map(c => convertDesignControlModel(c)),
                 form: { ...this.formProperty }
             }
             return model

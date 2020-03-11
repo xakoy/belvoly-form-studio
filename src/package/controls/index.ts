@@ -7,7 +7,7 @@ import Divider from './divider'
 import DateControl from './date'
 import Guid from './guid'
 import { IControl, IPropertyControlPlugin, DesignControlModel, DesignModel } from '../interface'
-import { createControls as factoryCreateControls } from './createControl'
+import { createControls as factoryCreateControls } from './controlUtil'
 
 const controls: IControl[] = [Text, NumberControl, Radio, Checkbox, DateControl, Title, Divider, Guid]
 

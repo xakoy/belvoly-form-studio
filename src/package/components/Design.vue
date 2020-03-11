@@ -21,6 +21,7 @@ import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '..
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
+import { convertDesignControlModel } from '../controls/controlUtil'
 import { VNode } from 'vue'
 let index = 1
 
@@ -125,32 +126,8 @@ export default class Design extends Vue {
         this.$emit('change')
     }
     getModel() {
-        const convertChild = (child: any[]) => {
-            return child.map(item => {
-                return Array.isArray(item) ? convertChild(item) : convert(item)
-            })
-        }
-        const convert = (control: IControl) => {
-            const {
-                id,
-                config: { name, prop, rule, isLayout, isData },
-                child
-            } = control
-            const result: DesignControlModel = {
-                id: id,
-                name: name,
-                isLayout: isLayout,
-                isData: isData,
-                prop: prop,
-                rule: rule
-            }
-            if (child) {
-                result.child = convertChild(child)
-            }
-            return result
-        }
         const model: DesignModel = {
-            controls: this.contentList.map(c => convert(c)),
+            controls: this.contentList.map(c => convertDesignControlModel(c)),
             form: { ...this.formProperty }
         }
         return model
