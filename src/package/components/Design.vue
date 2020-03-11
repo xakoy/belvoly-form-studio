@@ -114,6 +114,7 @@ export default class Design extends Vue {
     controlClickHandler(control: IControl) {
         this.currentEditControl = control
         this.propertyTabName = 'control'
+        this.$emit('itemClick', control)
     }
 
     addControl(control: IControl) {

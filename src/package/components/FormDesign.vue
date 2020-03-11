@@ -116,6 +116,7 @@ export default Vue.extend({
         controlClickHandler(control: IControl) {
             this.currentEditControl = control
             this.propertyTabName = 'control'
+            this.$emit('itemClick', control)
         },
         controlRemoveClickHandler(control: IControl) {
             this.currentEditControl = null
