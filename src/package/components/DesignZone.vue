@@ -50,6 +50,7 @@ import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
 import el from './el'
 
 @Component({
+    name: 'BfsDesignZone',
     components: {
         draggable,
         el
@@ -113,6 +114,16 @@ export default class DesignZone extends Vue {
         this.$emit('change', this.list)
     }
 
+    removeControl(control: IControl) {
+        const index = this.list.indexOf(control)
+        if (index > -1) {
+            this.list.splice(index, 1)
+        }
+        this.$emit('itemRemove', control)
+        this.$emit('input', this.list)
+        this.$emit('change', this.list)
+    }
+
     controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
     }
@@ -126,13 +137,7 @@ export default class DesignZone extends Vue {
     }
 
     controlRemoveClickHandler(control: IControl) {
-        const index = this.list.indexOf(control)
-        if (index > -1) {
-            this.list.splice(index, 1)
-        }
-        this.$emit('itemRemove', control)
-        this.$emit('input', this.list)
-        this.$emit('change', this.list)
+        this.removeControl(control)
     }
 }
 </script>

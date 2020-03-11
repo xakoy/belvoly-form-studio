@@ -26,6 +26,7 @@ import { VNode } from 'vue'
 let index = 1
 
 @Component({
+    name: 'BfsDesign',
     components: {
         DesignZone
     }

@@ -55,6 +55,7 @@ const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
 }
 
 export default Vue.extend({
+    name: 'BfsFormDesign',
     props: {
         defaultModel: {}
     },
