@@ -1,6 +1,11 @@
 <template>
-    <div class="webpart-item-place" @click.stop="clickHandler">
-        +
+    <div class="webpart-item-place">
+        <div class="webpart-item-place-plus" @click.stop="clickHandler">
+            +
+        </div>
+        <div class="webpart-item-place-delete" @click.stop="deleteHandler">
+            删除
+        </div>
     </div>
 </template>
 
@@ -9,8 +14,24 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class Index extends Vue {
+    @Prop() control
     clickHandler() {
         console.log(`log`)
+    }
+
+    deleteHandler() {
+        const zone: any = this.findDesignZone()
+        zone.removeControl(this.control)
+    }
+
+    findDesignZone() {
+        let parent = this.$parent
+        let parentName = parent.$options.name
+        while (parentName !== 'BfsDesignZone') {
+            parent = parent.$parent
+            parentName = parent.$options.name
+        }
+        return parent
     }
 }
 </script>
@@ -19,9 +40,17 @@ export default class Index extends Vue {
 .webpart-item-place {
     border: 1px dashed #ccc;
     margin-bottom: 20px;
-    height: 200px;
-    line-height: 200px;
     text-align: center;
-    font-size: 120px;
+    &-plus {
+        font-size: 120px;
+        line-height: 200px;
+    }
+
+    &-delete {
+        font-size: 16px;
+        line-height: 40px;
+        background: #999;
+        cursor: pointer;
+    }
 }
 </style>
