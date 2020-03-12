@@ -188,6 +188,8 @@ export default class DesignZone extends Vue {
 }
 
 .bfs-design-zone {
+    display: flex;
+    flex-direction: column;
     &-tip {
         position: absolute;
         border: 1px dashed #ccc;
@@ -203,6 +205,7 @@ export default class DesignZone extends Vue {
         z-index: -1;
     }
     &-drag {
+        flex: 1;
         height: 100%;
         > span {
             height: 100%;
