@@ -3,12 +3,13 @@ import { Unknown } from './control'
 import { getUnniID } from '../utils'
 
 function buildControl(control: IControl, model: DesignControlModel, cs: IControl[]) {
+    const config = JSON.parse(JSON.stringify(control.config))
     const con = { ...control, id: model.id, child: model.child }
     con.config = {
-        ...control.config,
+        ...config,
         name: model.name,
-        prop: { ...control.config.prop, ...model.prop },
-        rule: { ...control.config.rule, ...model.rule }
+        prop: { ...config.prop, ...model.prop },
+        rule: { ...config.rule, ...model.rule }
     }
 
     if (con.child) {
