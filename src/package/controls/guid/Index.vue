@@ -12,7 +12,7 @@
                             @itemClick="controlClickHandler"
                             @itemRemove="controlRemoveClickHandler"
                         ></design-zone>
-                        <viewer-zone v-else :formModel="formModel" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
+                        <viewer-zone v-else :formModel="formModel" :readonly="readonly" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
                     </div>
                 </el-col>
             </template>
@@ -60,6 +60,11 @@ export default class Guid extends Vue {
     @Prop() control: IControl
     @Prop() config
     @Prop() value
+
+    /**
+     * 是否只读模式
+     */
+    @Prop({ default: false }) readonly readonly!: boolean
 
     @Inject(SYMBOL_MODE_KEY) readonly mode!: symbol
     @Inject({ from: SYMBOL_IN_MOBILE_KEY, default: false }) readonly mobile!: boolean
