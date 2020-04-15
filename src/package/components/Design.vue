@@ -23,7 +23,7 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '.
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
 import { convertDesignControlModel } from '../controls/controlUtil'
 import { VNode } from 'vue'
-let index = 1
+const index = 1
 
 @Component({
     name: 'BfsDesign',
@@ -32,7 +32,6 @@ let index = 1
     }
 })
 export default class Design extends Vue {
-    @Prop() beginIndex: number
     @Prop() placeholder: string
     @Prop() canMove: CanMoveFunc
     @Prop({ default: true }) isNeedSuportDisplay: boolean
@@ -96,16 +95,9 @@ export default class Design extends Vue {
     }
 
     cloneDog(e: any) {
-        let newIndex = 0
-        if (this.beginIndex) {
-            newIndex = this.beginIndex + 1
-            this.$emit('update:beginIndex', newIndex)
-        } else {
-            newIndex = index++
-        }
         const clone = {
             ...e,
-            id: e.config.name + newIndex
+            id: e.config.name + new Date().getTime()
         }
         clone.config = JSON.parse(JSON.stringify(clone.config))
         return clone

@@ -30,13 +30,11 @@ export default class Index extends Vue {
     }
 
     cloneDog(e: any) {
-        const newIndex = this.beginIndex + 1
         const clone = {
             ...e,
-            id: e.config.name + newIndex
+            id: e.config.name + new Date().getTime()
         }
         clone.config = JSON.parse(JSON.stringify(clone.config))
-        this.$emit('update:beginIndex', newIndex)
         return clone
     }
 }
