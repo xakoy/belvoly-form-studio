@@ -225,8 +225,32 @@ export default Vue.extend({
     &-property-editor {
         width: 350px;
         background-color: #fcfdfe;
-        padding: 24px 20px;
         flex-shrink: 0;
+        height: 100%;
+
+        .el-tabs {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            .el-tabs__header {
+                margin-top: 15px;
+                margin-bottom: 0;
+            }
+            .el-tabs__content {
+                flex: 1;
+            }
+            .el-tab-pane {
+                height: 100%;
+                > div {
+                    height: 100%;
+                    overflow: auto;
+                    padding: 10px 15px;
+                }
+            }
+            .el-tabs__nav-wrap {
+                padding-left: 20px;
+            }
+        }
     }
     &-content {
         height: 100%;

@@ -121,6 +121,7 @@ export default Vue.extend({
 
     &-container {
         flex: 1;
+        height: 100px;
     }
 }
 </style>
