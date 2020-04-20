@@ -1,8 +1,8 @@
 <template>
     <el-form-item v-if="rules" :rules="rules" :prop="property.propName">
-        <component :control="control" :is="property.editor" />
+        <component :control="control" :property="property" :is="property.editor" />
     </el-form-item>
-    <component v-else :control="control" :is="property.editor" />
+    <component v-else :control="control" :property="property" :is="property.editor" />
 </template>
 
 <script lang="ts">
