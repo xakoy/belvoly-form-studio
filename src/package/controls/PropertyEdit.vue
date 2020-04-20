@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-form ref="form" :model="control.config.prop">
-            属性编辑器
+            <div style="font-size: 14px;">当前控件：{{ control.config.text }}</div>
             <template v-if="propertys">
                 <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
             </template>
