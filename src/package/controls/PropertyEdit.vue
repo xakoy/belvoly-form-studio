@@ -1,14 +1,16 @@
 <template>
     <div>
-        属性编辑器
-        <template v-if="propertys">
-            <component v-for="prop in propertys" :key="prop.propName" :control="control" :is="prop.editor"></component>
-        </template>
-        <template v-if="rules">
-            <validation>
-                <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor"></component>
-            </validation>
-        </template>
+        <el-form ref="form" :model="control.config.prop">
+            属性编辑器
+            <template v-if="propertys">
+                <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
+            </template>
+            <template v-if="rules">
+                <validation>
+                    <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor"></component>
+                </validation>
+            </template>
+        </el-form>
     </div>
 </template>
 
@@ -16,10 +18,12 @@
 import Vue from 'vue'
 import { Validation } from './props/validation'
 import { IControl, IConfig } from '../interface'
+import PropertyEditItem from './PropertyEditItem.vue'
 
 export default Vue.extend({
     props: ['config', 'control'],
     components: {
+        PropertyEditItem,
         Validation
     },
     computed: {
@@ -34,6 +38,16 @@ export default Vue.extend({
         },
         rules() {
             return this.editControl.rules
+        }
+    },
+    methods: {
+        async validate() {
+            try {
+                const isValid = await this.$refs.form.validate()
+                return isValid
+            } catch (ex) {
+                return false
+            }
         }
     }
 })

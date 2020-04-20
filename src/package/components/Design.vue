@@ -7,6 +7,7 @@
             :currentEditControl="currentEditControl"
             @itemClick="controlClickHandler"
             @itemRemove="controlRemoveClickHandler"
+            @itemAdd="controlAddedHandler"
         ></design-zone>
     </div>
 </template>
@@ -108,10 +109,15 @@ export default class Design extends Vue {
         this.propertyTabName = 'control'
         this.$emit('itemClick', control)
     }
+    controlAddedHandler(control: IControl) {
+        this.currentEditControl = control
+        this.$emit('itemAdd', control)
+    }
 
     addControl(control: IControl) {
         const clone = this.cloneDog(control)
         this.contentList.push(clone)
+        this.controlAddedHandler(clone)
     }
     controlRemoveClickHandler(control: IControl) {
         this.currentEditControl = null

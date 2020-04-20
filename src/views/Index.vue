@@ -16,7 +16,7 @@
             </el-row>
         </div>
         <div class="form-design-container">
-            <form-design :defaultModel="designDefaultModel" ref="designer"></form-design>
+            <form-design :defaultModel="designDefaultModel" ref="designer" :enablePropertyValid="true"></form-design>
         </div>
         <el-dialog width="80%" title="预览表单" v-if="previewDialogVisible" :visible.sync="previewDialogVisible">
             <preview :designModel="designModel"></preview>
