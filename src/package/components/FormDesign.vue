@@ -129,6 +129,8 @@ export default Vue.extend({
             if (isValid) {
                 this.currentEditControl = control
                 this.propertyTabName = 'control'
+            } else {
+                Message.error({ message: '当前控件的属性验证不通过，不能切换到其它的控件，请查看属性' })
             }
             this.$emit('itemClick', control)
         },
@@ -161,7 +163,7 @@ export default Vue.extend({
                 return true
             }
 
-            Message.error({ message: '属性验证不通过，不能新增其它组件' })
+            Message.error({ message: '当前控件的属性验证不通过，不能添加新的控件，请查看属性' })
             return false
         },
         async currentValidte() {
