@@ -11,6 +11,7 @@
                             :currentEditControl="currentEditControl"
                             @itemClick="controlClickHandler"
                             @itemRemove="controlRemoveClickHandler"
+                            @itemAdd="controlAddedHandler"
                         ></design-zone>
                         <viewer-zone v-else :formModel="formModel" :readonly="readonly" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
                     </div>
@@ -118,6 +119,9 @@ export default class Guid extends Vue {
 
     controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
+    }
+    controlAddedHandler(control: IControl) {
+        this.$emit('itemAdd', control)
     }
 
     controlRemoveClickHandler(control: IControl) {

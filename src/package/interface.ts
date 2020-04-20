@@ -44,6 +44,10 @@ export interface IProperty {
      * 属性的默认值
      */
     defaultValue?: any
+    /**
+     * 属性的验证规则
+     */
+    rules?: any
 }
 
 /**

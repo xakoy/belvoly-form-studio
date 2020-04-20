@@ -1,5 +1,5 @@
 <template>
-    <basic label="标签">
+    <basic label="标签" :property="property">
         <el-input size="small" v-model="options.prop.label"></el-input>
     </basic>
 </template>
@@ -14,7 +14,7 @@ export default Vue.extend({
     components: {
         Basic
     },
-    props: ['config', 'control'],
+    props: ['config', 'control', 'property'],
     data() {
         return {
             label: ''

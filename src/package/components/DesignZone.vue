@@ -5,7 +5,7 @@
             <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
-        <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
+        <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler" @add="addHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                 <div
                     class="bfs-design-item-container"
@@ -22,6 +22,7 @@
                         :class="canMove(item) ? '' : 'filtered'"
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
+                        @itemAdd="controlAddedHandler"
                     >
                     </component>
                     <div class="bfs-design-item-container-placeholder" v-if="!item.config.isLayout"></div>
@@ -47,6 +48,7 @@ import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import { IControl } from '../interface'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
+import { SYMBOL_DESIGN_CANADD_KEY } from '../symbol'
 import el from './el'
 
 @Component({
@@ -65,6 +67,7 @@ export default class DesignZone extends Vue {
     drag = false
 
     @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true } }) designPubProp: DesignPubPropModel
+    @Inject({ from: SYMBOL_DESIGN_CANADD_KEY, default: null }) canAdd: Function
 
     get dragOptions() {
         return {
@@ -94,6 +97,19 @@ export default class DesignZone extends Vue {
         }
     }
 
+    async addHandler({ newIndex }) {
+        const control = this.list[newIndex]
+        if (this.canAdd) {
+            const can = await this.canAdd()
+            if (can === false) {
+                this.removeControl(control)
+                return
+            }
+        }
+
+        this.controlAddedHandler(control)
+    }
+
     dragEndHandler() {
         this.drag = false
     }
@@ -110,6 +126,8 @@ export default class DesignZone extends Vue {
     addControl(control: IControl) {
         const clone = this.cloneDog(control)
         this.list.push(clone)
+        this.controlAddedHandler(clone)
+
         this.$emit('input', this.list)
         this.$emit('change', this.list)
     }
@@ -138,6 +156,10 @@ export default class DesignZone extends Vue {
 
     controlRemoveClickHandler(control: IControl) {
         this.removeControl(control)
+    }
+
+    controlAddedHandler(control: IControl) {
+        this.$emit('itemAdd', control)
     }
 }
 </script>

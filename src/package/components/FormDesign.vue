@@ -22,12 +22,13 @@
                 :currentEditControl="currentEditControl"
                 @itemClick="controlClickHandler"
                 @itemRemove="controlRemoveClickHandler"
+                @itemAdd="controlAddedHandler"
             ></design-zone>
         </div>
         <div class="bfs-design-property-editor">
             <el-tabs v-model="propertyTabName">
                 <el-tab-pane label="控件属性设置" name="control">
-                    <property-edit v-if="currentEditControl" :control="currentEditControl" :key="currentEditControl.id"></property-edit>
+                    <property-edit ref="propertyEdit" v-if="currentEditControl" :control="currentEditControl" :key="currentEditControl.id"></property-edit>
                 </el-tab-pane>
                 <el-tab-pane label="表单属性设置" name="form">
                     <form-property-edit :value="formProperty"></form-property-edit>
@@ -45,8 +46,9 @@ import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
 import DesignDraggable from './DesignDraggable.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_DESIGN_CANADD_KEY } from '../symbol'
 import { convertDesignControlModel } from '../controls/controlUtil'
+import { Message } from 'element-ui'
 
 const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
     showRequiredAsterisk: true,
@@ -57,7 +59,14 @@ const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
 export default Vue.extend({
     name: 'BfsFormDesign',
     props: {
-        defaultModel: {}
+        defaultModel: {},
+        /**
+         * 是否启用属性验证
+         */
+        enablePropertyValid: {
+            type: Boolean,
+            default: false
+        }
     },
     components: {
         PropertyEdit,
@@ -68,7 +77,8 @@ export default Vue.extend({
     provide() {
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN,
-            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty
+            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
+            [SYMBOL_DESIGN_CANADD_KEY]: this.canAdd
         }
     },
     data() {
@@ -113,13 +123,25 @@ export default Vue.extend({
                 this.clear()
             }
         },
-        controlClickHandler(control: IControl) {
-            this.currentEditControl = control
-            this.propertyTabName = 'control'
+        async controlClickHandler(control: IControl) {
+            const isValid = await this.currentValidte()
+
+            if (isValid) {
+                this.currentEditControl = control
+                this.propertyTabName = 'control'
+            } else {
+                Message.error({ message: '当前控件的属性验证不通过，不能切换到其它的控件，请查看属性' })
+            }
             this.$emit('itemClick', control)
         },
         controlRemoveClickHandler(control: IControl) {
-            this.currentEditControl = null
+            if (this.currentEditControl === control) {
+                this.currentEditControl = null
+            }
+        },
+        controlAddedHandler(control: IControl) {
+            this.currentEditControl = control
+            this.$emit('itemAdd', control)
         },
         designContentChangeHandler() {
             this.$emit('change')
@@ -134,6 +156,29 @@ export default Vue.extend({
         clear() {
             this.contentList = []
             this.currentEditControl = null
+        },
+        async canAdd() {
+            const isValid = await this.currentValidte()
+            if (isValid) {
+                return true
+            }
+
+            Message.error({ message: '当前控件的属性验证不通过，不能添加新的控件，请查看属性' })
+            return false
+        },
+        async currentValidte() {
+            if (!this.enablePropertyValid) {
+                return true
+            }
+            if (!this.currentEditControl) {
+                return true
+            }
+            const propertyEdit: any = this.$refs.propertyEdit
+            const isValid = await propertyEdit.validate()
+            return isValid
+        },
+        async validate() {
+            return await this.currentValidte()
         }
     }
 })
@@ -180,8 +225,32 @@ export default Vue.extend({
     &-property-editor {
         width: 350px;
         background-color: #fcfdfe;
-        padding: 24px 20px;
         flex-shrink: 0;
+        height: 100%;
+
+        .el-tabs {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            .el-tabs__header {
+                margin-top: 15px;
+                margin-bottom: 0;
+            }
+            .el-tabs__content {
+                flex: 1;
+            }
+            .el-tab-pane {
+                height: 100%;
+                > div {
+                    height: 100%;
+                    overflow: auto;
+                    padding: 10px 15px;
+                }
+            }
+            .el-tabs__nav-wrap {
+                padding-left: 20px;
+            }
+        }
     }
     &-content {
         height: 100%;

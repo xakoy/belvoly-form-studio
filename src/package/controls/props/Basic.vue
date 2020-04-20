@@ -1,6 +1,6 @@
 <template>
     <div class="bfs-property-editor-item">
-        <h5>{{ label }}</h5>
+        <h5>{{ label }} <span v-if="isRequired" class="bfs-property-editor-item-required">*</span></h5>
         <div>
             <slot />
         </div>
@@ -14,6 +14,27 @@ export default Vue.extend({
         label: {
             type: String,
             required: true
+        },
+        property: {
+            type: Object,
+            required: false
+        }
+    },
+    computed: {
+        isRequired() {
+            if (!this.property) {
+                return false
+            }
+            let rules = this.property.rules
+            if (!rules) {
+                return false
+            }
+
+            if (!Array.isArray(rules)) {
+                rules = [rules]
+            }
+
+            return rules.some(item => item.required)
         }
     }
 })
@@ -27,5 +48,9 @@ export default Vue.extend({
     }
     font-size: 12px;
     padding-bottom: 10px;
+
+    &-required {
+        color: #f00;
+    }
 }
 </style>
