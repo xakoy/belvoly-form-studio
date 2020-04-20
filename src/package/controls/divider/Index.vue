@@ -12,20 +12,20 @@ import { Config } from '../config'
 export default class Divider extends Vue {
     @Prop() config
 
-    get options (): Config {
+    get options(): Config {
         return this.config as Config
     }
-    get prop (): any {
+    get prop(): any {
         return this.options.prop
     }
-    get style () : any {
+    get style(): any {
         return {
             paddingTop: this.prop.padding.top + 'px',
             paddingBottom: this.prop.padding.bottom + 'px',
             color: this.prop.color
         }
     }
-    get itemStyle () {
+    get itemStyle() {
         return {
             backgroundColor: this.prop.color
         }
@@ -34,7 +34,7 @@ export default class Divider extends Vue {
 </script>
 
 <style lang="less">
-.fmc-control-divider{
+.fmc-control-divider {
     > div {
         height: 1px;
         background: #000;

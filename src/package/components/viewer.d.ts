@@ -1,7 +1,6 @@
 import { DesignModel } from '../interface'
 import { Component } from './component'
 
-
 export declare class Viewer extends Component {
     /**
      * 初始的JSON Model
@@ -21,7 +20,7 @@ export declare class Viewer extends Component {
     /**
      * 验证表单元素
      */
-    validate ()
+    validate()
 
     /**
      * 获取表单数据

@@ -16,7 +16,7 @@
                 </el-radio-group>
             </dd>
         </dl>
-        <dl v-show="item.labelPosition ==='left' || item.labelPosition === 'right'">
+        <dl v-show="item.labelPosition === 'left' || item.labelPosition === 'right'">
             <dt>控件文本宽度</dt>
             <dd>
                 <el-input placeholder="请输入宽度" v-model="item.labelWidth">
@@ -40,7 +40,7 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 export default class FormPropertyEdit extends Vue {
     @Prop() value
 
-    get item () {
+    get item() {
         return this.value || {}
     }
 }

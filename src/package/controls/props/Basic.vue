@@ -1,6 +1,6 @@
 <template>
     <div class="bfs-property-editor-item">
-        <h5>{{label}}</h5>
+        <h5>{{ label }}</h5>
         <div>
             <slot />
         </div>
@@ -20,7 +20,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less">
-.bfs-property-editor-item{
+.bfs-property-editor-item {
     > h5 {
         font-size: 14px;
         line-height: 48px;

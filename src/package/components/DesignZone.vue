@@ -1,21 +1,17 @@
 <template>
-    <div class="bfs-design-zone">
+    <div class="bfs-design-zone" :class="{ 'bfs-design-zone-designmode': isNeedSuportDisplay }">
         <div class="bfs-design-zone-tip" v-if="!list.length">
-            <p>点击或拖动左侧组件到该区域</p>
+            <el v-if="designPubProp.placeholderSlot" :content="designPubProp.placeholderSlot" />
+            <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
-        <draggable
-            class="bfs-design-zone-drag"
-            v-model="list"
-            v-bind="dragOptions"
-            group="design-zone"
-            @start="drag = true"
-            @end="dragEndHandler"
-        >
+        <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                <div class="bfs-design-item-container"
+                <div
+                    class="bfs-design-item-container"
                     :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
-                    @click.stop="controlClickHandler(item)" v-for="item in list"
+                    @click.stop="controlClickHandler(item)"
+                    v-for="item in list"
                     :key="item.id"
                 >
                     <component
@@ -23,6 +19,7 @@
                         :config="item.config"
                         :control="item"
                         :currentEditControl="currentEditControl"
+                        :class="canMove(item) ? '' : 'filtered'"
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
                     >
@@ -39,56 +36,85 @@
                 </div>
             </transition-group>
         </draggable>
+        <slot name="layoutmore" v-if="designPubProp.layoutmoreSlot">
+            <el :content="designPubProp.layoutmoreSlot" :zone="this" />
+        </slot>
     </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import { IControl } from '../interface'
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
+import el from './el'
 
 @Component({
+    name: 'BfsDesignZone',
     components: {
-        draggable
+        draggable,
+        el
     }
 })
 export default class DesignZone extends Vue {
     @Prop() currentEditControl
     @Prop() value
+    @Prop() placeholder
 
     list = []
     drag = false
 
-    get dragOptions () {
+    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true } }) designPubProp: DesignPubPropModel
+
+    get dragOptions() {
         return {
             animation: 200,
             disabled: false,
+            filter: '.filtered',
             ghostClass: 'bfs-design-zone-ghost'
         }
     }
 
+    get isNeedSuportDisplay() {
+        return this.designPubProp.isNeedSuportDisplay
+    }
+
+    mounted() {}
+
     @Watch('value')
-    valueWatch (val, oldVal) {
+    valueWatch(val, oldVal) {
         this.list = val
     }
 
     @Watch('list')
-    listWatch (val, oldVal) {
+    listWatch(val, oldVal) {
         if (val !== this.value) {
             this.$emit('input', this.list)
             this.$emit('change', this.list)
         }
     }
 
-    dragEndHandler () {
+    dragEndHandler() {
         this.drag = false
     }
 
-    controlClickHandler (control: IControl) {
-        this.$emit('itemClick', control)
+    cloneDog(e: any) {
+        const clone = {
+            ...e,
+            id: e.config.name + new Date().getTime()
+        }
+        clone.config = JSON.parse(JSON.stringify(clone.config))
+        return clone
     }
 
-    controlRemoveClickHandler (control: IControl) {
+    addControl(control: IControl) {
+        const clone = this.cloneDog(control)
+        this.list.push(clone)
+        this.$emit('input', this.list)
+        this.$emit('change', this.list)
+    }
+
+    removeControl(control: IControl) {
         const index = this.list.indexOf(control)
         if (index > -1) {
             this.list.splice(index, 1)
@@ -96,6 +122,22 @@ export default class DesignZone extends Vue {
         this.$emit('itemRemove', control)
         this.$emit('input', this.list)
         this.$emit('change', this.list)
+    }
+
+    controlClickHandler(control: IControl) {
+        this.$emit('itemClick', control)
+    }
+
+    canMove(control: IControl) {
+        const { canMove } = this.designPubProp
+        if (canMove) {
+            return canMove(control)
+        }
+        return true
+    }
+
+    controlRemoveClickHandler(control: IControl) {
+        this.removeControl(control)
     }
 }
 </script>
@@ -105,29 +147,22 @@ export default class DesignZone extends Vue {
     height: 100%;
     position: relative;
 }
+
 .bfs-design-item-container {
-    min-height: 50px;
     position: relative;
-    &-placeholder{
+    &-placeholder {
+        display: none;
         position: absolute;
         top: 0;
         width: 100%;
         height: 100%;
         margin: 0 auto;
-        opacity: .1;
+        opacity: 0.1;
         z-index: 2;
         background: #fff;
     }
-    &:hover {
-        background-color: #f1f2f3;
-    }
-    &-active{
-        border: 1px dashed red;
-    }
-    &-active > &-editarea {
-        display: block !important;
-    }
-    &-editarea{
+
+    &-editarea {
         display: none;
         position: absolute;
         z-index: 3;
@@ -150,15 +185,11 @@ export default class DesignZone extends Vue {
             cursor: pointer;
         }
     }
-
 }
 
-.bfs-design-item-container-layout {
-    &:hover {
-        background-color: transparent;
-    }
-}
 .bfs-design-zone {
+    display: flex;
+    flex-direction: column;
     &-tip {
         position: absolute;
         border: 1px dashed #ccc;
@@ -174,18 +205,49 @@ export default class DesignZone extends Vue {
         z-index: -1;
     }
     &-drag {
+        flex: 1;
         height: 100%;
         > span {
             height: 100%;
-            padding: 20px 10px;
-            overflow: auto;
+            // overflow: auto;
             display: block;
-            min-height: 200px;
+            min-height: 50px;
         }
     }
 
     &-ghost {
         background-color: #e3f3ff;
+    }
+}
+.bfs-design-zone-designmode {
+    .bfs-design-item-container {
+        min-height: 50px;
+        &:hover {
+            background-color: #f1f2f3;
+        }
+        &-placeholder {
+            display: block;
+        }
+
+        &-active {
+            border: 1px dashed red;
+        }
+        &-active > .bfs-design-item-container-editarea {
+            display: block !important;
+        }
+        &-layout {
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+    .bfs-design-zone {
+        &-drag {
+            > span {
+                min-height: 200px;
+                // padding: 20px 10px;
+            }
+        }
     }
 }
 </style>

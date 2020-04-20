@@ -1,26 +1,26 @@
 export interface IConfig {
-    name: string;
-    text: string;
-    icon: string;
-    prop: any;
-    rule?: any;
+    name: string
+    text: string
+    icon: string
+    prop: any
+    rule?: any
     /**
      * 是否为布局控件
      */
-    isLayout?: boolean;
+    isLayout?: boolean
     /**
      * 是否为数据控件
      */
-    isData?: boolean;
-    [propName: string]: any;
+    isData?: boolean
+    [propName: string]: any
 }
 
 export interface IControl {
-    id?: any,
-    config: IConfig,
-    component: any,
-    child?: Array<any>
-    propertys?: IProperty[],
+    id?: any
+    config: IConfig
+    component: any
+    child?: any[]
+    propertys?: IProperty[]
     rules?: IRule<any>[]
 }
 
@@ -28,22 +28,22 @@ export interface IControlPlugin {
     /**
      * 插件的名称，必须唯一
      */
-    name: string;
+    name: string
 }
 
 export interface IProperty {
-   /**
-    * 属性名称
-    */
-   propName: string;
-   /**
-    * 属性编辑器
-    */
-   editor: any;
-   /**
-    * 属性的默认值
-    */
-   defaultValue?: any;
+    /**
+     * 属性名称
+     */
+    propName: string
+    /**
+     * 属性编辑器
+     */
+    editor: any
+    /**
+     * 属性的默认值
+     */
+    defaultValue?: any
 }
 
 /**
@@ -53,39 +53,38 @@ export interface IPropertyControlPlugin extends IControlPlugin {
     /**
      * 属性名称
      */
-    propName: string;
+    propName: string
     /**
      * 属性编辑器
      */
-    editor: any;
+    editor: any
     /**
      * 属性的默认值
      */
-    defaultValue: any;
+    defaultValue: any
 }
 
 export interface IRule<T> {
     /**
      * 规则名称
      */
-    ruleName: string;
+    ruleName: string
     /**
      * 属性的默认值
      */
-    defaultValue: T;
+    defaultValue: T
     /**
      * 规则属性编辑器
      */
-    editor: any;
+    editor: any
     /**
      * 获取规则
      */
-    getRule (value:T, control: IControl, vue: Vue);
-
+    getRule(value: T, control: IControl, vue: Vue)
 }
 
 export interface DesignModel {
-    controls: DesignControlModel[],
+    controls: DesignControlModel[]
     form: FormPropertyModel
 }
 
@@ -101,15 +100,15 @@ export interface FormPropertyModel {
     /**
      * 必填是否显示红点
      */
-    showRequiredAsterisk: boolean
+    showRequiredAsterisk?: boolean
     /**
      * label的位置
      */
-    labelPosition: LabelPosition
+    labelPosition?: LabelPosition
     /**
      * label的宽度，在labelPosition位置为 left | right 起作用
      */
-    labelWidth?: number,
+    labelWidth?: number
     /**
      * label的后缀
      */
@@ -117,11 +116,11 @@ export interface FormPropertyModel {
 }
 
 export interface DesignControlModel {
-    id: any;
-    prop: any;
-    rule?: any;
-    name: string;
-    isLayout?: boolean;
-    isData?: boolean;
-    child?: Array<any>;
+    id: any
+    prop: any
+    rule?: any
+    name: string
+    isLayout?: boolean
+    isData?: boolean
+    child?: any[]
 }

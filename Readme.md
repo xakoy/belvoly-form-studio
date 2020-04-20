@@ -53,3 +53,10 @@ import { Viewer } from 'belvoly-form-studio'
 
 效果
 ![img](./doc/img/formviewer.png)
+
+
+## v 0.2.6
+1. 修复FormDesign组件在defaultModel有值，再拖拽新的控件，可能遇见key重复报错
+
+## v 0.2.5
+1. 修复Guid控件没有支持readonly

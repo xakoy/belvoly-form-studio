@@ -1,21 +1,5 @@
 <template>
-    <component
-        v-if="control.config.isLayout"
-        ref="control"
-        :value="value"
-        @input="inputChangeHandler($event)"
-        :is="control.component"
-        :itemValueField="itemValueField"
-        :readonly="readonly"
-        :control="control"
-        :config="control.config"
-        :formModel="formModel"></component>
-    <el-form-item
-        v-else ref="formItem"
-        :rules="rules"
-        :prop="fieldName"
-        class="bfs-from-item"
-    >
+    <el-form-item v-if="control.config.isData" ref="formItem" :rules="rules" :prop="fieldName" class="bfs-from-item">
         <component
             ref="control"
             :readonly="readonly"
@@ -28,6 +12,18 @@
             :formModel="formModel"
         ></component>
     </el-form-item>
+    <component
+        v-else
+        ref="control"
+        :value="value"
+        @input="inputChangeHandler($event)"
+        :is="control.component"
+        :itemValueField="itemValueField"
+        :readonly="readonly"
+        :control="control"
+        :config="control.config"
+        :formModel="formModel"
+    ></component>
 </template>
 
 <script lang="ts">
@@ -41,19 +37,22 @@ export default class FormItem extends Vue {
     @Prop() value: any
     @Prop() fieldName!: string
     @Prop() formModel!: any
-    @Prop({ default: false }) readonly readonly!: Boolean
+    @Prop({ default: false }) readonly readonly!: boolean
 
     rules = []
 
-    mounted () {
+    mounted() {
         const $control = this.$refs.control as any
-        const { rules, config: { rule: configRule } } = this.control
+        const {
+            rules,
+            config: { rule: configRule }
+        } = this.control
         if (rules) {
             this.rules = rules.map(rule => rule.getRule(configRule[rule.ruleName], this.control, $control)).filter(rule => rule)
         }
     }
 
-    inputChangeHandler (e) {
+    inputChangeHandler(e) {
         const $formItem = this.$refs.formItem as any
         if ($formItem && $formItem.onFieldChange) {
             this.$nextTick(() => {

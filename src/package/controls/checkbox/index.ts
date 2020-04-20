@@ -36,9 +36,7 @@ const control: IControl = {
     config: config,
     component: Component,
     propertys: props,
-    rules: [
-        new RequiredRule(c => `请选择${c.config.prop.label}`)
-    ]
+    rules: [new RequiredRule(c => `请选择${c.config.prop.label}`)]
 }
 
 export default control

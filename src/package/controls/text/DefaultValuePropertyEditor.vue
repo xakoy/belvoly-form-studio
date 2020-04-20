@@ -16,10 +16,10 @@ export default Vue.extend({
     },
     props: ['config', 'control'],
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options(): Config {
             return this.editControl.config
         }
     }

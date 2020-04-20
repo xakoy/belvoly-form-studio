@@ -19,16 +19,16 @@ export default Vue.extend({
         Basic
     },
     props: ['config', 'control'],
-    data () {
+    data() {
         return {
             label: ''
         }
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): Config {
+        options(): Config {
             return this.editControl.config
         }
     }

@@ -1,7 +1,5 @@
 <template>
-    <div>
-        是否必填 <el-switch v-model="rule.required"></el-switch>
-    </div>
+    <div>是否必填 <el-switch v-model="rule.required"></el-switch></div>
 </template>
 
 <script lang="ts">
@@ -10,15 +8,14 @@ import { IControl, Config } from '../../config'
 
 export default Vue.extend({
     props: ['control'],
-    data () {
-        return {
-        }
+    data() {
+        return {}
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        rule (): any {
+        rule(): any {
             return this.editControl.config.rule
         }
     }

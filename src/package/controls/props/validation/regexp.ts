@@ -2,10 +2,10 @@ import { IRule, IControl } from '../../../interface'
 import Editor from './Regexp.vue'
 
 export class RegexpRule implements IRule<string> {
-    ruleName: string = 'regexp'
+    ruleName = 'regexp'
     defaultValue = null
     editor: any = Editor
-    getRule (value: any, control: IControl, vue: Vue) {
+    getRule(value: any, control: IControl, vue: Vue) {
         if (!value) {
             return null
         }

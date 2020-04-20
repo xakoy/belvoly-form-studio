@@ -33,19 +33,13 @@ const config: Config = {
     }
 }
 
-const props: IProperty[] = [
-    new LabelProperty('日期'),
-    new Property('type', TypePropertyEditor, 'date'),
-    new Property('format', FormatPropertyEditor, 'yyyy-MM-dd')
-]
+const props: IProperty[] = [new LabelProperty('日期'), new Property('type', TypePropertyEditor, 'date'), new Property('format', FormatPropertyEditor, 'yyyy-MM-dd')]
 
 const control: IControl = {
     config: config,
     component: Component,
     propertys: props,
-    rules: [
-        new RequiredRule((control) => `请选择${control.config.prop.label}`)
-    ]
+    rules: [new RequiredRule(control => `请选择${control.config.prop.label}`)]
 }
 
 export default control

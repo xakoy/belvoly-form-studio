@@ -31,10 +31,10 @@ export default class Type extends Vue {
 
     items = ITEMS
 
-    get editControl (): IControl {
+    get editControl(): IControl {
         return this.control as IControl
     }
-    get options (): Config {
+    get options(): Config {
         return this.editControl.config
     }
 }

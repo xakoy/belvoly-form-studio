@@ -23,16 +23,16 @@ export default Vue.extend({
         Validation
     },
     computed: {
-        editControl (): IControl {
+        editControl(): IControl {
             return this.control as IControl
         },
-        options (): IConfig {
+        options(): IConfig {
             return this.editControl.config
         },
-        propertys () {
+        propertys() {
             return this.editControl.propertys
         },
-        rules () {
+        rules() {
             return this.editControl.rules
         }
     }

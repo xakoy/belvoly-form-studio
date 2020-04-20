@@ -9,22 +9,23 @@ const config: IConfig = {
     icon: 'text',
     isLayout: true,
     prop: {
-        cols: [{
-            id: 1,
-            span: 12
-        }, {
-            id: 2,
-            span: 12
-        }]
+        cols: [
+            {
+                id: 1,
+                span: 12
+            },
+            {
+                id: 2,
+                span: 12
+            }
+        ]
     }
 }
 
 const control: IControl = {
     config: config,
     component: Compontent,
-    propertys: [
-        new Property('cols', ColsPropertyEditor, null)
-    ],
+    propertys: [new Property('cols', ColsPropertyEditor, null)],
     child: []
 }
 
