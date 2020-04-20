@@ -54,6 +54,15 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v 0.2.8
+1. 增加属性验证为必填时，显示红色的*号
+2. 修复属性过多超出部分没有显示，增加滚动条
+
+## v 0.2.7
+1. 增加FormDesign组件属性验证功能，通过enablePropertyValid属性控制，默认为false。当为true时，属性如果不通过，再添加或切换其它组件会提示信息
+2. 增加FormDesign组件itemAdd事件
+3. 增加FormDesign组件validate方法，验证属性是否通过
+4. 移除属性编辑器字样，改为当前组件：
 
 ## v 0.2.6
 1. 修复FormDesign组件在defaultModel有值，再拖拽新的控件，可能遇见key重复报错
