@@ -54,6 +54,10 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v0.2.9
+1. Vue.install选项增加isUseDefaultControls选项，是否启用默认的控件，默认true
+2. Vue.install选项增加isRegisterComponent选项，是否注册全局Vue组件，默认false，`bfs-design`、`bfs-form-design`、`bfs-viewer`
+
 ## v 0.2.8
 1. 增加属性验证为必填时，显示红色的*号
 2. 修复属性过多超出部分没有显示，增加滚动条
