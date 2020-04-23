@@ -20,6 +20,7 @@
                         :control="item"
                         :currentEditControl="currentEditControl"
                         :class="canMove(item) ? '' : 'filtered'"
+                        :extra="extraInject"
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
                         @itemAdd="controlAddedHandler"
@@ -48,7 +49,7 @@ import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
 import { IControl } from '../interface'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
-import { SYMBOL_DESIGN_CANADD_KEY } from '../symbol'
+import { SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import el from './el'
 
 @Component({
@@ -68,6 +69,7 @@ export default class DesignZone extends Vue {
 
     @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true } }) designPubProp: DesignPubPropModel
     @Inject({ from: SYMBOL_DESIGN_CANADD_KEY, default: null }) canAdd: Function
+    @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
 
     get dragOptions() {
         return {

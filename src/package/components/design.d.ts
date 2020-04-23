@@ -18,6 +18,10 @@ export declare class Design extends Component {
      * 布局控件空白时显示的文本
      */
     placeholder: string
+    /**
+     * 提供给控件的额外数据
+     */
+    extra: any
 
     /**
      * 控件是否可以拖动

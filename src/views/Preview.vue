@@ -7,7 +7,7 @@
             </el-radio-group>
         </div>
         <div class="bfs-preview-box-content">
-            <viewer :key="mode" :mobile="mode === 'mobile'" ref="viewer" itemValueField="id" :designModel="designModel"></viewer>
+            <viewer :extra="extra" :key="mode" :mobile="mode === 'mobile'" ref="viewer" itemValueField="id" :designModel="designModel"></viewer>
         </div>
         <div>
             <el-button @click="saveHandler">
@@ -30,6 +30,10 @@ import { Viewer } from '../package/components'
 })
 export default class Preview extends Vue {
     @Prop() designModel: DesignModel | undefined
+
+    extra = {
+        name: 'test name'
+    }
 
     mode = 'pc'
 

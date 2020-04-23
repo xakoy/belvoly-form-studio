@@ -16,6 +16,10 @@ export declare class Viewer extends Component {
      * @default id
      */
     itemValueField: string
+    /**
+     * 提供给控件的额外数据
+     */
+    extra: any
 
     /**
      * 验证表单元素

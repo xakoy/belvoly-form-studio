@@ -9,7 +9,11 @@ import Guid from './guid'
 import { IControl, IPropertyControlPlugin, DesignControlModel, DesignModel } from '../interface'
 import { createControls as factoryCreateControls } from './controlUtil'
 
-const controls: IControl[] = [Text, NumberControl, Radio, Checkbox, DateControl, Title, Divider, Guid]
+/**
+ * 系统自带的控件
+ */
+const DEFAULT_CONTROLS: IControl[] = [Text, NumberControl, Radio, Checkbox, DateControl, Title, Divider, Guid]
+const controls: IControl[] = [...DEFAULT_CONTROLS]
 
 /**
  * 根据设计器生成的模型，构建控件
@@ -48,6 +52,20 @@ export function registerControl(control: IControl) {
         return
     }
     controls.push(control)
+}
+
+/**
+ * 启用哪些默认控件
+ * @param names 要启用的默认控件的names
+ */
+export function useDefaultControls(names: string[] = []) {
+    const notUseControls = DEFAULT_CONTROLS.filter(c => !names.some(n => n === c.config.name))
+    notUseControls.forEach(c => {
+        const index = controls.findIndex(ct => ct === c)
+        if (index > -1) {
+            controls.splice(index, 1)
+        }
+    })
 }
 
 export default controls
