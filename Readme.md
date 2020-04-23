@@ -54,7 +54,10 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
-## v0.2.9
+## v 0.2.10
+1. FormDesign、Design、Viewer组件增加extra属性，用于向子组件提供额外数据，子组件通过extra属性获取。extra必须是json格式。不是必须的
+
+## v 0.2.9
 1. Vue.install选项增加isUseDefaultControls选项，是否启用默认的控件，默认true
 2. Vue.install选项增加isRegisterComponent选项，是否注册全局Vue组件，默认false，`bfs-design`、`bfs-form-design`、`bfs-viewer`
 
