@@ -13,6 +13,7 @@ import { createControls } from '../controls'
 import { IControl } from '../interface'
 import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
+import { SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_IN_MOBILE_KEY } from '../symbol'
 
 @Component({
@@ -23,7 +24,8 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_I
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
             [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
-            [SYMBOL_IN_MOBILE_KEY]: this.mobile
+            [SYMBOL_IN_MOBILE_KEY]: this.mobile,
+            [SYMBOL_EXTRA_KEY]: this.extra
         }
     }
 })
@@ -56,6 +58,15 @@ export default class FormViewer extends Vue {
      * 移动模式
      */
     @Prop(Boolean) mobile: boolean
+    /**
+     * 提供给控件的额外数据
+     */
+    @Prop({
+        default: function() {
+            return {}
+        }
+    })
+    extra: any
 
     formProperty = {}
     controls: IControl[] = []

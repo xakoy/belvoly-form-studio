@@ -46,7 +46,7 @@ import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
 import DesignDraggable from './DesignDraggable.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_DESIGN_CANADD_KEY } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { convertDesignControlModel } from '../controls/controlUtil'
 import { Message } from 'element-ui'
 
@@ -66,6 +66,15 @@ export default Vue.extend({
         enablePropertyValid: {
             type: Boolean,
             default: false
+        },
+        /**
+         * 提供给控件的额外数据
+         */
+        extra: {
+            type: Object,
+            default: function() {
+                return {}
+            }
         }
     },
     components: {
@@ -78,7 +87,8 @@ export default Vue.extend({
         return {
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_DESIGN,
             [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
-            [SYMBOL_DESIGN_CANADD_KEY]: this.canAdd
+            [SYMBOL_DESIGN_CANADD_KEY]: this.canAdd,
+            [SYMBOL_EXTRA_KEY]: this.extra
         }
     },
     data() {

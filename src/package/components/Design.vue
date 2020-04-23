@@ -20,7 +20,7 @@ import PropertyEdit from '../controls/PropertyEdit.vue'
 import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
-import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY } from '../symbol'
+import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
 import { convertDesignControlModel } from '../controls/controlUtil'
 import { VNode } from 'vue'
@@ -44,8 +44,18 @@ export default class Design extends Vue {
      * 所有的控件集合，如果不为空，则解析的控件从这些控件中查找
      */
     @Prop() allControls: IControl[]
+    /**
+     * 提供给控件的额外数据
+     */
+    @Prop({
+        default: function() {
+            return {}
+        }
+    })
+    extra: any
 
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
+    @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
 
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {

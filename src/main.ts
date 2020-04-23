@@ -7,7 +7,7 @@ import BFS from './package'
 import complex from './views/components/complex'
 BFS.Studio.control(complex)
 
-Vue.use(BFS, { isUseDefaultControls: false })
+// Vue.use(BFS, { isUseDefaultControls: false })
 
 // import { fieldTextPlugin, fieldNamePlugin } from './package/plugins'
 

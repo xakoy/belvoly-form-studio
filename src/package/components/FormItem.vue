@@ -10,6 +10,7 @@
             :control="control"
             :config="control.config"
             :formModel="formModel"
+            :extra="extraInject"
         ></component>
     </el-form-item>
     <component
@@ -23,12 +24,14 @@
         :control="control"
         :config="control.config"
         :formModel="formModel"
+        :extra="extraInject"
     ></component>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Inject } from 'vue-property-decorator'
 import { IControl } from '../interface'
+import { SYMBOL_EXTRA_KEY } from '../symbol'
 
 @Component
 export default class FormItem extends Vue {
@@ -38,6 +41,7 @@ export default class FormItem extends Vue {
     @Prop() fieldName!: string
     @Prop() formModel!: any
     @Prop({ default: false }) readonly readonly!: boolean
+    @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
 
     rules = []
 
