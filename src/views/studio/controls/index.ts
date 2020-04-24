@@ -1,7 +1,7 @@
 import Empty from './empty'
 import Place from './place'
-import guid from '@/package/controls/guid'
+import { Grid } from '@/package/controls/control'
 
-const controls = [Empty, Place, guid]
+const controls = [Empty, Place, Grid]
 
 export { controls }

@@ -1,18 +1,12 @@
-import Text from './text'
-import NumberControl from './number'
-import Title from './title'
-import Radio from './radio'
-import Checkbox from './checkbox'
-import Divider from './divider'
-import DateControl from './date'
-import Guid from './guid'
+import { Grid, Divider, Checkbox, Date as DateControl, Radio, Title, Number as NumberControl, Text } from './control'
+
 import { IControl, IPropertyControlPlugin, DesignControlModel, DesignModel } from '../interface'
 import { createControls as factoryCreateControls } from './controlUtil'
 
 /**
  * 系统自带的控件
  */
-const DEFAULT_CONTROLS: IControl[] = [Text, NumberControl, Radio, Checkbox, DateControl, Title, Divider, Guid]
+const DEFAULT_CONTROLS: IControl[] = [Text, NumberControl, Radio, Checkbox, DateControl, Title, Divider, Grid]
 const controls: IControl[] = [...DEFAULT_CONTROLS]
 
 /**

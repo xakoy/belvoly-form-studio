@@ -5,7 +5,7 @@ import ColsPropertyEditor from './ColsPropertyEditor.vue'
 import GutterPropertyEditor from './GutterPropertyEditor.vue'
 
 const config: IConfig = {
-    name: 'guid',
+    name: 'grid',
     text: '栅格布局',
     icon: 'text',
     isLayout: true,
