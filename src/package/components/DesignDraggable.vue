@@ -9,6 +9,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
+import { createControlInstance } from '../controls/controlUtil'
 
 @Component({
     components: {
@@ -30,12 +31,7 @@ export default class Index extends Vue {
     }
 
     cloneDog(e: any) {
-        const clone = {
-            ...e,
-            id: e.config.name + new Date().getTime()
-        }
-        clone.config = JSON.parse(JSON.stringify(clone.config))
-        return clone
+        return createControlInstance(e)
     }
 }
 </script>

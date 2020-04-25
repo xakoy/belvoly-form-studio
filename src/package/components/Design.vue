@@ -22,7 +22,7 @@ import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '..
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
-import { convertDesignControlModel } from '../controls/controlUtil'
+import { convertDesignControlModel, createControlInstance } from '../controls/controlUtil'
 import { VNode } from 'vue'
 const index = 1
 
@@ -105,15 +105,6 @@ export default class Design extends Vue {
         }
     }
 
-    cloneDog(e: any) {
-        const clone = {
-            ...e,
-            id: e.config.name + new Date().getTime()
-        }
-        clone.config = JSON.parse(JSON.stringify(clone.config))
-        return clone
-    }
-
     controlClickHandler(control: IControl) {
         this.currentEditControl = control
         this.propertyTabName = 'control'
@@ -125,7 +116,7 @@ export default class Design extends Vue {
     }
 
     addControl(control: IControl) {
-        const clone = this.cloneDog(control)
+        const clone = createControlInstance(control)
         this.contentList.push(clone)
         this.controlAddedHandler(clone)
     }
