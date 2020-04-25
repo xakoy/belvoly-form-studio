@@ -14,9 +14,17 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class Index extends Vue {
+    @Prop() extra
     @Prop() control
     clickHandler() {
+        const { placeClick } = this.extra
+        placeClick && placeClick(this)
         console.log(`log`)
+    }
+
+    replace(control) {
+        const zone: any = this.findDesignZone()
+        zone.replaceControl(control, this.control)
     }
 
     deleteHandler() {

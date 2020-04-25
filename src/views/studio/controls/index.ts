@@ -4,4 +4,4 @@ import { Grid } from '@/package/controls/control'
 
 const controls = [Empty, Place, Grid]
 
-export { controls }
+export { controls, Empty }
