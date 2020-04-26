@@ -54,9 +54,12 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
-## new
+## v 0.2.11
 1. Guid组件重命名为Grid
 2. Grid组件增加gutter属性，栅格之间的间距
+3. 增加内部组件DesignZone、ViewZone导出
+4. DesignZone 增加 `replaceControl`、`beforeControl`、`afterControl`方法
+5. IProperty 增加`tag`属性
 
 ## v 0.2.10
 1. FormDesign、Design、Viewer组件增加extra属性，用于向子组件提供额外数据，子组件通过extra属性获取。extra必须是json格式。不是必须的
