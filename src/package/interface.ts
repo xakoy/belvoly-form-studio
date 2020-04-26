@@ -48,6 +48,10 @@ export interface IProperty {
      * 属性的验证规则
      */
     rules?: any
+    /**
+     * 自定义标记
+     */
+    tag?: any
 }
 
 /**
