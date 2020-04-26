@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import BelvolyFormStudio from './studio'
-import { Design, Viewer, FormDesign } from './components'
+import { Design, Viewer, FormDesign, DesignZone, ViewerZone } from './components'
 import { useDefaultControls } from './controls/index'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
@@ -11,8 +11,10 @@ const Studio = new BelvolyFormStudio()
 const install = (vue: typeof Vue, { isUseDefaultControls = true, isRegisterComponent = false }) => {
     if (isRegisterComponent) {
         vue.component('bfs-design', Design)
+        vue.component('bfs-design-zone', DesignZone)
         vue.component('bfs-form-design', FormDesign)
         vue.component('bfs-viewer', Viewer)
+        vue.component('bfs-viewer-zone', ViewerZone)
     }
     if (!isUseDefaultControls) {
         useDefaultControls()
@@ -25,6 +27,8 @@ export default {
     Design,
     FormDesign,
     Viewer,
+    DesignZone,
+    ViewerZone,
     Controls,
     Properties,
     createControlInstance,

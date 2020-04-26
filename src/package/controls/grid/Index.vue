@@ -1,6 +1,6 @@
 <template>
     <div class="bfs-control-guid" :class="{ 'bfs-control-guid-designmode': isNeedSuportDisplay && isInDesignMode }">
-        <el-row :gutter="isNeedSuportDisplay && isInDesignMode ? 0 : 0">
+        <el-row :gutter="isNeedSuportDisplay && isInDesignMode ? gutter : gutter">
             <template v-for="(col, index) in cols">
                 <el-col :key="col.id" :span="mobile ? 24 : col.span">
                     <div class="bfs-control-guid-zone">
@@ -115,6 +115,11 @@ export default class Guid extends Vue {
 
     get cols(): any[] {
         return this.config.prop.cols
+    }
+
+    get gutter() {
+        const { gutter } = this.config.prop
+        return Number.isNaN(gutter) ? 0 : Number.parseInt(gutter)
     }
 
     controlClickHandler(control: IControl) {

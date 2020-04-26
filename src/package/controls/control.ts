@@ -6,7 +6,7 @@ export { default as Checkbox } from './checkbox'
 export { default as Divider } from './divider'
 export { default as Unknown } from './unknown'
 export { default as Date } from './date'
-export { default as Guid } from './guid'
+export { default as Grid } from './grid'
 
 export { default as Basic } from './Basic.vue'
 

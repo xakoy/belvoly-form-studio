@@ -12,7 +12,7 @@
             </el-button>
         </div>
         <div class="studio-design-zone">
-            <design :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加组件到该区域">
+            <design :extra="extra" :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加组件到该区域">
                 <template v-slot:placeholder>
                     添加组件到该区域
                 </template>
@@ -46,7 +46,7 @@ import Vue from 'vue'
 import { DesignDraggable, Design } from '@/package/components'
 import Preview from './Preview.vue'
 import Component from 'vue-class-component'
-import { controls } from './controls'
+import { controls, Empty } from './controls'
 import { DesignModel, IControl } from '../../package/interface'
 
 @Component({
@@ -67,6 +67,14 @@ export default class DesignStudio extends Vue {
     defaultModel: DesignModel = {
         controls: [],
         form: {}
+    }
+
+    extra = {
+        placeClick: this.placeClickHandler
+    }
+
+    placeClickHandler(place) {
+        place.replace(Empty)
     }
 
     selectItemClick(control: IControl) {

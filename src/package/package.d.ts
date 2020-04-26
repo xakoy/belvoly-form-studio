@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { Design } from './components/design'
 import { Viewer } from './components/viewer'
 import { FormDesign } from './components/form-design'
+import { DesignZone } from './components/design-zone'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
 import { createControlInstance, convertDesignControlModel, createControlByDesignControlModel } from './controls/controlUtil'
@@ -18,5 +19,5 @@ export interface InstallationOptions {
 }
 export function install(vue: typeof Vue, options: InstallationOptions)
 
-export { Design, Viewer, FormDesign }
+export { Design, Viewer, FormDesign, DesignZone }
 export { Controls, Properties, createControlInstance, convertDesignControlModel, createControlByDesignControlModel }

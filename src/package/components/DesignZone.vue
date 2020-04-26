@@ -50,6 +50,7 @@ import draggable from 'vuedraggable'
 import { IControl } from '../interface'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
 import { SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
+import { createControlInstance } from '../controls/controlUtil'
 import el from './el'
 
 @Component({
@@ -116,19 +117,14 @@ export default class DesignZone extends Vue {
         this.drag = false
     }
 
-    cloneDog(e: any) {
-        const clone = {
-            ...e,
-            id: e.config.name + new Date().getTime()
-        }
-        clone.config = JSON.parse(JSON.stringify(clone.config))
-        return clone
+    addControl(control: IControl) {
+        const clone = createControlInstance(control)
+        this.list.push(clone)
+        this.add(clone)
     }
 
-    addControl(control: IControl) {
-        const clone = this.cloneDog(control)
-        this.list.push(clone)
-        this.controlAddedHandler(clone)
+    add(control: IControl) {
+        this.controlAddedHandler(control)
 
         this.$emit('input', this.list)
         this.$emit('change', this.list)
@@ -162,6 +158,39 @@ export default class DesignZone extends Vue {
 
     controlAddedHandler(control: IControl) {
         this.$emit('itemAdd', control)
+    }
+
+    beforeControl(control: IControl, currentControl: IControl) {
+        const index = this.list.indexOf(currentControl)
+        if (index > -1) {
+            const clone = createControlInstance(control)
+            if (index === 0) {
+                this.list.unshift(clone)
+            } else {
+                this.list.splice(index, 0, clone)
+            }
+            this.add(clone)
+        }
+    }
+
+    replaceControl(control: IControl, currentControl: IControl) {
+        const index = this.list.indexOf(currentControl)
+        if (index > -1) {
+            const clone = createControlInstance(control)
+            this.list.splice(index, 1, clone)
+            this.add(clone)
+            this.removeControl(currentControl)
+        }
+    }
+
+    afterControl(control: IControl, currentControl: IControl) {
+        const index = this.list.indexOf(currentControl)
+        if (index > -1) {
+            const clone = createControlInstance(control)
+
+            this.list.splice(index + 1, 0, clone)
+            this.add(clone)
+        }
     }
 }
 </script>
