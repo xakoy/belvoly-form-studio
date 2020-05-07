@@ -54,6 +54,11 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v 0.2.12
+1. FormDesign组件的属性和验证属性组件都支持extra获取
+2. 控件的icon现在和样式名一样
+3. 调整FormDesign组件的样式名统一
+
 ## v 0.2.11
 1. Guid组件重命名为Grid
 2. Grid组件增加gutter属性，栅格之间的间距
