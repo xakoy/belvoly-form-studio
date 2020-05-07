@@ -2,7 +2,7 @@
     <div class="bfs-design-zone" :class="{ 'bfs-design-zone-designmode': isNeedSuportDisplay }">
         <div class="bfs-design-zone-tip" v-if="!list.length">
             <el v-if="designPubProp.placeholderSlot" :content="designPubProp.placeholderSlot" />
-            <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧组件到该区域' }}</p>
+            <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧控件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
         <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler" @add="addHandler">

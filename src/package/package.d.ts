@@ -13,7 +13,7 @@ export interface InstallationOptions {
      */
     isUseDefaultControls: boolean
     /**
-     * 是否注册全局组件，默认false
+     * 是否注册全局控件，默认false
      */
     isRegisterComponent: boolean
 }
