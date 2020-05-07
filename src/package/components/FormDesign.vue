@@ -7,7 +7,7 @@
                     <template v-slot:default="{ control }">
                         <div :key="control.config.name" class="b-view-control-static" data-b-view-control-type="Text">
                             <div class="b-view-control-label">
-                                <i :class="'icon-' + control.config.icon"></i>
+                                <i :class="control.config.icon"></i>
                                 <span>{{ control.config.text }}</span>
                             </div>
                         </div>
@@ -296,8 +296,5 @@ export default Vue.extend({
         width: 25px;
         font-size: 16px;
     }
-}
-.ghost2 {
-    transform: rotate(3deg) !important;
 }
 </style>

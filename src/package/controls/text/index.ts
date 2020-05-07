@@ -8,7 +8,7 @@ import DefaultValuePropertyEditor from './DefaultValuePropertyEditor.vue'
 const TextConfig: Config = {
     name: 'text',
     text: '单行文本框',
-    icon: 'text_bold2',
+    icon: 'icon-text_bold2',
     isData: true,
     prop: {
         label: '单行文本框',

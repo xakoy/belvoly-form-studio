@@ -7,7 +7,7 @@ import GutterPropertyEditor from './GutterPropertyEditor.vue'
 const config: IConfig = {
     name: 'grid',
     text: '栅格布局',
-    icon: 'text',
+    icon: 'icon-text',
     isLayout: true,
     prop: {
         gutter: 0,
