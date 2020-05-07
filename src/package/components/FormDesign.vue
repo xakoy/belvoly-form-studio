@@ -5,8 +5,8 @@
                 <h4>常用控件</h4>
                 <design-draggable class="bfs-design-controls" :controls="list" :begin-index.sync="index">
                     <template v-slot:default="{ control }">
-                        <div :key="control.config.name" class="b-view-control-static" data-b-view-control-type="Text">
-                            <div class="b-view-control-label">
+                        <div :key="control.config.name" class="bfs-design-controls__item" data-bfs-type="Text">
+                            <div class="bfs-design-controls__item--label">
                                 <i :class="control.config.icon"></i>
                                 <span>{{ control.config.text }}</span>
                             </div>
@@ -231,6 +231,33 @@ export default Vue.extend({
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
+        &__item {
+            width: 124px;
+            box-sizing: border-box;
+            line-height: 36px;
+            margin-bottom: 12px;
+            padding-left: 12px;
+            list-style: none;
+            position: relative;
+            background-color: #fff;
+            border: 1px solid transparent;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: grab;
+            &:hover,
+            &.active {
+                border-color: #2196f3;
+                color: #2196f3;
+            }
+
+            i {
+                display: inline-block;
+                width: 25px;
+                font-size: 16px;
+            }
+        }
     }
     &-property-editor {
         width: 350px;
@@ -269,32 +296,6 @@ export default Vue.extend({
         border-right: 1px solid rgb(234, 234, 234);
         position: relative;
         overflow: auto;
-    }
-}
-.b-view-control-static {
-    width: 124px;
-    box-sizing: border-box;
-    line-height: 36px;
-    margin-bottom: 12px;
-    padding-left: 12px;
-    list-style: none;
-    position: relative;
-    background-color: #fff;
-    border: 1px solid transparent;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
-    border-radius: 4px;
-    font-size: 13px;
-    cursor: grab;
-    &:hover,
-    &.active {
-        border-color: #2196f3;
-        color: #2196f3;
-    }
-
-    i {
-        display: inline-block;
-        width: 25px;
-        font-size: 16px;
     }
 }
 </style>
