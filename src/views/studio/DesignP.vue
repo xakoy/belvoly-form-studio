@@ -2,10 +2,10 @@
     <div class="studio-design">
         <div class="studio-design-header">
             <el-button @click="selectControlVisible = true">
-                添加组件
+                添加控件
             </el-button>
             <el-button @click="dargSelectControlVisible = true">
-                添加组件2
+                添加控件2
             </el-button>
             <el-button @click="previewHandler">
                 预览
@@ -19,7 +19,7 @@
                     </template>
                     <template v-slot:layoutmore="more">
                         <div style="border: 1px dashed #ccc; text-align: center; line-height: 50px; " @click.stop="addControlHandler(more)">
-                            添加组件
+                            添加控件
                         </div>
                     </template>
                 </design>
@@ -35,7 +35,7 @@
                 关闭
             </el-button>
         </div>
-        <el-dialog :visible.sync="selectControlVisible" title="选中组件" width="400">
+        <el-dialog :visible.sync="selectControlVisible" title="选中控件" width="400">
             <div>
                 <ul>
                     <li v-for="(item, index) in controls" :key="index" @click="selectItemClick(item)">{{ item.config.text }}</li>

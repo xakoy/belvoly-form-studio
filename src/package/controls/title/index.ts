@@ -5,7 +5,7 @@ import { LabelProperty, ColorProperty, FontSizeProperty, TextAlignProperty, Padd
 const config: Config = {
     name: 'title',
     text: '标题',
-    icon: 'text_bold2',
+    icon: 'icon-text_bold2',
     prop: {
         color: '',
         label: '标题',

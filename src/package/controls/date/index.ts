@@ -11,7 +11,7 @@ type TYPE = 'date' | 'datetime'
 const config: Config = {
     name: 'date',
     text: '日期',
-    icon: 'task_custom_today',
+    icon: 'icon-task_custom_today',
     isData: true,
     prop: {
         label: '日期',

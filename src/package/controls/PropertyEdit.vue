@@ -7,7 +7,7 @@
             </template>
             <template v-if="rules">
                 <validation>
-                    <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor"></component>
+                    <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor" :extra="extraInject"></component>
                 </validation>
             </template>
         </el-form>
@@ -15,40 +15,44 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component, Prop, Inject } from 'vue-property-decorator'
 import { Validation } from './props/validation'
 import { IControl, IConfig } from '../interface'
 import PropertyEditItem from './PropertyEditItem.vue'
+import { ElForm } from 'element-ui/types/form'
+import { SYMBOL_EXTRA_KEY } from '../symbol'
 
-export default Vue.extend({
-    props: ['config', 'control'],
+@Component({
     components: {
         PropertyEditItem,
         Validation
-    },
-    computed: {
-        editControl(): IControl {
-            return this.control as IControl
-        },
-        options(): IConfig {
-            return this.editControl.config
-        },
-        propertys() {
-            return this.editControl.propertys
-        },
-        rules() {
-            return this.editControl.rules
-        }
-    },
-    methods: {
-        async validate() {
-            try {
-                const isValid = await this.$refs.form.validate()
-                return isValid
-            } catch (ex) {
-                return false
-            }
-        }
     }
 })
+export default class PropertyEdit extends Vue {
+    @Prop() control: IControl
+    @Prop() config: any
+    @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
+
+    get editControl(): IControl {
+        return this.control as IControl
+    }
+    get options(): IConfig {
+        return this.editControl.config
+    }
+    get propertys() {
+        return this.editControl.propertys
+    }
+    get rules() {
+        return this.editControl.rules
+    }
+
+    async validate() {
+        try {
+            const isValid = await (this.$refs.form as ElForm).validate()
+            return isValid
+        } catch (ex) {
+            return false
+        }
+    }
+}
 </script>

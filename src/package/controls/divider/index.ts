@@ -5,7 +5,7 @@ import { LabelProperty, ColorProperty, PaddingProperty } from '../props'
 const config: Config = {
     name: 'divider',
     text: '分割线',
-    icon: 'sidebar_hr',
+    icon: 'icon-sidebar_hr',
     prop: {
         label: '分割线',
         color: '',

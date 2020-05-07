@@ -12,11 +12,11 @@ export interface DesignPubPropModel {
      */
     canMove?: CanMoveFunc
     /**
-     * 布局组件空白时显示的文字
+     * 布局控件空白时显示的文字
      */
     placeholder?: string
     /**
-     * 布局组件空白时,显示的slot vnode
+     * 布局控件空白时,显示的slot vnode
      */
     placeholderSlot?: any
     layoutmoreSlot?: any

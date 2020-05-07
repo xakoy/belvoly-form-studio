@@ -7,7 +7,7 @@ type OptionsAlign = 'inline-block' | 'block' | 'select'
 const config: Config = {
     name: 'radio',
     text: '单选',
-    icon: 'ic_title',
+    icon: 'icon-ic_title',
     isData: true,
     prop: {
         label: '单选',

@@ -6,7 +6,7 @@ import { LabelProperty, OptionsProperty, OptionsAlignProperty, RequiredRule } fr
 const config: Config = {
     name: 'checkbox',
     text: '多选',
-    icon: 'ic_title',
+    icon: 'icon-ic_title',
     isData: true,
     prop: {
         label: '多选',

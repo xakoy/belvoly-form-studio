@@ -2,19 +2,19 @@
     <div class="studio-design">
         <div class="studio-design-header">
             <el-button @click="selectControlVisible = true">
-                添加组件
+                添加控件
             </el-button>
             <el-button @click="dargSelectControlVisible = true">
-                添加组件2
+                添加控件2
             </el-button>
             <el-button @click="previewHandler">
                 预览
             </el-button>
         </div>
         <div class="studio-design-zone">
-            <design :extra="extra" :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加组件到该区域">
+            <design :extra="extra" :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加控件到该区域">
                 <template v-slot:placeholder>
-                    添加组件到该区域
+                    添加控件到该区域
                 </template>
             </design>
         </div>
@@ -28,7 +28,7 @@
                 关闭
             </el-button>
         </div>
-        <el-dialog :visible.sync="selectControlVisible" title="选中组件" width="400">
+        <el-dialog :visible.sync="selectControlVisible" title="选中控件" width="400">
             <div>
                 <ul>
                     <li v-for="(item, index) in controls" :key="index" @click="selectItemClick(item)">{{ item.config.text }}</li>
