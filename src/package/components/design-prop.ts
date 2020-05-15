@@ -19,11 +19,16 @@ export interface DesignPubPropModel {
      * 布局控件空白时,显示的slot vnode
      */
     placeholderSlot?: any
+
     layoutmoreSlot?: any
     /**
      * 是否需要辅助显示线条
      */
     isNeedSuportDisplay: boolean
+    /**
+     * 在filter事件的时候，是否阻止默认事件
+     */
+    isPreventOnFilter: boolean
 }
 
 export { SYM_DESIGN_PROP_KEY }

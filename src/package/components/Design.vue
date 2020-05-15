@@ -36,6 +36,7 @@ export default class Design extends Vue {
     @Prop() placeholder: string
     @Prop() canMove: CanMoveFunc
     @Prop({ default: true }) isNeedSuportDisplay: boolean
+    @Prop({ default: true }) isPreventOnFilter: boolean
     /**
      * 设计器生成的模型数据，Viewer根据此模型数据渲染表单
      */
@@ -62,6 +63,7 @@ export default class Design extends Vue {
         canMove: this.canMove,
         placeholder: this.placeholder,
         isNeedSuportDisplay: this.isNeedSuportDisplay,
+        isPreventOnFilter: this.isPreventOnFilter,
         placeholderSlot: this.$slots.placeholder,
         layoutmoreSlot: this.$slots.layoutmore
     }

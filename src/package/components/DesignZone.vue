@@ -68,7 +68,7 @@ export default class DesignZone extends Vue {
     list = []
     drag = false
 
-    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true } }) designPubProp: DesignPubPropModel
+    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true, isPreventOnFilter: true } }) designPubProp: DesignPubPropModel
     @Inject({ from: SYMBOL_DESIGN_CANADD_KEY, default: null }) canAdd: Function
     @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
 
@@ -77,8 +77,13 @@ export default class DesignZone extends Vue {
             animation: 200,
             disabled: false,
             filter: '.filtered',
+            preventOnFilter: this.isPreventOnFilter,
             ghostClass: 'bfs-design-zone-ghost'
         }
+    }
+
+    get isPreventOnFilter() {
+        return this.designPubProp.isPreventOnFilter
     }
 
     get isNeedSuportDisplay() {

@@ -54,6 +54,9 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v 0.2.13
+1. Design组件增加`isPreventOnFilter`属性, boolean类型，在filter事件的时候，是否阻止默认事件，参见`sortablejs`设置
+
 ## v 0.2.12
 1. FormDesign组件的属性和验证属性组件都支持extra获取
 2. 控件的icon现在和样式名一样
