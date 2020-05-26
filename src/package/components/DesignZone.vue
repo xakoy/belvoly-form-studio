@@ -263,7 +263,7 @@ export default class DesignZone extends Vue {
         z-index: -1;
     }
     &-drag {
-        flex: 1;
+        flex: 1 1 auto;
         height: 100%;
         > span {
             height: 100%;
