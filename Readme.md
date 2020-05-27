@@ -54,6 +54,10 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v 0.2.14
+1. 修复IE 11 Grid组件inject mode属性报错
+2. 修复IE 11 Grid样式问题
+
 ## v 0.2.13
 1. Design组件增加`isPreventOnFilter`属性, boolean类型，在filter事件的时候，是否阻止默认事件，参见`sortablejs`设置
 
