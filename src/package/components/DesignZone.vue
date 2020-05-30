@@ -24,6 +24,7 @@
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
                         @itemAdd="controlAddedHandler"
+                        @layoutChange="layoutControlChangeHandler"
                     >
                     </component>
                     <div class="bfs-design-item-container-placeholder" v-if="!item.config.isLayout"></div>
@@ -163,6 +164,10 @@ export default class DesignZone extends Vue {
 
     controlAddedHandler(control: IControl) {
         this.$emit('itemAdd', control)
+    }
+
+    layoutControlChangeHandler() {
+        this.$emit('change', this.list)
     }
 
     beforeControl(control: IControl, currentControl: IControl) {

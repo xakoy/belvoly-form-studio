@@ -136,6 +136,7 @@ export default class Guid extends Vue {
 
     changeHandler() {
         this.control.child = this.cols.map(col => this.Tuple[col.id])
+        this.$emit('layoutChange')
     }
 }
 </script>
