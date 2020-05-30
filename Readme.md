@@ -54,6 +54,10 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v 0.2.15
+1. 修复Grid组件没有触发Design的change事件
+2. `Design`、`FormDesign`的placeholder slot添加zone属性
+
 ## v 0.2.14
 1. 修复IE 11 Grid组件inject mode属性报错
 2. 修复IE 11 Grid样式问题
