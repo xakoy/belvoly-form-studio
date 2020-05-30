@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-design-zone" :class="{ 'bfs-design-zone-designmode': isNeedSuportDisplay }">
         <div class="bfs-design-zone-tip" v-if="!list.length">
-            <el v-if="designPubProp.placeholderSlot" :content="designPubProp.placeholderSlot" />
+            <el v-if="designPubProp.placeholderSlot" :content="designPubProp.placeholderSlot" :zone="this" />
             <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧控件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
