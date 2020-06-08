@@ -23,6 +23,7 @@
                 @itemClick="controlClickHandler"
                 @itemRemove="controlRemoveClickHandler"
                 @itemAdd="controlAddedHandler"
+                @itemDbClick="controlDbClickHandler"
             ></design-zone>
         </div>
         <div class="bfs-design-property-editor">
@@ -143,6 +144,9 @@ export default Vue.extend({
                 Message.error({ message: '当前控件的属性验证不通过，不能切换到其它的控件，请查看属性' })
             }
             this.$emit('itemClick', control)
+        },
+        controlDbClickHandler(control: IControl) {
+            this.$emit('itemDbClick', control)
         },
         controlRemoveClickHandler(control: IControl) {
             if (this.currentEditControl === control) {

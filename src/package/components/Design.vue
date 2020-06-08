@@ -8,6 +8,7 @@
             @itemClick="controlClickHandler"
             @itemRemove="controlRemoveClickHandler"
             @itemAdd="controlAddedHandler"
+            @itemDbClick="controlDbClickHandler"
         ></design-zone>
     </div>
 </template>
@@ -112,6 +113,10 @@ export default class Design extends Vue {
         this.propertyTabName = 'control'
         this.$emit('itemClick', control)
     }
+    controlDbClickHandler(control: IControl) {
+        this.$emit('itemDbClick', control)
+    }
+
     controlAddedHandler(control: IControl) {
         this.currentEditControl = control
         this.$emit('itemAdd', control)

@@ -11,6 +11,7 @@
                     class="bfs-design-item-container"
                     :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
                     @click.stop="controlClickHandler(item)"
+                    @dblclick.stop="controlDbClickHandler(item)"
                     v-for="item in list"
                     :key="item.id"
                 >
@@ -21,6 +22,7 @@
                         :currentEditControl="currentEditControl"
                         :class="canMove(item) ? '' : 'filtered'"
                         :extra="extraInject"
+                        @itemDbClick="controlDbClickHandler"
                         @itemClick="controlClickHandler"
                         @itemRemove="controlRemoveClickHandler"
                         @itemAdd="controlAddedHandler"
@@ -148,6 +150,10 @@ export default class DesignZone extends Vue {
 
     controlClickHandler(control: IControl) {
         this.$emit('itemClick', control)
+    }
+
+    controlDbClickHandler(control: IControl) {
+        this.$emit('itemDbClick', control)
     }
 
     canMove(control: IControl) {
