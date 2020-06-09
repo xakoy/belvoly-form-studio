@@ -1,5 +1,5 @@
 <template>
-    <draggable :tag="tag" v-model="controls" :group="{ name: 'design-zone', pull: 'clone', put: false }" :sort="false" :clone="cloneDog">
+    <draggable :tag="tag" v-model="controls" :group="{ name: 'design-zone', pull: 'clone', put: false }" :sort="false" :clone="cloneHandler">
         <template v-for="(control, index) in controls">
             <slot v-bind:control="control" v-bind:index="index" />
         </template>
@@ -16,10 +16,12 @@ import { createControlInstance } from '../controls/controlUtil'
         draggable
     }
 })
-export default class Index extends Vue {
+export default class DesignDraggable extends Vue {
     @Prop() controls
     @Prop() beginIndex
     @Prop() tag
+
+    @Prop() clone
 
     get dragOptions() {
         return {
@@ -27,6 +29,14 @@ export default class Index extends Vue {
             group: 'description',
             disabled: false,
             ghostClass: 'ghost6'
+        }
+    }
+
+    cloneHandler(e: any) {
+        if (this.clone) {
+            return this.clone(e)
+        } else {
+            return this.cloneDog(e)
         }
     }
 
