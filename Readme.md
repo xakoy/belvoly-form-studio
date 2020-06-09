@@ -54,6 +54,11 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## v0.2.16
+1. `Design`、`FormDesign`组件增加`itemDbClick`事件
+2. 增加内部组件`DesignDraggable`导出
+3. 设计模式下，itemClick, itemDbClick事件增加了extra: {zone, event}的参数
+
 ## v 0.2.15
 1. 修复Grid组件没有触发Design的change事件
 2. `Design`、`FormDesign`的placeholder slot添加zone属性
