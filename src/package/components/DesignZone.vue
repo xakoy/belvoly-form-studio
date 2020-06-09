@@ -10,8 +10,8 @@
                 <div
                     class="bfs-design-item-container"
                     :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
-                    @click.stop="controlClickHandler(item)"
-                    @dblclick.stop="controlDbClickHandler(item)"
+                    @click.stop="controlClickHandler(item, $event)"
+                    @dblclick.stop="controlDbClickHandler(item, $event)"
                     v-for="item in list"
                     :key="item.id"
                 >
@@ -22,10 +22,10 @@
                         :currentEditControl="currentEditControl"
                         :class="canMove(item) ? '' : 'filtered'"
                         :extra="extraInject"
-                        @itemDbClick="controlDbClickHandler"
-                        @itemClick="controlClickHandler"
-                        @itemRemove="controlRemoveClickHandler"
-                        @itemAdd="controlAddedHandler"
+                        @itemDbClick="childControlDbClickHandler"
+                        @itemClick="childControlClickHandler"
+                        @itemRemove="childControlRemoveClickHandler"
+                        @itemAdd="childControlAddedHandler"
                         @layoutChange="layoutControlChangeHandler"
                     >
                     </component>
@@ -34,7 +34,7 @@
                         <strong>当前编辑：</strong>
                         <span>
                             <el-tooltip content="删除">
-                                <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item)"></i>
+                                <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item, $event)"></i>
                             </el-tooltip>
                         </span>
                     </div>
@@ -113,7 +113,10 @@ export default class DesignZone extends Vue {
         if (this.canAdd) {
             const can = await this.canAdd()
             if (can === false) {
-                this.removeControl(control)
+                this.removeControl(control, {
+                    zone: this,
+                    event: null
+                })
                 return
             }
         }
@@ -138,22 +141,28 @@ export default class DesignZone extends Vue {
         this.$emit('change', this.list)
     }
 
-    removeControl(control: IControl) {
+    removeControl(control: IControl, extraData: any) {
         const index = this.list.indexOf(control)
         if (index > -1) {
             this.list.splice(index, 1)
         }
-        this.$emit('itemRemove', control)
+        this.$emit('itemRemove', control, extraData)
         this.$emit('input', this.list)
         this.$emit('change', this.list)
     }
 
-    controlClickHandler(control: IControl) {
-        this.$emit('itemClick', control)
+    controlClickHandler(control: IControl, event: Event) {
+        this.$emit('itemClick', control, {
+            zone: this,
+            event: event
+        })
     }
 
-    controlDbClickHandler(control: IControl) {
-        this.$emit('itemDbClick', control)
+    controlDbClickHandler(control: IControl, event: Event) {
+        this.$emit('itemDbClick', control, {
+            zone: this,
+            event: event
+        })
     }
 
     canMove(control: IControl) {
@@ -164,12 +173,33 @@ export default class DesignZone extends Vue {
         return true
     }
 
-    controlRemoveClickHandler(control: IControl) {
-        this.removeControl(control)
+    controlRemoveClickHandler(control: IControl, event: Event) {
+        this.removeControl(control, {
+            zone: this,
+            event: event
+        })
     }
 
     controlAddedHandler(control: IControl) {
-        this.$emit('itemAdd', control)
+        this.$emit('itemAdd', control, {
+            zone: this
+        })
+    }
+
+    childControlDbClickHandler(...params) {
+        this.$emit('itemDbClick', ...params)
+    }
+
+    childControlClickHandler(...params) {
+        this.$emit('itemClick', ...params)
+    }
+
+    childControlAddedHandler(...params) {
+        this.$emit('itemAdd', ...params)
+    }
+
+    childControlRemoveClickHandler(control: IControl, extraData: any) {
+        this.removeControl(control, extraData)
     }
 
     layoutControlChangeHandler() {
@@ -195,7 +225,10 @@ export default class DesignZone extends Vue {
             const clone = createControlInstance(control)
             this.list.splice(index, 1, clone)
             this.add(clone)
-            this.removeControl(currentControl)
+            this.removeControl(currentControl, {
+                zone: this,
+                event: null
+            })
         }
     }
 

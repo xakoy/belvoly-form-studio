@@ -1,6 +1,7 @@
 <template>
     <div class="bfs-studio-design">
         <design-zone
+            ref="zone"
             v-model="contentList"
             :placeholder="placeholder"
             @change="designContentChangeHandler"
@@ -108,26 +109,28 @@ export default class Design extends Vue {
         }
     }
 
-    controlClickHandler(control: IControl) {
+    controlClickHandler(control: IControl, extra) {
         this.currentEditControl = control
         this.propertyTabName = 'control'
-        this.$emit('itemClick', control)
+        this.$emit('itemClick', control, extra)
     }
-    controlDbClickHandler(control: IControl) {
-        this.$emit('itemDbClick', control)
+    controlDbClickHandler(control: IControl, extra) {
+        this.$emit('itemDbClick', control, extra)
     }
 
-    controlAddedHandler(control: IControl) {
+    controlAddedHandler(control: IControl, extra) {
         this.currentEditControl = control
-        this.$emit('itemAdd', control)
+        this.$emit('itemAdd', control, extra)
     }
 
     addControl(control: IControl) {
         const clone = createControlInstance(control)
         this.contentList.push(clone)
-        this.controlAddedHandler(clone)
+        this.controlAddedHandler(clone, {
+            zone: this.$refs.zone
+        })
     }
-    controlRemoveClickHandler(control: IControl) {
+    controlRemoveClickHandler(control: IControl, extra) {
         this.currentEditControl = null
     }
     designContentChangeHandler() {

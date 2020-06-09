@@ -17,6 +17,7 @@
         </div>
         <div class="bfs-design-content">
             <design-zone
+                ref="zone"
                 v-model="contentList"
                 @change="designContentChangeHandler"
                 :currentEditControl="currentEditControl"
@@ -134,7 +135,7 @@ export default Vue.extend({
                 this.clear()
             }
         },
-        async controlClickHandler(control: IControl) {
+        async controlClickHandler(control: IControl, extra) {
             const isValid = await this.currentValidte()
 
             if (isValid) {
@@ -143,19 +144,19 @@ export default Vue.extend({
             } else {
                 Message.error({ message: '当前控件的属性验证不通过，不能切换到其它的控件，请查看属性' })
             }
-            this.$emit('itemClick', control)
+            this.$emit('itemClick', control, extra)
         },
-        controlDbClickHandler(control: IControl) {
-            this.$emit('itemDbClick', control)
+        controlDbClickHandler(control: IControl, extra) {
+            this.$emit('itemDbClick', control, extra)
         },
-        controlRemoveClickHandler(control: IControl) {
+        controlRemoveClickHandler(control: IControl, extra) {
             if (this.currentEditControl === control) {
                 this.currentEditControl = null
             }
         },
-        controlAddedHandler(control: IControl) {
+        controlAddedHandler(control: IControl, extra) {
             this.currentEditControl = control
-            this.$emit('itemAdd', control)
+            this.$emit('itemAdd', control, extra)
         },
         designContentChangeHandler() {
             this.$emit('change')

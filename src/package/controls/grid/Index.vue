@@ -123,19 +123,19 @@ export default class Guid extends Vue {
         return Number.isNaN(gutter) ? 0 : Number.parseInt(gutter)
     }
 
-    controlClickHandler(control: IControl) {
-        this.$emit('itemClick', control)
+    controlClickHandler(...params) {
+        this.$emit('itemClick', ...params)
     }
-    controlDbClickHandler(control: IControl) {
-        this.$emit('itemDbClick', control)
+    controlDbClickHandler(...params) {
+        this.$emit('itemDbClick', ...params)
     }
-    controlAddedHandler(control: IControl) {
-        this.$emit('itemAdd', control)
+    controlAddedHandler(...params) {
+        this.$emit('itemAdd', ...params)
     }
 
-    controlRemoveClickHandler(control: IControl) {
+    controlRemoveClickHandler(control: IControl, extra) {
         this.changeHandler()
-        this.$emit('itemRemove', control)
+        this.$emit('itemRemove', control, extra)
     }
 
     changeHandler() {
