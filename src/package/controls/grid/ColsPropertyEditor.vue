@@ -14,7 +14,7 @@
                     <el-tooltip content="排序" placement="right">
                         <i class="el-icon-menu bfs-property-editor-cols-item-drag-handler"></i>
                     </el-tooltip>
-                    <el-input-number :min="1" :max="24" size="small" v-model="item.span" placeholder="列宽" />
+                    <el-input-number :min="1" step-strictly :step="1" :max="24" size="small" v-model="item.span" placeholder="列宽" />
                     <el-tooltip content="删除此选项" placement="left">
                         <i class="el-icon-close" @click="removeItemHandler(item)"></i>
                     </el-tooltip>

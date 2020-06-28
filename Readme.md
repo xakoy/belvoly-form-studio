@@ -54,6 +54,9 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+## 
+1. Grid 的列属性不可以设置小数
+
 ## v0.2.16
 1. `Design`、`FormDesign`组件增加`itemDbClick`事件
 2. 增加内部组件`DesignDraggable`导出
