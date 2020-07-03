@@ -54,7 +54,7 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
-## 
+## v0.2.17
 1. Grid 的列属性不可以设置小数
 
 ## v0.2.16
