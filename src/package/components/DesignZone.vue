@@ -5,10 +5,11 @@
             <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧控件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
-        <draggable class="bfs-design-zone-drag" v-model="list" v-bind="dragOptions" group="design-zone" @start="drag = true" @end="dragEndHandler" @add="addHandler">
+        <draggable class="bfs-design-zone-drag" :handle="dragHandle" v-model="list" v-bind="dragOptions" group="design-zone" @start="dragStartHandler" @end="dragEndHandler" @add="addHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                 <div
                     class="bfs-design-item-container"
+                    :name="item.config.name"
                     :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
                     @click.stop="controlClickHandler(item, $event)"
                     @dblclick.stop="controlDbClickHandler(item, $event)"
@@ -81,8 +82,14 @@ export default class DesignZone extends Vue {
             disabled: false,
             filter: '.filtered',
             preventOnFilter: this.isPreventOnFilter,
-            ghostClass: 'bfs-design-zone-ghost'
+            ghostClass: 'bfs-design-zone-ghost',
+            dragClass: 'bfs-design-zone-curdrag',
+            chosenClass: 'bfs-design-zone-chosen'
         }
+    }
+
+    get dragHandle() {
+        return this.designPubProp.dragHandle
     }
 
     get isPreventOnFilter() {
@@ -124,8 +131,14 @@ export default class DesignZone extends Vue {
         this.controlAddedHandler(control)
     }
 
+    dragStartHandler() {
+        this.drag = true
+        this.designPubProp.dragStart && this.designPubProp.dragStart()
+    }
+
     dragEndHandler() {
         this.drag = false
+        this.designPubProp.dragEnd && this.designPubProp.dragEnd()
     }
 
     addControl(control: IControl) {

@@ -1,5 +1,8 @@
 <template>
     <div class="webpart-item-place">
+        <div class="handle">
+            标题（可拖动区域）
+        </div>
         <div class="webpart-item-place-plus" @click.stop="clickHandler">
             +
         </div>

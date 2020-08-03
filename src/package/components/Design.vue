@@ -60,6 +60,11 @@ export default class Design extends Vue {
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
     @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
 
+    /**
+     * 拖动的Handle
+     */
+    @Prop() dragHandle: string
+
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {
         canMove: this.canMove,
@@ -67,7 +72,18 @@ export default class Design extends Vue {
         isNeedSuportDisplay: this.isNeedSuportDisplay,
         isPreventOnFilter: this.isPreventOnFilter,
         placeholderSlot: this.$slots.placeholder,
-        layoutmoreSlot: this.$slots.layoutmore
+        layoutmoreSlot: this.$slots.layoutmore,
+        dragStart: this.moveStartHandler,
+        dragEnd: this.moveEndHandler,
+        dragHandle: this.dragHandle
+    }
+
+    moveStartHandler() {
+        this.$emit('dragStart')
+    }
+
+    moveEndHandler() {
+        this.$emit('dragEnd')
     }
 
     list = controls

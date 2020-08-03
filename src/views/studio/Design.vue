@@ -12,7 +12,17 @@
             </el-button>
         </div>
         <div class="studio-design-zone">
-            <design :extra="extra" :begin-index.sync="controlIndex" ref="designer" v-model="defaultModel" placeholder="添加控件到该区域">
+            <design
+                :class="{ [$style.dragActive]: isDrag }"
+                :extra="extra"
+                :begin-index.sync="controlIndex"
+                ref="designer"
+                v-model="defaultModel"
+                placeholder="添加控件到该区域"
+                dragHandle=".handle"
+                @dragStart="moveStartHandler"
+                @dragEnd="moveEndHandler"
+            >
                 <template v-slot:placeholder>
                     添加控件到该区域
                 </template>
@@ -73,6 +83,8 @@ export default class DesignStudio extends Vue {
         placeClick: this.placeClickHandler
     }
 
+    isDrag = false
+
     placeClickHandler(place) {
         place.replace(Empty)
     }
@@ -86,6 +98,16 @@ export default class DesignStudio extends Vue {
         const model = (this.$refs.designer as any).getModel()
         this.designPreviewModel = model
         this.previewDialogVisible = true
+    }
+
+    moveStartHandler() {
+        this.isDrag = true
+        console.log('开始移动')
+    }
+
+    moveEndHandler() {
+        this.isDrag = false
+        console.log('结束移动')
     }
 }
 </script>
@@ -109,6 +131,41 @@ export default class DesignStudio extends Vue {
         left: 0;
         background: #fff;
         z-index: 99;
+    }
+}
+</style>
+
+<style lang="less" module>
+.dragActive {
+    //
+    :global {
+        .bfs-design-item-container:not([name='grid']) {
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075), 0 2px 6px 0 rgba(0, 0, 0, 0.075);
+            height: 46px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            > div {
+                display: none;
+            }
+        }
+        .bfs-design-zone-ghost {
+            background: red !important;
+        }
+        .bfs-design-zone-chosen {
+            background: yellow !important;
+        }
+    }
+}
+:global {
+    .studio-design-zone .bfs-design-zone-curdrag {
+        background: green !important;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075), 0 2px 6px 0 rgba(0, 0, 0, 0.075);
+        height: 46px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        > div {
+            display: none;
+        }
     }
 }
 </style>

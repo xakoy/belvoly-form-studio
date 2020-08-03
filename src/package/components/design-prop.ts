@@ -29,6 +29,18 @@ export interface DesignPubPropModel {
      * 在filter事件的时候，是否阻止默认事件
      */
     isPreventOnFilter: boolean
+    /**
+     * 开始移动事件
+     */
+    dragStart?: Function
+    /**
+     * 结束移动事件
+     */
+    dragEnd?: Function
+    /**
+     * 拖动的Handle
+     */
+    dragHandle?: string
 }
 
 export { SYM_DESIGN_PROP_KEY }
