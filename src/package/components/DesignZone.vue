@@ -5,7 +5,7 @@
             <p v-else>{{ placeholder || designPubProp.placeholder || '点击或拖动左侧控件到该区域' }}</p>
             <!-- <p>创建表单</p> -->
         </div>
-        <draggable class="bfs-design-zone-drag" :handle="dragHandle" v-model="list" v-bind="dragOptions" group="design-zone" @start="dragStartHandler" @end="dragEndHandler" @add="addHandler">
+        <draggable class="bfs-design-zone-drag" v-model="list" :delay="0" v-bind="dragOptions" group="design-zone" @start="dragStartHandler" @end="dragEndHandler" @add="addHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                 <div
                     class="bfs-design-item-container"
@@ -72,7 +72,7 @@ export default class DesignZone extends Vue {
     list = []
     drag = false
 
-    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true, isPreventOnFilter: true } }) designPubProp: DesignPubPropModel
+    @Inject({ from: SYM_DESIGN_PROP_KEY, default: { isNeedSuportDisplay: true, isPreventOnFilter: true, dragOptions: {} } }) designPubProp: DesignPubPropModel
     @Inject({ from: SYMBOL_DESIGN_CANADD_KEY, default: null }) canAdd: Function
     @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
 
@@ -84,12 +84,9 @@ export default class DesignZone extends Vue {
             preventOnFilter: this.isPreventOnFilter,
             ghostClass: 'bfs-design-zone-ghost',
             dragClass: 'bfs-design-zone-curdrag',
-            chosenClass: 'bfs-design-zone-chosen'
+            chosenClass: 'bfs-design-zone-chosen',
+            ...this.designPubProp.dragOptions
         }
-    }
-
-    get dragHandle() {
-        return this.designPubProp.dragHandle
     }
 
     get isPreventOnFilter() {
@@ -137,6 +134,8 @@ export default class DesignZone extends Vue {
     }
 
     dragEndHandler() {
+        console.log(1)
+
         this.drag = false
         this.designPubProp.dragEnd && this.designPubProp.dragEnd()
     }

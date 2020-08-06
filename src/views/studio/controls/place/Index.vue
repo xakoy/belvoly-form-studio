@@ -21,7 +21,7 @@ export default class Index extends Vue {
     @Prop() control
     clickHandler() {
         const { placeClick } = this.extra
-        placeClick && placeClick(this)
+        // placeClick && placeClick(this)
         console.log(`log`)
     }
 
@@ -63,5 +63,8 @@ export default class Index extends Vue {
         background: #999;
         cursor: pointer;
     }
+}
+.handle {
+    cursor: move;
 }
 </style>

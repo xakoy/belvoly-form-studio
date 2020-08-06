@@ -19,7 +19,7 @@
                 ref="designer"
                 v-model="defaultModel"
                 placeholder="添加控件到该区域"
-                dragHandle=".handle"
+                :dragOptions="dragOptions"
                 @dragStart="moveStartHandler"
                 @dragEnd="moveEndHandler"
             >
@@ -83,6 +83,10 @@ export default class DesignStudio extends Vue {
         placeClick: this.placeClickHandler
     }
 
+    dragOptions = {
+        handle: '.handle',
+        forceFallback: true
+    }
     isDrag = false
 
     placeClickHandler(place) {
@@ -101,11 +105,15 @@ export default class DesignStudio extends Vue {
     }
 
     moveStartHandler() {
+        document.body.style.overflow = 'hidden'
         this.isDrag = true
+
         console.log('开始移动')
     }
 
     moveEndHandler() {
+        document.body.style.overflow = 'auto'
+
         this.isDrag = false
         console.log('结束移动')
     }
@@ -157,10 +165,10 @@ export default class DesignStudio extends Vue {
     }
 }
 :global {
-    .studio-design-zone .bfs-design-zone-curdrag {
+    .bfs-design-zone-curdrag {
         background: green !important;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075), 0 2px 6px 0 rgba(0, 0, 0, 0.075);
-        height: 46px;
+        height: 46px !important;
         overflow: hidden;
         margin-bottom: 10px;
         > div {

@@ -38,9 +38,9 @@ export interface DesignPubPropModel {
      */
     dragEnd?: Function
     /**
-     * 拖动的Handle
+     * dragOptions
      */
-    dragHandle?: string
+    dragOptions?: any
 }
 
 export { SYM_DESIGN_PROP_KEY }

@@ -61,9 +61,9 @@ export default class Design extends Vue {
     @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
 
     /**
-     * 拖动的Handle
+     * 拖动的选项
      */
-    @Prop() dragHandle: string
+    @Prop() dragOptions: any
 
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {
@@ -75,7 +75,7 @@ export default class Design extends Vue {
         layoutmoreSlot: this.$slots.layoutmore,
         dragStart: this.moveStartHandler,
         dragEnd: this.moveEndHandler,
-        dragHandle: this.dragHandle
+        dragOptions: this.dragOptions
     }
 
     moveStartHandler() {

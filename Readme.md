@@ -54,8 +54,8 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
-### 
-1. `Design`组件增加`dragHanle`属性和`dragStart`、`dragEnd`事件
+### v0.2.18
+1. `Design`组件增加`dragOptions`属性和`dragStart`、`dragEnd`事件
 
 ## v0.2.17
 1. Grid 的列属性不可以设置小数
