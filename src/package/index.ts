@@ -22,7 +22,7 @@ const install = (vue: typeof Vue, { isUseDefaultControls = true, isRegisterCompo
     }
 }
 
-export default {
+export {
     install,
     Studio,
     Design,

@@ -18,6 +18,11 @@ module.exports = {
         plugins: plugins,
         output: {
             libraryExport: 'default'
-        }
+        },
+        externals: isLib
+            ? {
+                  'element-ui': 'element-ui'
+              }
+            : {}
     }
 }
