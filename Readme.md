@@ -54,6 +54,10 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
+### v0.2.19
+1.  打包由 Vue-Cli改为 Rollup 打包，精简打包的内容
+2. `Grid` 的 `gutter`只能是整数
+
 ### v0.2.18
 1. `Design`组件增加`dragOptions`属性和`dragStart`、`dragEnd`事件
 
