@@ -31,6 +31,7 @@ import { Config } from '../config'
 import { IControl } from '../index'
 import Basic from './Basic.vue'
 import Draggable from 'vuedraggable'
+import { Tooltip } from 'element-ui'
 
 function generateID() {
     return new Date().getTime() + Math.ceil(Math.random() * 10000)
@@ -39,7 +40,8 @@ function generateID() {
 export default Vue.extend({
     components: {
         Basic,
-        Draggable
+        Draggable,
+        ElTooltip: Tooltip
     },
     props: ['config', 'control'],
     data() {

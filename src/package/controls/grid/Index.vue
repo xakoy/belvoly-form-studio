@@ -43,16 +43,18 @@ import Basic from '../Basic.vue'
 import { IControl } from '../config'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_IN_MOBILE_KEY } from '../../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from '../../components/design-prop'
-
+import { Row, Col } from 'element-ui'
 @Component({
     components: {
         Basic,
         draggable,
         DesignZone,
-        ViewerZone
+        ViewerZone,
+        ElRow: Row,
+        ElCol: Col
     }
 })
-export default class Guid extends Vue {
+export default class Grid extends Vue {
     @Prop() readonly formModel
     @Prop() itemValueField
     @Prop() currentEditControl

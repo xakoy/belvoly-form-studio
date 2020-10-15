@@ -56,12 +56,14 @@ import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
 import { SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { createControlInstance } from '../controls/controlUtil'
 import el from './el'
+import { Tooltip } from 'element-ui'
 
 @Component({
     name: 'BfsDesignZone',
     components: {
         draggable,
-        el
+        el,
+        ElTooltip: Tooltip
     }
 })
 export default class DesignZone extends Vue {
