@@ -1,6 +1,6 @@
 import { IControl } from '../controls'
 
-const SYM_DESIGN_PROP_KEY = Symbol('design-prop-key')
+const SYM_DESIGN_PROP_KEY = 'BFS_SYMBOL_design-prop-key'
 
 export interface CanMoveFunc {
     (control: IControl): boolean

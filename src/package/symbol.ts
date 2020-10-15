@@ -1,3 +1,7 @@
+function Symbol(key) {
+    return 'BFS_SYMBOL_' + key
+}
+
 /**
  * 模式KEY，生成唯一键值
  */
