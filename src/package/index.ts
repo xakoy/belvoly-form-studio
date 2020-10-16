@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import Vue from 'vue'
 import BelvolyFormStudio from './studio'
 import { Design, Viewer, FormDesign, DesignZone, ViewerZone, DesignDraggable } from './components'

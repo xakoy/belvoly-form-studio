@@ -22,6 +22,7 @@ import { IControl } from '../interface'
 import FormItem from './FormItem.vue'
 
 @Component({
+    name: 'BfsViewerZone',
     components: {
         FormItem
     }

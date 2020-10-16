@@ -4,7 +4,7 @@
             <template v-for="(col, index) in cols">
                 <el-col :key="col.id" :span="mobile ? 24 : col.span">
                     <div class="bfs-control-guid-zone">
-                        <design-zone
+                        <bfs-design-zone
                             v-if="isInDesignMode"
                             v-model="Tuple[col.id]"
                             @change="changeHandler"
@@ -13,8 +13,8 @@
                             @itemRemove="controlRemoveClickHandler"
                             @itemAdd="controlAddedHandler"
                             @itemDbClick="controlDbClickHandler"
-                        ></design-zone>
-                        <viewer-zone v-else :formModel="formModel" :readonly="readonly" :itemValueField="itemValueField" :controls="control.child[index]"></viewer-zone>
+                        ></bfs-design-zone>
+                        <bfs-viewer-zone v-else :formModel="formModel" :readonly="readonly" :itemValueField="itemValueField" :controls="control.child[index]"></bfs-viewer-zone>
                     </div>
                 </el-col>
             </template>
@@ -37,8 +37,8 @@
 <script lang="ts">
 import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
-import DesignZone from '../../components/DesignZone.vue'
-import ViewerZone from '../../components/ViewerZone.vue'
+// import DesignZone from '../../components/DesignZone.vue'
+// import ViewerZone from '../../components/ViewerZone.vue'
 import Basic from '../Basic.vue'
 import { IControl } from '../config'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_IN_MOBILE_KEY } from '../../symbol'
@@ -48,8 +48,8 @@ import { Row, Col } from 'element-ui'
     components: {
         Basic,
         draggable,
-        DesignZone,
-        ViewerZone,
+        // DesignZone,
+        // ViewerZone,
         ElRow: Row,
         ElCol: Col
     }
