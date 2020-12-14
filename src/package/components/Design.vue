@@ -35,10 +35,10 @@ const index = 1
     }
 })
 export default class Design extends Vue {
-    @Prop() placeholder: string
-    @Prop() canMove: CanMoveFunc
-    @Prop({ default: true }) isNeedSuportDisplay: boolean
-    @Prop({ default: true }) isPreventOnFilter: boolean
+    @Prop() placeholder!: string
+    @Prop() canMove!: CanMoveFunc
+    @Prop({ default: true }) isNeedSuportDisplay!: boolean
+    @Prop({ default: true }) isPreventOnFilter!: boolean
     /**
      * 设计器生成的模型数据，Viewer根据此模型数据渲染表单
      */
@@ -55,7 +55,7 @@ export default class Design extends Vue {
             return {}
         }
     })
-    extra: any
+    extra!: any
 
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
     @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
@@ -63,7 +63,7 @@ export default class Design extends Vue {
     /**
      * 拖动的选项
      */
-    @Prop() dragOptions: any
+    @Prop() dragOptions!: any
 
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {
