@@ -15,6 +15,7 @@ import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
 import { SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_IN_MOBILE_KEY } from '../symbol'
+import { ItemBindOptions, SYM_VIEW_PROP_KEY } from './view-prop'
 
 @Component({
     components: {
@@ -25,7 +26,10 @@ import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_I
             [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
             [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
             [SYMBOL_IN_MOBILE_KEY]: this.mobile,
-            [SYMBOL_EXTRA_KEY]: this.extra
+            [SYMBOL_EXTRA_KEY]: this.extra,
+            [SYM_VIEW_PROP_KEY]: {
+                itemBindOptions: this.itemBindOptions
+            }
         }
     }
 })
@@ -67,6 +71,18 @@ export default class FormViewer extends Vue {
         }
     })
     extra: any
+
+    /**
+     * 每个元素的Option
+     */
+    @Prop({
+        default: function() {
+            return function() {
+                return {}
+            }
+        }
+    })
+    itemBindOptions!: ItemBindOptions
 
     formProperty = {}
     controls: IControl[] = []

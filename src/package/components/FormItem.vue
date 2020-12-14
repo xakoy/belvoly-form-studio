@@ -1,5 +1,5 @@
 <template>
-    <el-form-item v-if="control.config.isData" ref="formItem" :rules="rules" :prop="fieldName" class="bfs-from-item">
+    <el-form-item v-if="control.config.isData" ref="formItem" :rules="rules" :prop="fieldName" v-bind="itemGetBinder(control)">
         <component
             ref="control"
             :readonly="readonly"
@@ -25,6 +25,7 @@
         :config="control.config"
         :formModel="formModel"
         :extra="extraInject"
+        v-bind="itemGetBinder(control)"
     ></component>
 </template>
 
@@ -32,6 +33,7 @@
 import { Vue, Component, Prop, Inject } from 'vue-property-decorator'
 import { IControl } from '../interface'
 import { SYMBOL_EXTRA_KEY } from '../symbol'
+import { SYM_VIEW_PROP_KEY, ViewPubPropModel } from './view-prop'
 
 @Component
 export default class FormItem extends Vue {
@@ -42,6 +44,7 @@ export default class FormItem extends Vue {
     @Prop() formModel!: any
     @Prop({ default: false }) readonly readonly!: boolean
     @Inject({ from: SYMBOL_EXTRA_KEY, default: {} }) extraInject: any
+    @Inject({ from: SYM_VIEW_PROP_KEY, default: {} }) viewPubProp: ViewPubPropModel
 
     rules = []
 
@@ -64,6 +67,19 @@ export default class FormItem extends Vue {
             })
         }
         this.$emit('input', e)
+    }
+
+    itemGetBinder(item: IControl) {
+        let op: any = {}
+        if (this.viewPubProp.itemBindOptions) {
+            op = this.viewPubProp.itemBindOptions(item) || {}
+        }
+        const cl = { 'bfs-item': true, 'bfs-from-item': true }
+        op.class = {
+            ...op.class,
+            ...cl
+        }
+        return op
     }
 }
 </script>
