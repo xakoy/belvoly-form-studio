@@ -23,7 +23,7 @@ import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
-import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc } from './design-prop'
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc, ItemBindOptions } from './design-prop'
 import { convertDesignControlModel, createControlInstance } from '../controls/controlUtil'
 import { VNode } from 'vue'
 const index = 1
@@ -57,6 +57,16 @@ export default class Design extends Vue {
     })
     extra!: any
 
+    /**
+     * 每个元素的Option
+     */
+    @Prop({
+        default: function() {
+            return {}
+        }
+    })
+    itemBindOptions!: ItemBindOptions
+
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
     @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
 
@@ -75,7 +85,8 @@ export default class Design extends Vue {
         layoutmoreSlot: this.$slots.layoutmore,
         dragStart: this.moveStartHandler,
         dragEnd: this.moveEndHandler,
-        dragOptions: this.dragOptions
+        dragOptions: this.dragOptions,
+        itemBindOptions: this.itemBindOptions
     }
 
     moveStartHandler() {

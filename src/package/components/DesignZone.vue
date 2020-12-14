@@ -8,12 +8,12 @@
         <draggable class="bfs-design-zone-drag" v-model="list" :delay="0" v-bind="dragOptions" group="design-zone" @start="dragStartHandler" @end="dragEndHandler" @add="addHandler">
             <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                 <div
+                    v-for="item in list"
                     class="bfs-design-item-container"
                     :name="item.config.name"
-                    :class="{ 'bfs-design-item-container-active': currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }"
                     @click.stop="controlClickHandler(item, $event)"
                     @dblclick.stop="controlDbClickHandler(item, $event)"
-                    v-for="item in list"
+                    v-bind="itemGetBinder(item)"
                     :key="item.id"
                 >
                     <component
@@ -254,6 +254,19 @@ export default class DesignZone extends Vue {
             this.list.splice(index + 1, 0, clone)
             this.add(clone)
         }
+    }
+
+    itemGetBinder(item: IControl) {
+        let op: any = {}
+        if (this.designPubProp.itemBindOptions) {
+            op = this.designPubProp.itemBindOptions(item) || {}
+        }
+        const cl = { 'bfs-item': true, 'bfs-design-item-container-active': this.currentEditControl === item, 'bfs-design-item-container-layout': item.config.isLayout }
+        op.class = {
+            ...op.class,
+            ...cl
+        }
+        return op
     }
 }
 </script>

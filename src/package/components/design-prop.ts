@@ -6,6 +6,10 @@ export interface CanMoveFunc {
     (control: IControl): boolean
 }
 
+export interface ItemBindOptions {
+    (control: IControl): { [key: string]: any }
+}
+
 export interface DesignPubPropModel {
     /**
      * 是否可以移动
@@ -41,6 +45,8 @@ export interface DesignPubPropModel {
      * dragOptions
      */
     dragOptions?: any
+
+    itemBindOptions?: ItemBindOptions
 }
 
 export { SYM_DESIGN_PROP_KEY }
