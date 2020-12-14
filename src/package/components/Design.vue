@@ -62,7 +62,9 @@ export default class Design extends Vue {
      */
     @Prop({
         default: function() {
-            return {}
+            return function() {
+                return {}
+            }
         }
     })
     itemBindOptions!: ItemBindOptions

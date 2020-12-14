@@ -109,7 +109,9 @@ export default class FormDesign extends Vue {
      */
     @Prop({
         default: function() {
-            return {}
+            return function() {
+                return {}
+            }
         }
     })
     itemBindOptions!: ItemBindOptions
