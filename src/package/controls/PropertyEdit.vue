@@ -5,7 +5,7 @@
             <template v-if="propertys">
                 <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
             </template>
-            <template v-if="rules">
+            <template v-if="rules && rules.length > 0">
                 <validation>
                     <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor" :extra="extraInject"></component>
                 </validation>
@@ -43,7 +43,7 @@ export default class PropertyEdit extends Vue {
         return this.editControl.propertys
     }
     get rules() {
-        return this.editControl.rules
+        return (this.editControl.rules || []).filter(item => item.editor)
     }
 
     async validate() {

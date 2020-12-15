@@ -55,7 +55,13 @@ export default class FormItem extends Vue {
             config: { rule: configRule }
         } = this.control
         if (rules) {
-            this.rules = rules.map(rule => rule.getRule(configRule[rule.ruleName], this.control, $control)).filter(rule => rule)
+            this.rules = rules
+                .map(rule =>
+                    rule.getRule(configRule[rule.ruleName], this.control, $control, {
+                        viewer: this.viewPubProp.viewer
+                    })
+                )
+                .filter(rule => rule)
         }
     }
 

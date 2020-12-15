@@ -8,29 +8,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Provide } from 'vue-property-decorator'
 import { createControls } from '../controls'
 import { IControl } from '../interface'
 import ViewerZone from './ViewerZone.vue'
 import { Form } from 'element-ui'
 import { SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_VIEWER, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_IN_MOBILE_KEY } from '../symbol'
-import { ItemBindOptions, SYM_VIEW_PROP_KEY } from './view-prop'
+import { ItemBindOptions, SYM_VIEW_PROP_KEY, ViewPubPropModel } from './view-prop'
+import { findControl, getFieldName } from './viewerUtil'
 
 @Component({
     components: {
         ViewerZone
     },
     provide() {
-        return {
-            [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
-            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
-            [SYMBOL_IN_MOBILE_KEY]: this.mobile,
-            [SYMBOL_EXTRA_KEY]: this.extra,
-            [SYM_VIEW_PROP_KEY]: {
-                itemBindOptions: this.itemBindOptions
-            }
-        }
+        return {}
     }
 })
 export default class FormViewer extends Vue {
@@ -61,7 +54,7 @@ export default class FormViewer extends Vue {
     /**
      * 移动模式
      */
-    @Prop(Boolean) mobile: boolean
+    @Prop({ type: Boolean, default: false }) mobile!: boolean
     /**
      * 提供给控件的额外数据
      */
@@ -70,7 +63,7 @@ export default class FormViewer extends Vue {
             return {}
         }
     })
-    extra: any
+    extra!: any
 
     /**
      * 每个元素的Option
@@ -87,6 +80,15 @@ export default class FormViewer extends Vue {
     formProperty = {}
     controls: IControl[] = []
     item = {}
+
+    @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_VIEWER
+    @Provide(SYMBOL_FORM_PROPERTY_KEY) providerFormProperty = this.formProperty
+    @Provide(SYMBOL_IN_MOBILE_KEY) providerInMobile = this.mobile
+    @Provide(SYMBOL_EXTRA_KEY) providerExtra = this.extra
+    @Provide(SYM_VIEW_PROP_KEY) pubProp: ViewPubPropModel = {
+        itemBindOptions: this.itemBindOptions,
+        viewer: this as any
+    }
 
     init() {
         if (this.designModel) {
@@ -113,6 +115,14 @@ export default class FormViewer extends Vue {
     validate() {
         const from = this.$refs.form as Form
         return from.validate()
+    }
+
+    getControlValue(control: IControl) {
+        return this.item[getFieldName(control, this.itemValueField)]
+    }
+
+    getControl(id: string): IControl {
+        return findControl(this.controls, item => item.id === id)
     }
 }
 </script>

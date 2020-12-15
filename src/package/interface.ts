@@ -1,3 +1,5 @@
+import { Viewer } from './components/viewer'
+
 export interface IConfig {
     name: string
     text: string
@@ -88,7 +90,14 @@ export interface IRule<T> {
     /**
      * 获取规则
      */
-    getRule(value: T, control: IControl, vue: Vue)
+    getRule(
+        value: T,
+        control: IControl,
+        controlVue: Vue,
+        context: {
+            viewer: Viewer
+        }
+    )
 }
 
 export interface DesignModel {

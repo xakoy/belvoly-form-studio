@@ -1,4 +1,4 @@
-import { DesignModel } from '../interface'
+import { DesignModel, IControl } from '../interface'
 import { Component } from './component'
 
 export declare class Viewer extends Component {
@@ -30,4 +30,16 @@ export declare class Viewer extends Component {
      * 获取表单数据
      */
     getData()
+
+    /**
+     * 获取控件的值
+     * @param control 控件
+     */
+    getControlValue(control: IControl): any
+
+    /**
+     * 根据ID获取控件
+     * @param id 控件ID
+     */
+    getControl(id: string): IControl
 }

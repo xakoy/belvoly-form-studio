@@ -20,6 +20,7 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { IControl } from '../interface'
 import FormItem from './FormItem.vue'
+import { getFieldName as getFieldNameFun } from './viewerUtil'
 
 @Component({
     name: 'BfsViewerZone',
@@ -34,10 +35,7 @@ export default class FormViewerZone extends Vue {
     @Prop({ default: false }) readonly readonly!: boolean
 
     getFieldName(control: IControl) {
-        if (this.itemValueField === 'id') {
-            return control.id
-        }
-        return control.config.prop[this.itemValueField]
+        return getFieldNameFun(control, this.itemValueField)
     }
 }
 </script>
