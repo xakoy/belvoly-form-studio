@@ -1,10 +1,10 @@
 import { Viewer } from './components/viewer'
 
-export interface IConfig {
+export interface IConfig<Prop = any> {
     name: string
     text: string
     icon: string
-    prop: any
+    prop: Prop
     rule?: any
     /**
      * 是否为布局控件
