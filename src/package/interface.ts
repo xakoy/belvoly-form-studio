@@ -17,11 +17,11 @@ export interface IConfig<Prop = any> {
     [propName: string]: any
 }
 
-export interface IControl {
+export interface IControl<Config = IConfig> {
     id?: any
-    config: IConfig
+    config: Config
     component: any
-    child?: any[]
+    child?: IControl[]
     propertys?: IProperty[]
     rules?: IRule<any>[]
 }
