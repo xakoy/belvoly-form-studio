@@ -141,3 +141,10 @@ export interface DesignControlModel {
     isData?: boolean
     child?: any[]
 }
+
+/**
+ * 控件渲染时的上下文
+ */
+export interface IControlContext {
+    isInDesignMode: boolean
+}

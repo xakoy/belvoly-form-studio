@@ -11,6 +11,7 @@
             :config="control.config"
             :formModel="formModel"
             :extra="extraInject"
+            :context="getContext(control)"
         ></component>
     </el-form-item>
     <component
@@ -25,13 +26,14 @@
         :config="control.config"
         :formModel="formModel"
         :extra="extraInject"
+        :context="getContext(control)"
         v-bind="itemGetBinder(control)"
     ></component>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop, Inject } from 'vue-property-decorator'
-import { IControl } from '../interface'
+import { IControl, IControlContext } from '../interface'
 import { SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYM_VIEW_PROP_KEY, ViewPubPropModel } from './view-prop'
 
@@ -86,6 +88,12 @@ export default class FormItem extends Vue {
             ...cl
         }
         return op
+    }
+
+    getContext(item: IControl): IControlContext {
+        return {
+            isInDesignMode: false
+        }
     }
 }
 </script>

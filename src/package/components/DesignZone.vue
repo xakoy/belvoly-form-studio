@@ -23,6 +23,7 @@
                         :currentEditControl="currentEditControl"
                         :class="canMove(item) ? '' : 'filtered'"
                         :extra="extraInject"
+                        :context="getContext(item)"
                         @itemDbClick="childControlDbClickHandler"
                         @itemClick="childControlClickHandler"
                         @itemRemove="childControlRemoveClickHandler"
@@ -51,7 +52,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Inject, Watch } from 'vue-property-decorator'
 import draggable from 'vuedraggable'
-import { IControl } from '../interface'
+import { IControl, IControlContext } from '../interface'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel } from './design-prop'
 import { SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { createControlInstance } from '../controls/controlUtil'
@@ -267,6 +268,12 @@ export default class DesignZone extends Vue {
             ...cl
         }
         return op
+    }
+
+    getContext(item: IControl): IControlContext {
+        return {
+            isInDesignMode: true
+        }
     }
 }
 </script>
