@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="bfs-property-editor">
         <el-form ref="form" :model="control.config.prop">
-            <div style="font-size: 14px;">当前控件：{{ control.config.text }}</div>
+            <slot name="title">
+                <div class="bfs-property-editor__title" style="font-size: 14px;">当前控件：{{ control.config.text }}</div>
+            </slot>
             <template v-if="propertys">
                 <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
             </template>
@@ -56,3 +58,11 @@ export default class PropertyEdit extends Vue {
     }
 }
 </script>
+
+<style lang="less">
+.bfs-property-editor {
+    &__title {
+        font-size: 14px;
+    }
+}
+</style>
