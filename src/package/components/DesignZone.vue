@@ -34,10 +34,12 @@
                     <div class="bfs-design-item-container-placeholder" v-if="!item.config.isLayout"></div>
                     <div class="bfs-design-item-container-editarea">
                         <strong>当前编辑：</strong>
-                        <span>
-                            <el-tooltip content="删除">
-                                <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item, $event)"></i>
-                            </el-tooltip>
+                        <span class="bfs-design-item-container-editarea__buttons">
+                            <span class="bfs-design-item-container-editarea__delete">
+                                <el-tooltip content="删除">
+                                    <i class="el-icon-delete" @click.stop="controlRemoveClickHandler(item, $event)"></i>
+                                </el-tooltip>
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -314,7 +316,7 @@ export default class DesignZone extends Vue {
             padding: 0 5px;
             background: #fff;
         }
-        span {
+        &__buttons {
             float: right;
             margin-right: 10px;
             background: #fff;
