@@ -1,6 +1,6 @@
 import { DesignModel } from '../interface'
 import { Component } from './component'
-import { CanMoveFunc } from './design-prop'
+import { CanEdit, CanMoveFunc } from './design-prop'
 import { IControl } from '../controls'
 
 export declare class Design extends Component {
@@ -27,6 +27,11 @@ export declare class Design extends Component {
      * 控件是否可以拖动
      */
     canMove: CanMoveFunc
+
+    /**
+     * 控件是否可以编辑
+     */
+    canEdit: CanEdit
 
     /**
      * 是否需要辅助显示线条

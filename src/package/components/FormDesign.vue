@@ -51,7 +51,7 @@ import DesignDraggable from './DesignDraggable.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_DESIGN_CANADD_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { convertDesignControlModel } from '../controls/controlUtil'
 import { Message } from 'element-ui'
-import { CanMoveFunc, DesignPubPropModel, ItemBindOptions, SYM_DESIGN_PROP_KEY } from './design-prop'
+import { CanMoveFunc, CanEdit, DesignPubPropModel, ItemBindOptions, SYM_DESIGN_PROP_KEY } from './design-prop'
 
 const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
     showRequiredAsterisk: true,
@@ -70,6 +70,7 @@ const DEFAULT_FORM_PROPERTY: FormPropertyModel = {
 })
 export default class FormDesign extends Vue {
     @Prop() placeholder!: string
+    @Prop({ type: [Boolean, Object], default: true }) canEdit!: CanEdit
     @Prop() canMove!: CanMoveFunc
     @Prop({ default: true }) isNeedSuportDisplay!: boolean
     @Prop({ default: true }) isPreventOnFilter!: boolean
@@ -130,6 +131,7 @@ export default class FormDesign extends Vue {
     @Provide(SYMBOL_DESIGN_CANADD_KEY) providerCanAdd = this.canAdd
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {
+        canEdit: this.canEdit,
         canMove: this.canMove,
         placeholder: this.placeholder,
         isNeedSuportDisplay: this.isNeedSuportDisplay,

@@ -1,7 +1,13 @@
 import { DesignModel } from '../interface'
 import { Component } from './component'
+import { CanEdit } from './design-prop'
 
 export declare class FormDesign extends Component {
+    /**
+     * 控件是否可以编辑
+     */
+    canEdit: CanEdit
+
     /**
      * 初始的JSON Model
      */

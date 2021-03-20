@@ -32,7 +32,7 @@
                     >
                     </component>
                     <div class="bfs-design-item-container-placeholder" v-if="!item.config.isLayout"></div>
-                    <div class="bfs-design-item-container-editarea">
+                    <div class="bfs-design-item-container-editarea" v-if="canEdit(item)">
                         <strong>当前编辑：</strong>
                         <span class="bfs-design-item-container-editarea__buttons">
                             <span class="bfs-design-item-container-editarea__delete">
@@ -180,6 +180,15 @@ export default class DesignZone extends Vue {
             zone: this,
             event: event
         })
+    }
+
+    canEdit(control: IControl): boolean {
+        const { canEdit } = this.designPubProp
+        if (typeof canEdit === 'boolean') {
+            return canEdit
+        } else {
+            return canEdit(control)
+        }
     }
 
     canMove(control: IControl) {

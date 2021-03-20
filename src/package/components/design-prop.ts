@@ -2,6 +2,10 @@ import { IControl } from '../controls'
 
 const SYM_DESIGN_PROP_KEY = 'BFS_SYMBOL_design-prop-key'
 
+export interface CanEditFunc {
+    (control: IControl): boolean
+}
+export type CanEdit = CanEditFunc | boolean
 export interface CanMoveFunc {
     (control: IControl): boolean
 }
@@ -11,6 +15,10 @@ export interface ItemBindOptions {
 }
 
 export interface DesignPubPropModel {
+    /**
+     * 是否可以编辑
+     */
+    canEdit: CanEdit
     /**
      * 是否可以移动
      */

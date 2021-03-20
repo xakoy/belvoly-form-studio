@@ -23,7 +23,7 @@ import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
-import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc, ItemBindOptions } from './design-prop'
+import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc, CanEdit, ItemBindOptions } from './design-prop'
 import { convertDesignControlModel, createControlInstance } from '../controls/controlUtil'
 import { VNode } from 'vue'
 const index = 1
@@ -36,6 +36,7 @@ const index = 1
 })
 export default class Design extends Vue {
     @Prop() placeholder!: string
+    @Prop({ type: [Boolean, Object], default: true }) canEdit!: CanEdit
     @Prop() canMove!: CanMoveFunc
     @Prop({ default: true }) isNeedSuportDisplay!: boolean
     @Prop({ default: true }) isPreventOnFilter!: boolean
@@ -79,6 +80,7 @@ export default class Design extends Vue {
 
     @Provide(SYM_DESIGN_PROP_KEY)
     pubProp: DesignPubPropModel = {
+        canEdit: this.canEdit,
         canMove: this.canMove,
         placeholder: this.placeholder,
         isNeedSuportDisplay: this.isNeedSuportDisplay,
