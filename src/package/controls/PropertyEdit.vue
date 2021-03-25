@@ -1,7 +1,7 @@
 <template>
     <div class="bfs-property-editor">
         <el-form ref="form" :model="control.config.prop">
-            <slot name="title">
+            <slot name="title" :control="control">
                 <div class="bfs-property-editor__title" style="font-size: 14px;">当前控件：{{ control.config.text }}</div>
             </slot>
             <template v-if="propertys">
