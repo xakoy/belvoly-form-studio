@@ -96,6 +96,7 @@ export interface IRule<T> {
         controlVue: Vue,
         context: {
             viewer: Viewer
+            extra: any
         }
     )
 }
