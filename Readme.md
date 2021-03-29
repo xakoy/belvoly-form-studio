@@ -54,7 +54,7 @@ import { Viewer } from 'belvoly-form-studio'
 效果
 ![img](./doc/img/formviewer.png)
 
-## 
+## v0.3.0
 1. `Design`和`FormDesign`组件增加`itemBindOptions`属性，支持定制每个组件渲染的时候，自定义属性和样式
 2. 增加IControlContext，组件渲染上下文
 3. `Design`和`FormDesign` 增加 `canEdit` 属性
