@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop, Provide } from 'vue-property-decorator'
+import { Component, Prop, Provide, Watch } from 'vue-property-decorator'
 import { createControls } from '../controls'
 import { IControl } from '../interface'
 import ViewerZone from './ViewerZone.vue'
@@ -85,9 +85,20 @@ export default class FormViewer extends Vue {
     @Provide(SYMBOL_FORM_PROPERTY_KEY) providerFormProperty = this.formProperty
     @Provide(SYMBOL_IN_MOBILE_KEY) providerInMobile = this.mobile
     @Provide(SYMBOL_EXTRA_KEY) providerExtra = this.extra
-    @Provide(SYM_VIEW_PROP_KEY) pubProp: ViewPubPropModel = {
-        itemBindOptions: this.itemBindOptions,
-        viewer: this as any
+    @Provide(SYM_VIEW_PROP_KEY) pubProp = () => {
+        return {
+            itemBindOptions: this.itemBindOptions,
+            viewer: this as any
+        } as ViewPubPropModel
+    }
+
+    @Watch('defaultValue')
+    watchDefaultValue() {
+        if (this.defaultValue) {
+            this.item = {
+                ...this.defaultValue
+            }
+        }
     }
 
     init() {
@@ -98,9 +109,7 @@ export default class FormViewer extends Vue {
             Object.keys(form).forEach(key => {
                 this.$set(this.formProperty, key, form[key])
             })
-        }
-        if (this.defaultValue) {
-            this.item = this.defaultValue
+            this.watchDefaultValue()
         }
     }
 
