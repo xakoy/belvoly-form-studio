@@ -53,4 +53,15 @@ export declare class Design extends Component {
      * 清空设计器
      */
     clear()
+
+    /**
+     * 设置选择哪个控件
+     * @param control
+     */
+    selectControl(control: IControl)
+
+    /**
+     * 取消选择当前控件
+     */
+    cancelSelectedControl()
 }

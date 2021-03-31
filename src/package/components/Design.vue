@@ -133,6 +133,7 @@ export default class Design extends Vue {
     drawModelDesign() {
         if (this.defaultModel) {
             if (this.defaultModel.controls) {
+                this.cancelSelectedControl()
                 this.contentList = createControls(this.defaultModel, this.allControls)
             }
         } else {
@@ -141,7 +142,7 @@ export default class Design extends Vue {
     }
 
     controlClickHandler(control: IControl, extra) {
-        this.currentEditControl = control
+        this.selectControl(control)
         this.propertyTabName = 'control'
         this.$emit('itemClick', control, extra)
     }
@@ -150,8 +151,16 @@ export default class Design extends Vue {
     }
 
     controlAddedHandler(control: IControl, extra) {
-        this.currentEditControl = control
+        this.selectControl(control)
         this.$emit('itemAdd', control, extra)
+    }
+
+    selectControl(control: IControl) {
+        this.currentEditControl = control
+    }
+
+    cancelSelectedControl() {
+        this.currentEditControl = null
     }
 
     addControl(control: IControl) {
@@ -162,7 +171,7 @@ export default class Design extends Vue {
         })
     }
     controlRemoveClickHandler(control: IControl, extra) {
-        this.currentEditControl = null
+        this.cancelSelectedControl()
     }
     designContentChangeHandler() {
         this.$emit('change')
@@ -176,7 +185,7 @@ export default class Design extends Vue {
     }
     clear() {
         this.contentList = []
-        this.currentEditControl = null
+        this.cancelSelectedControl()
     }
 }
 </script>
