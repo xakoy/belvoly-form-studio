@@ -53,6 +53,10 @@ import { Viewer } from 'belvoly-form-studio'
 
 效果
 ![img](./doc/img/formviewer.png)
+## v0.3.1
+1. 增加ID生成器，setRenderControlIDFactory
+2. `Design` 组件增加`selectControl`，`cancenSelectedControl` 方法
+3. `Viewer` 修复 Vue 调试工具选择报错，增加defautlValue变更后，表单值更新
 
 ## v0.3.0
 1. `Design`和`FormDesign`组件增加`itemBindOptions`属性，支持定制每个组件渲染的时候，自定义属性和样式
