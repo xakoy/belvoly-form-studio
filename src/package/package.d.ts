@@ -6,6 +6,7 @@ import { DesignZone } from './components/design-zone'
 import { DesignDraggable } from './components/design-draggable'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
+import { setRenderControlIDFactory } from './utils'
 import { createControlInstance, convertDesignControlModel, createControlByDesignControlModel } from './controls/controlUtil'
 
 export interface InstallationOptions {
@@ -21,4 +22,4 @@ export interface InstallationOptions {
 export function install(vue: typeof Vue, options: InstallationOptions)
 
 export { Design, Viewer, FormDesign, DesignZone, DesignDraggable }
-export { Controls, Properties, createControlInstance, convertDesignControlModel, createControlByDesignControlModel }
+export { Controls, Properties, createControlInstance, convertDesignControlModel, createControlByDesignControlModel, setRenderControlIDFactory }

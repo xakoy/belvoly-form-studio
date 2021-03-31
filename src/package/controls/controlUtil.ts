@@ -50,7 +50,7 @@ export function createControls(model: DesignModel, cs: IControl[]) {
 export function createControlInstance(control: IControl) {
     const clone = {
         ...control,
-        id: getUnniID()
+        id: getUnniID(control)
     }
     clone.config = JSON.parse(JSON.stringify(clone.config))
     return clone

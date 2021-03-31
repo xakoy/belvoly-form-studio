@@ -16,17 +16,12 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Provide, Watch } from 'vue-property-decorator'
-import draggable from 'vuedraggable'
 import controls, { createControls } from '../controls'
-import PropertyEdit from '../controls/PropertyEdit.vue'
-import FormPropertyEdit from './FormPropertyEdit.vue'
 import { DesignModel, DesignControlModel, IControl, FormPropertyModel } from '../interface'
 import DesignZone from './DesignZone.vue'
 import { SYMBOL_MODE_KEY, SYMBOL_MODE_DESIGN, SYMBOL_FORM_PROPERTY_KEY, SYMBOL_EXTRA_KEY } from '../symbol'
 import { SYM_DESIGN_PROP_KEY, DesignPubPropModel, CanMoveFunc, CanEdit, ItemBindOptions } from './design-prop'
 import { convertDesignControlModel, createControlInstance } from '../controls/controlUtil'
-import { VNode } from 'vue'
-const index = 1
 
 @Component({
     name: 'BfsDesign',
@@ -70,7 +65,10 @@ export default class Design extends Vue {
     })
     itemBindOptions!: ItemBindOptions
 
+    formProperty = {}
+
     @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_DESIGN
+    @Provide(SYMBOL_FORM_PROPERTY_KEY) providerFormProperty = this.formProperty
     @Provide(SYMBOL_EXTRA_KEY) extraProvider = this.extra
 
     /**
@@ -123,8 +121,6 @@ export default class Design extends Vue {
         this.contentList = val
     }
 
-    formProperty = {}
-
     setFormProperty(property) {
         Object.keys(property).forEach(key => {
             this.$set(this.formProperty, key, property[key])
@@ -135,6 +131,12 @@ export default class Design extends Vue {
             if (this.defaultModel.controls) {
                 this.cancelSelectedControl()
                 this.contentList = createControls(this.defaultModel, this.allControls)
+            }
+
+            // 将form 属性，通过provide注入到子孙元素上
+            const { form } = this.defaultModel
+            if (form) {
+                this.setFormProperty(form)
             }
         } else {
             this.clear()

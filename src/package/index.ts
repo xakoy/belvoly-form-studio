@@ -5,6 +5,7 @@ import { Design, Viewer, FormDesign, DesignZone, ViewerZone, DesignDraggable } f
 import { useDefaultControls } from './controls/index'
 import * as Controls from './controls/control'
 import * as Properties from './controls/props'
+import { setRenderControlIDFactory } from './utils';
 import { createControlInstance, createControlByDesignControlModel, convertDesignControlModel } from './controls/controlUtil'
 
 const Studio = new BelvolyFormStudio()
@@ -36,5 +37,6 @@ export {
     Properties,
     createControlInstance,
     createControlByDesignControlModel,
-    convertDesignControlModel
+    convertDesignControlModel,
+    setRenderControlIDFactory
 }
