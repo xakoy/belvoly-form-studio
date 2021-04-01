@@ -1,8 +1,11 @@
 <template>
     <div :class="{ 'bfs-mobile': mobile }">
-        <el-form :model="item" ref="form">
-            <viewer-zone :readonly="readonly" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
-        </el-form>
+        <template v-if="isForm">
+            <el-form :model="item" ref="form">
+                <viewer-zone :readonly="readonly" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
+            </el-form>
+        </template>
+        <viewer-zone v-else :readonly="readonly" :formModel="item" :itemValueField="itemValueField" :controls="controls"></viewer-zone>
     </div>
 </template>
 
@@ -27,6 +30,7 @@ import { findControl, getFieldName } from './viewerUtil'
     }
 })
 export default class FormViewer extends Vue {
+    @Prop({ type: Boolean, default: true }) isForm: boolean
     /**
      * 设计器生成的模型数据，Viewer根据此模型数据渲染表单
      */
