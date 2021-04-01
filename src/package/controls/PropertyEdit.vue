@@ -4,14 +4,16 @@
             <slot name="title" :control="control">
                 <div class="bfs-property-editor__title" style="font-size: 14px;">当前控件：{{ control.config.text }}</div>
             </slot>
-            <template v-if="propertys">
-                <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
-            </template>
-            <template v-if="rules && rules.length > 0">
-                <validation>
-                    <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor" :extra="extraInject"></component>
-                </validation>
-            </template>
+            <div class="bfs-property-editor__content">
+                <template v-if="propertys">
+                    <property-edit-item v-for="prop in propertys" :key="prop.propName" :property="prop" :control="control" />
+                </template>
+                <template v-if="rules && rules.length > 0">
+                    <validation>
+                        <component v-for="rule in rules" :key="rule.ruleName" :control="control" :is="rule.editor" :extra="extraInject"></component>
+                    </validation>
+                </template>
+            </div>
         </el-form>
     </div>
 </template>
