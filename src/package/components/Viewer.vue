@@ -26,7 +26,17 @@ import { findControl, getFieldName } from './viewerUtil'
         ViewerZone
     },
     provide() {
-        return {}
+        const pubProp: ViewPubPropModel = {
+            itemBindOptions: this.itemBindOptions,
+            viewer: this as any
+        }
+        return {
+            [SYMBOL_MODE_KEY]: SYMBOL_MODE_VIEWER,
+            [SYMBOL_FORM_PROPERTY_KEY]: this.formProperty,
+            [SYMBOL_IN_MOBILE_KEY]: this.mobile,
+            [SYMBOL_EXTRA_KEY]: this.extra,
+            [SYM_VIEW_PROP_KEY]: pubProp
+        }
     }
 })
 export default class FormViewer extends Vue {
@@ -85,16 +95,14 @@ export default class FormViewer extends Vue {
     controls: IControl[] = []
     item = {}
 
-    @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_VIEWER
-    @Provide(SYMBOL_FORM_PROPERTY_KEY) providerFormProperty = this.formProperty
-    @Provide(SYMBOL_IN_MOBILE_KEY) providerInMobile = this.mobile
-    @Provide(SYMBOL_EXTRA_KEY) providerExtra = this.extra
-    @Provide(SYM_VIEW_PROP_KEY) pubProp = () => {
-        return {
-            itemBindOptions: this.itemBindOptions,
-            viewer: this as any
-        } as ViewPubPropModel
-    }
+    // @Provide(SYMBOL_MODE_KEY) mode = SYMBOL_MODE_VIEWER
+    // @Provide(SYMBOL_FORM_PROPERTY_KEY) providerFormProperty = this.formProperty
+    // @Provide(SYMBOL_IN_MOBILE_KEY) providerInMobile = this.mobile
+    // @Provide(SYMBOL_EXTRA_KEY) providerExtra = this.extra
+    // @Provide(SYM_VIEW_PROP_KEY) pubProp: ViewPubPropModel = {
+    //     itemBindOptions: this.itemBindOptions,
+    //     viewer: this as any
+    // }
 
     @Watch('defaultValue')
     watchDefaultValue() {
